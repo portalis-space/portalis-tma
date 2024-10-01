@@ -6,7 +6,7 @@ import { HiChevronRight, HiGift, HiUserCircle } from "react-icons/hi2";
 
 const CollectionDetail = () => {
   return (
-    <main className="flex flex-col py-10 gap-2">
+    <main className="flex flex-col pt-10 pb-20 gap-2 min-h-screen">
       <section className="px-3 w-full relative">
         <Image
           alt="eventImage"

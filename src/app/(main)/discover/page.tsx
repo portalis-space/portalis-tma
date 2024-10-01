@@ -11,7 +11,7 @@ const Discover = () => {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get('t') || 'events';
   return (
-    <main className="flex flex-col py-10 px-3 gap-2">
+    <main className="flex flex-col pt-10 pb-20 px-3 gap-2 min-h-screen">
       <Typography variant="text-lg" weight="bold" className="text-center">Discover</Typography>
       <div className="flex flex-row justify-around items-center">
         <Button

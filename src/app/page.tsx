@@ -26,7 +26,7 @@ export default function Home() {
   };
   
   return (
-      <main className="flex flex-col justify-between py-10">
+      <main className="flex flex-col justify-between pt-10 pb-20">
         <section className="slider-container px-3 mb-10">
           <Slider {...carouselSetting}>
             <Image

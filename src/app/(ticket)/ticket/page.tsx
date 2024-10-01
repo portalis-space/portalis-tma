@@ -3,14 +3,12 @@ import Button from "@/components/atoms/Button.atom";
 import { useState } from "react";
 import { cn } from "@/utils/cn";
 import Typography from "@/components/atoms/Typography.atom";
-import { HiChevronDoubleRight, HiMapPin, HiUserCircle } from "react-icons/hi2";
-import Image from "next/image";
 import TicketCard from "@/components/molecules/TicketCard.molecule";
 
 const MyTicket = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'available' | 'used'>('all')
   return (
-    <main className="flex flex-col gap-3 py-10 px-3">
+    <main className="flex flex-col gap-3 pt-10 pb-20 px-3 min-h-screen">
       <Typography weight="bold" className="text-center">My Ticket</Typography>
       <section className="flex flex-row justify-around items-center">
         <Button

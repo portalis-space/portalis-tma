@@ -8,7 +8,7 @@ import { HiChevronRight, HiMapPin, HiMiniFlag, HiMiniGlobeAlt, HiUserCircle, HiU
 const EventDetail = () => {
   const router = useRouter();
   return (
-    <main className="flex flex-col pt-10 pb-20 gap-2">
+    <main className="flex flex-col pt-10 pb-36 lg:pb-20 gap-2 min-h-screen">
       <section className="px-3 w-full relative">
         <Image
           alt="eventImage"
@@ -54,20 +54,20 @@ const EventDetail = () => {
           <Typography weight="bold" className="text-neutral-800 text-base">Event Description</Typography>
           <Typography className="text-neutral-800 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
         </div>
-        <Button size="small" variant="outlined" className="rounded-lg">
+        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('https://portalis.fun')}>
           <span className="flex flex-row items-center gap-2">
             <HiMiniGlobeAlt className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
             <Typography variant="text-sm">Visit Website</Typography>
           </span>
         </Button>
-        <Button size="small" variant="outlined" className="rounded-lg">
+        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/event/1/visitor')}>
           <span className="flex flex-row items-center gap-2">
             <HiUserGroup className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
             <Typography variant="text-sm">See Visitor Data</Typography>
           </span>
         </Button>
       </section>
-      <div className="bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2">
+      <div className="bottom-16 lg:bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2">
         <Button size="large" variant="filled" className="rounded-lg bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
       </div>
     </main>

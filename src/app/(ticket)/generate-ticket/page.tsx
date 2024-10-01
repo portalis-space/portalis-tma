@@ -8,7 +8,7 @@ import { HiMapPin } from "react-icons/hi2";
 const GenerateTicket = () => {
   const router = useRouter();
   return (
-    <main className="flex flex-col pt-10 pb-20 px-3 gap-2 min-h-screen">
+    <main className="flex flex-col pt-10 pb-36 lg:pb-20 px-3 gap-2 min-h-screen">
       <Typography variant="text-lg" weight="bold" className="text-center">Generate Ticket</Typography>
       <section className="flex flex-col w-full gap-3 bg-neutral-300 dark:bg-neutral-700 shadow dark:shadow-neutral-700 p-3">
         <Typography variant="text-sm" weight="bold" className="text-center">NFT Bird Chirping</Typography>
@@ -50,7 +50,7 @@ const GenerateTicket = () => {
           </div>
         </div>
       </section>
-      <div className="bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2">
+      <div className="bottom-16 lg:bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2">
         <Button size="large" variant="filled" className="rounded-lg bg-primary-purple-106" onClick={() => router.push('/ticket/1')}>Generate Ticket</Button>
       </div>
     </main>

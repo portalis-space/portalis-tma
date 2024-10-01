@@ -10,7 +10,7 @@ const TicketDetail = () => {
   const router = useRouter();
   const [viewQR, setViewQR] = useState(false);
   return (
-    <main className="flex flex-col pt-10 pb-20 px-3 gap-2 min-h-screen">
+    <main className="flex flex-col pt-10 pb-36 lg:pb-20 px-3 gap-2 min-h-screen">
       <section className="flex flex-col w-full gap-3 bg-primary-purple-102 dark:bg-primary-purple-108 p-3 rounded-xl">
         <div className="flex flex-row items-center justify-between">
           <Typography variant="text-xs" className="text-[10px] lg:text-xs truncate">Transaction date: Nov 10, 2024 08:00pm</Typography>
@@ -66,7 +66,7 @@ const TicketDetail = () => {
           <HiChevronRight className="!text-neutral-200" />
         </div>
       </section>
-      <div className="bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2 flex flex-col gap-2 items-center">
+      <div className="bottom-16 lg:bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2 flex flex-col gap-2 items-center">
         {
           viewQR &&
           <Image
