@@ -73,6 +73,7 @@ const Typography: FC<PropsWithChildren<TypographyProps>> = (props) => {
           "font-bold": weight === "bold",
           "font-extrabold": weight === "extra-bold"
         },
+        "text-neutral-800 dark:text-neutral-200",
         className ?? ""
       )}
     >

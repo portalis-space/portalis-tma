@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { DarkModeProvider } from "@/contexts/DarkMode.context";
 // import AuthProvider from "@/services/auth/Auth.context";
 
 const Providers = ({ children }: React.PropsWithChildren) => {
@@ -10,8 +11,10 @@ const Providers = ({ children }: React.PropsWithChildren) => {
   return (
     <QueryClientProvider client={queryClient}>
       {/* <AuthProvider> */}
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
+        <DarkModeProvider>
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </DarkModeProvider>
       {/* </AuthProvider> */}
     </QueryClientProvider>
   );
