@@ -1,10 +1,10 @@
 "use client"
 import Typography from "@/components/atoms/Typography.atom";
+import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import { Dropdown, DropdownOption } from "@/components/molecules/Dropdown.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
 import Image from "next/image";
 import { useCallback, useState } from "react";
-import { HiClipboard } from "react-icons/hi2";
 
 const Wallet = () => {
   const [selectedWallet, setSelectedWallet] = useState<string>('metamask'); // Initially select 'metamask'
@@ -41,7 +41,7 @@ const Wallet = () => {
           <Typography weight="bold" variant="text-xs">Current Wallet:</Typography>
           <div className="flex flex-row items-center gap-1">
             <Typography weight="bold" variant="text-xs">0x721d...a378</Typography>
-            <HiClipboard className="text-neutral-800 dark:text-neutral-200 text-xs" />
+            <ClipboardButton textToCopy="0x721d...a378" />
           </div>
         </div>
         <Dropdown
