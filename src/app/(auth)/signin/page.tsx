@@ -8,7 +8,8 @@ const FeaturedEvent = () => {
   const token = searchParams.get('token');
   return (
     <main className="flex flex-col pt-10 pb-20 px-3 gap-2 min-h-screen">
-      <Typography variant="text-sm" weight="bold" className="text-center pt-10">{token} <ClipboardButton textToCopy={token || '-'} /></Typography>
+      <Typography variant="text-sm" weight="bold" className="text-center pt-10 truncate w-full">{token}</Typography>
+      <ClipboardButton textToCopy={token || '-'} />
     </main>
   )
 }
