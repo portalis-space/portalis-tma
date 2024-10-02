@@ -6,25 +6,19 @@ import { useAuthContext } from "@/contexts/Auth.context";
 import useLogin from "@/services/auth/mutations/Login.mutation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { sessionName, sessionRefreshName } from "@/commons/common.constant";
-import { useQueryClient } from "@tanstack/react-query";
-import { useGetCurrentUserQueryKey } from "@/services/user/queries/GetCurrentUser.query";
 
 
 const SignIn = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  const {currentUserData, isInitializing} = useAuthContext();
+  const {currentUserData, isInitializing, handleToken} = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState<string | undefined>(undefined)
 
   const signin = useLogin({
     onSuccess: (res) => {
-      sessionStorage.setItem(sessionName, res.data.attributes.accessToken.token);
-      sessionStorage.setItem(sessionRefreshName, res.data.attributes.refreshToken.token);
-      queryClient.invalidateQueries({queryKey: [useGetCurrentUserQueryKey]});
+      if (handleToken) handleToken(res.data.attributes.accessToken.token, res.data.attributes.refreshToken.token);
       router.replace('/');
     },
     onError: (err) => {

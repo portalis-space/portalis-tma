@@ -15,6 +15,10 @@ export type UserType = {
   attributes: UserAttributesType
 }
 
+export type GetCurrentUserParams = {
+  authToken: string;
+}
+
 export type GetCurrentUserResponse = {
   jsonapi: JsonAPIType;
   data: UserType;
