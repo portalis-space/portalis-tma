@@ -8,7 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 };
 
 const InputWithIcon: React.FC<InputProps> = ({wrapperStyle, className, headingIcon, trailingIcon, ...props}) => 
-  <div className={`bg-neutral-200 dark:bg-neutral-800 rounded-xl px-6 flex flex-row items-center w-full ${wrapperStyle ? wrapperStyle : ''}`}>
+  <div className={`bg-neutral-200 dark:bg-neutral-800 rounded-xl px-2 flex flex-row items-center w-full ${wrapperStyle ? wrapperStyle : ''}`}>
     {
       headingIcon && headingIcon
     }

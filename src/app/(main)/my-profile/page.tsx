@@ -3,11 +3,12 @@ import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
 import InputWithIcon from "@/components/molecules/InputWithIcon.molecule";
 import { Switch } from "@/components/molecules/Switch.molecule";
+import { useAuthContext } from "@/contexts/Auth.context";
 import { useDarkMode } from "@/contexts/DarkMode.context";
-import { HiOutlineMail } from "react-icons/hi";
-import { HiAtSymbol } from "react-icons/hi2";
+import { HiAtSymbol, HiChatBubbleLeft, HiIdentification, HiUser } from "react-icons/hi2";
 
 const MyProfile = () => {
+  const {currentUserData} = useAuthContext();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
@@ -15,12 +16,20 @@ const MyProfile = () => {
       <Typography variant="text-lg" weight="bold" className="text-center">My Profile</Typography>
       <section className="flex flex-col w-full gap-3">
         <div className="flex flex-row justify-start items-center">
-          <Typography variant="text-sm" className="w-1/3">Username</Typography>
-          <InputWithIcon headingIcon={<HiAtSymbol />} value={'MyUsername'} disabled />
+          <Typography variant="text-sm" className="w-1/3">User ID</Typography>
+          <InputWithIcon headingIcon={<HiIdentification className="text-neutral-800 dark:text-neutral-200" />} value={currentUserData?.attributes.userId} disabled />
         </div>
         <div className="flex flex-row justify-start items-center">
-          <Typography variant="text-sm" className="w-1/3">Email</Typography>
-          <InputWithIcon headingIcon={<HiOutlineMail />} value={'portalis@gmail.com'} disabled />
+          <Typography variant="text-sm" className="w-1/3">Chat ID</Typography>
+          <InputWithIcon headingIcon={<HiChatBubbleLeft className="text-neutral-800 dark:text-neutral-200" />} value={currentUserData?.attributes.chatId} disabled />
+        </div>
+        <div className="flex flex-row justify-start items-center">
+          <Typography variant="text-sm" className="w-1/3">Username</Typography>
+          <InputWithIcon headingIcon={<HiAtSymbol className="text-neutral-800 dark:text-neutral-200" />} value={currentUserData?.attributes.username} disabled />
+        </div>
+        <div className="flex flex-row justify-start items-center">
+          <Typography variant="text-sm" className="w-1/3">Name</Typography>
+          <InputWithIcon headingIcon={<HiUser className="text-neutral-800 dark:text-neutral-200" />} value={`${currentUserData?.attributes.firstName} ${currentUserData?.attributes.lastName}`} disabled />
         </div>
         <div className="flex flex-row justify-start items-center">
           <Typography variant="text-sm" className="w-1/3">Dark Mode</Typography>
