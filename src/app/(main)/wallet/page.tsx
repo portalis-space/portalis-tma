@@ -8,7 +8,7 @@ import { useCallback, useState } from "react";
 
 const Wallet = () => {
   const [selectedWallet, setSelectedWallet] = useState<string>('metamask'); // Initially select 'metamask'
-
+  console.log(selectedWallet);
   const handleSelect = useCallback((optionId: string) => {
     setSelectedWallet(optionId); // Update state based on selected option
   }, []);

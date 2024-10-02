@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import Providers from '@/utils/Providers';
 import { cn } from '@/utils/cn';
@@ -24,12 +24,14 @@ export default function RootLayout({
     <html lang="en" className=''>
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={cn(OpenSans.className, "min-h-screen bg-neutral-50 dark:bg-neutral-950")}>
-        <Providers>
-          <Header />
-          <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-neutral-100 dark:bg-neutral-900">
-            {children}
-          </div>
-        </Providers>
+        <Suspense>
+          <Providers>
+            <Header />
+            <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-neutral-100 dark:bg-neutral-900">
+              {children}
+            </div>
+          </Providers>
+        </Suspense>
       </body>
     </html>
   )
