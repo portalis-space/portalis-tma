@@ -47,6 +47,7 @@ const SignIn = () => {
     if (!isInitializing && !currentUserData?.id && token) {
       signin.mutate({token})
     } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading || isInitializing) {

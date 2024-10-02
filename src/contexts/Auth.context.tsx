@@ -23,7 +23,7 @@ export const AuthContext = createContext<IAuthContext>(defaultState);
 export const AuthProvider = ({ children }: IProps) => {
   const path = usePathname();
   const isAuthPage = ['/signin'].includes(path);
-  const {isError, isLoading, ...currentUserQuery} = useGetCurrentUserQuery();
+  const {isLoading, ...currentUserQuery} = useGetCurrentUserQuery();
   const currentUserData = useMemo(() => currentUserQuery.data?.data, [currentUserQuery.data]);
 
   if (isLoading || (!isAuthPage && !currentUserData)) {
