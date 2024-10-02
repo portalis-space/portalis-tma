@@ -6,8 +6,7 @@ import { useAuthContext } from "@/contexts/Auth.context";
 import useLogin from "@/services/auth/mutations/Login.mutation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Cookies from 'js-cookie';
-import { cookieName, cookieRefreshName } from "@/commons/common.constant";
+import { sessionName, sessionRefreshName } from "@/commons/common.constant";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetCurrentUserQueryKey } from "@/services/user/queries/GetCurrentUser.query";
 
@@ -23,8 +22,8 @@ const SignIn = () => {
 
   const signin = useLogin({
     onSuccess: (res) => {
-      Cookies.set(cookieName, res.data.attributes.accessToken.token);
-      Cookies.set(cookieRefreshName, res.data.attributes.refreshToken.token);
+      sessionStorage.setItem(sessionName, res.data.attributes.accessToken.token);
+      sessionStorage.setItem(sessionRefreshName, res.data.attributes.refreshToken.token);
       queryClient.invalidateQueries({queryKey: [useGetCurrentUserQueryKey]});
       router.replace('/');
     },

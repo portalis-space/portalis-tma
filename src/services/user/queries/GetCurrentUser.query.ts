@@ -1,13 +1,12 @@
 import {useQuery, QueryObserverResult} from '@tanstack/react-query';
-import { cookieName } from '@/commons/common.constant';
-import Cookies from 'js-cookie';
+import { sessionName } from '@/commons/common.constant';
 import { GetCurrentUserResponse } from './Types.user';
 import { CommonErrorCodeType } from '@/services/common/Types.common';
 
 export const useGetCurrentUserQueryKey = 'useGetCurrentUserQueryKey';
 
 export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {
-  const token = Cookies.get(cookieName);
+  const token = typeof window !== 'undefined' && sessionStorage.getItem(sessionName);
   return useQuery({
     queryKey: [
       useGetCurrentUserQueryKey,
@@ -24,7 +23,7 @@ export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResp
         });
         if (!response.ok) {
           if (token) {
-            Cookies.remove(cookieName);
+            sessionStorage.clear();
           }
           throw new Error(response.statusText);
         }
