@@ -1,12 +1,16 @@
+"use client"
 import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
+import BottomArea from "@/components/molecules/BottomArea.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { HiChevronRight, HiGift, HiUserCircle } from "react-icons/hi2";
 
 const CollectionDetail = () => {
+  const router = useRouter();
   return (
-    <main className="flex flex-col pt-10 pb-20 gap-2 min-h-screen">
+    <main className="flex flex-col pb-16 gap-2 min-h-screen">
       <section className="px-3 w-full relative">
         <Image
           alt="eventImage"
@@ -19,7 +23,6 @@ const CollectionDetail = () => {
           <HiGift />
           <Typography variant="text-xs" weight="bold" className="!text-primary-purple-108">Drop</Typography>
         </div>
-        <Button size="large" variant="filled" className="rounded-lg mt-1">Buy Now</Button>
       </section>
       <section className="flex flex-col gap-3 px-3">
         <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">Orange Bird With Sound Like a Thunder</Typography>
@@ -45,7 +48,7 @@ const CollectionDetail = () => {
         <Typography weight="bold" className="text-neutral-800 text-base">NFT List</Typography>
         <div className="flex flex-row flex-wrap">
           <div className="p-1 w-1/2 lg:w-1/3">
-            <NFTCard owned />
+            <NFTCard owned onClick={() => router.push('/generate-ticket')} />
           </div>
           <div className="p-1 w-1/2 lg:w-1/3">
             <NFTCard />
@@ -67,6 +70,9 @@ const CollectionDetail = () => {
           </div>
         </div>
       </section>
+      <BottomArea>
+        <Button size="large" variant="filled" className="rounded-lg">Buy Now</Button>
+      </BottomArea>
     </main>
   )
 }

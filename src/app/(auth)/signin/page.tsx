@@ -6,19 +6,25 @@ import { useAuthContext } from "@/contexts/Auth.context";
 import useLogin from "@/services/auth/mutations/Login.mutation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { sessionName, sessionRefreshName } from "@/commons/common.constant";
+import { useQueryClient } from "@tanstack/react-query";
+import { useGetCurrentUserQueryKey } from "@/services/user/queries/GetCurrentUser.query";
+import Cookies from "js-cookie";
 
 const SignIn = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-  const {currentUserData, isInitializing, handleToken} = useAuthContext();
+  const {currentUserData, isInitializing} = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState<string | undefined>(undefined)
 
   const signin = useLogin({
     onSuccess: (res) => {
-      if (handleToken) handleToken(res.data.attributes.accessToken.token, res.data.attributes.refreshToken.token);
+      Cookies.set(sessionName, res.data.attributes.accessToken.token);
+      Cookies.set(sessionRefreshName, res.data.attributes.refreshToken.token);
+      queryClient.invalidateQueries({queryKey: [useGetCurrentUserQueryKey]});
       router.replace('/');
     },
     onError: (err) => {
@@ -52,7 +58,7 @@ const SignIn = () => {
   }
 
   return (
-    <main className="flex flex-col pt-10 pb-20 px-3 gap-2 min-h-screen">
+    <main className="flex flex-col px-3 gap-2 min-h-screen">
       <div className="flex flex-col h-screen w-screen justify-center items-center">
         <Typography variant="text-lg" weight="bold">Welcome, {currentUserData?.attributes?.username}</Typography>
         <div className="flex flex-row items-center justify-center pt-10">

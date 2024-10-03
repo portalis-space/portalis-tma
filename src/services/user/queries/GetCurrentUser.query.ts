@@ -1,16 +1,17 @@
 import {useQuery, QueryObserverResult} from '@tanstack/react-query';
-import { GetCurrentUserParams, GetCurrentUserResponse } from './Types.user';
+import { sessionName } from '@/commons/common.constant';
+import { GetCurrentUserResponse } from './Types.user';
 import { CommonErrorCodeType } from '@/services/common/Types.common';
-import { useAuthContext } from '@/contexts/Auth.context';
+import Cookies from 'js-cookie';
 
 export const useGetCurrentUserQueryKey = 'useGetCurrentUserQueryKey';
 
-export function useGetCurrentUserQuery(params: GetCurrentUserParams): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {
-  const { handleToken } = useAuthContext();
+export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {
+  const token = Cookies.get(sessionName);
   return useQuery({
     queryKey: [
       useGetCurrentUserQueryKey,
-      params
+      token
     ],
     queryFn: async () => {
       try {
@@ -18,12 +19,12 @@ export function useGetCurrentUserQuery(params: GetCurrentUserParams): QueryObser
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${params.authToken}`
+            'Authorization': `Bearer ${token}`
           },
         });
-        if (!response.ok && handleToken) {
-          if (params.authToken) {
-            handleToken('', '')
+        if (!response.ok) {
+          if (token) {
+            sessionStorage.clear();
           }
           throw new Error(response.statusText);
         }
@@ -32,7 +33,7 @@ export function useGetCurrentUserQuery(params: GetCurrentUserParams): QueryObser
         throw error;
       }
     },
-      enabled: !!params.authToken,
+      enabled: !!token,
       retry: false,
       refetchOnWindowFocus: true,
   });

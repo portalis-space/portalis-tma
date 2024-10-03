@@ -1,6 +1,7 @@
 "use client"
 import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
+import BottomArea from "@/components/molecules/BottomArea.molecule";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { HiChevronRight, HiMapPin, HiMiniFlag, HiMiniGlobeAlt, HiUserCircle, HiUserGroup } from "react-icons/hi2";
@@ -8,8 +9,8 @@ import { HiChevronRight, HiMapPin, HiMiniFlag, HiMiniGlobeAlt, HiUserCircle, HiU
 const EventDetail = () => {
   const router = useRouter();
   return (
-    <main className="flex flex-col pt-10 pb-36 lg:pb-20 gap-2 min-h-screen">
-      <section className="px-3 w-full relative">
+    <main className="flex flex-col pb-16 gap-2 min-h-screen">
+      <section className="px-3 w-full">
         <Image
           alt="eventImage"
           src={'/assets/event-placeholder.jpg'}
@@ -67,9 +68,9 @@ const EventDetail = () => {
           </span>
         </Button>
       </section>
-      <div className="bottom-16 lg:bottom-0 left-0 right-0 w-full fixed bg-neutral-200 dark:bg-neutral-800 px-3 py-2">
+      <BottomArea>
         <Button size="large" variant="filled" className="rounded-lg bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
-      </div>
+      </BottomArea>
     </main>
   )
 }

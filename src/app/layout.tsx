@@ -3,11 +3,11 @@ import { Metadata } from 'next';
 import Providers from '@/utils/Providers';
 import { cn } from '@/utils/cn';
 import { OpenSans } from '@/fonts/Fonts';
-import Header from '@/components/organisms/Header.organism';
 
 import './globals.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Nav from '@/components/organisms/Nav.organism';
 
 export const metadata: Metadata = {
   title: 'Portalis',
@@ -26,9 +26,9 @@ export default function RootLayout({
       <body className={cn(OpenSans.className, "min-h-screen bg-neutral-50 dark:bg-neutral-950")}>
         <Suspense>
           <Providers>
-            <Header />
-            <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-neutral-100 dark:bg-neutral-900">
-              {children}
+            <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-neutral-100 dark:bg-neutral-900 pt-10 pb-20">
+                {children}
+              <Nav />
             </div>
           </Providers>
         </Suspense>
