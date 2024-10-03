@@ -2,8 +2,10 @@
 import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
 import EventCard from "@/components/molecules/EventCard.molecule";
+import InputWithIcon from "@/components/molecules/InputWithIcon.molecule";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { HiMagnifyingGlass } from "react-icons/hi2";
 import Slider from "react-slick";
 
 export default function Home() {
@@ -27,7 +29,14 @@ export default function Home() {
   
   return (
       <main className="flex flex-col justify-between">
-        <section className="slider-container px-3 mb-10">
+        <Image
+          alt="logo"
+          src={'/assets/portalis-logo.png'}
+          width={100}
+          height={100}
+          className="w-auto h-1/6 self-center"
+        />
+        <section className="slider-container px-3 mb-10 mt-2">
           <Slider {...carouselSetting}>
             <Image
               src={'/assets/event-placeholder.jpg'}
@@ -35,6 +44,7 @@ export default function Home() {
               width={1920}
               height={1080}
               className="w-full h-[200px] lg:h-[200px] object-cover rounded-lg"
+              priority
             />
             <Image
               src={'/assets/event-placeholder.jpg'}
@@ -42,6 +52,7 @@ export default function Home() {
               width={1920}
               height={1080}
               className="w-full h-[200px] lg:h-[200px] object-cover rounded-lg"
+              priority
             />
           </Slider>
         </section>
@@ -50,13 +61,13 @@ export default function Home() {
             <Typography
               variant="text-lg"
               weight="bold"
-              className="bg-primary-purple-105 text-white px-2 rounded"
+              className="bg-primary-purple-105 !text-neutral-200 px-2 rounded"
             >
               Active Eligible Event
             </Typography>
             <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/active-eligible-event')}>See All</Button>
           </div>
-          <div className="slider-container p-3 mb-10 bg-neutral-300 dark:bg-neutral-700 min-h-[180px] lg:min-h-[260px] w-full rounded-lg">
+          <div className="slider-container p-3 mb-10 w-full rounded-lg">
             <Slider {...eligibleSetting}>
               <EventCard className="mx-1"/>
               <EventCard className="mx-1"/>
@@ -67,7 +78,7 @@ export default function Home() {
           </div>
         </section>
         <section className="flex flex-col pb-10 border-b-2 border-neutral-500 mb-10 px-3">
-          <div className="flex flex-row items-center justify-between px-3">
+          <div className="flex flex-row items-center justify-between">
             <Typography
               variant="text-lg"
               weight="bold"
@@ -85,14 +96,17 @@ export default function Home() {
           </div>
         </section>
         <section className="flex flex-col mb-10 px-3">
-          <div className="flex flex-row items-center justify-between px-3">
-            <Typography
-              variant="text-lg"
-              weight="bold"
-            >
-              Discover More Event
-            </Typography>
-            <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/discover')}>See All</Button>
+          <div className="w-full sticky top-0 bg-primary-blue-400 dark:bg-neutral-950 pb-3">
+            <div className="flex flex-row items-center justify-between">
+              <Typography
+                variant="text-lg"
+                weight="bold"
+              >
+                Discover More Event
+              </Typography>
+              <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/discover')}>See All</Button>
+            </div>
+            <InputWithIcon headingIcon={<HiMagnifyingGlass className="text-neutral-800 dark:text-neutral-200" />} />
           </div>
           <div className="flex flex-col w-full gap-2">
             <EventCard />

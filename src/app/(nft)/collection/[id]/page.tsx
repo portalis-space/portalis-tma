@@ -26,7 +26,7 @@ const CollectionDetail = () => {
       </section>
       <section className="flex flex-col gap-3 px-3">
         <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">Orange Bird With Sound Like a Thunder</Typography>
-        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex-auto">
+        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-white bg-opacity-30 dark:bg-neutral-800 flex-auto">
           <div className="flex flex-row items-center gap-2">
             <HiUserCircle className="text-primary-purple-105"/>
             <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">Portalis Team</Typography>

@@ -19,7 +19,7 @@ const NFTCard = (props: Props) => {
     onCLickBuy
   } = props;
   return (
-      <div className={cn("flex flex-col rounded-lg p-1 bg-neutral-50 dark:bg-neutral-950 border border-neutral-100 dark:border-neutral-900 w-full shadow", className)}>
+      <div className={cn("flex flex-col rounded-lg p-2 bg-primary-purple-109 w-full gap-3", className)}>
         <div className="relative w-full overflow-hidden">
           <Image
             alt="eventImage"
@@ -36,11 +36,11 @@ const NFTCard = (props: Props) => {
         </div>
         <div className="flex flex-col w-full gap-1">
           <span role="button" onClick={() => onClick ? onClick() : {}}>
-            <Typography weight="bold" variant="text-base" className="truncate text-primary-purple-108">NFT Bird Chirping</Typography>
+            <Typography weight="bold" variant="text-base" className="truncate !text-primary-purple-101">NFT Bird Chirping</Typography>
           </span>
           <div className="flex flex-row items-center gap-2">
-            <Typography variant="text-xs" className="truncate">Price</Typography>
-            <Typography weight="bold" variant="text-sm" className="truncate">250</Typography>
+            <Typography variant="text-xs" className="truncate !text-primary-purple-101">Price</Typography>
+            <Typography weight="bold" variant="text-sm" className="truncate !text-primary-purple-101">250</Typography>
           </div>
         </div>
       </div>

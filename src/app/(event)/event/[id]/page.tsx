@@ -10,7 +10,7 @@ const EventDetail = () => {
   const router = useRouter();
   return (
     <main className="flex flex-col pb-16 gap-2 min-h-screen">
-      <section className="px-3 w-full">
+      <section className="px-3 w-full relative">
         <Image
           alt="eventImage"
           src={'/assets/event-placeholder.jpg'}
@@ -25,7 +25,7 @@ const EventDetail = () => {
       </section>
       <section className="flex flex-col gap-3 px-3">
         <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">Decentralized with Portalis and Team</Typography>
-        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex-auto">
+        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-white bg-opacity-30 dark:bg-neutral-800 flex-auto">
           <div className="flex flex-row items-center gap-2">
             <HiUserCircle className="text-primary-purple-105"/>
             <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">Portalis Team</Typography>

@@ -3,7 +3,7 @@ import { mockTelegramEnv, retrieveLaunchParams, isTMA } from '@telegram-apps/sdk
 // It is important, to mock the environment only for development purposes. When building the
 // application, process.env.NODE_ENV === 'development' will become false, and the code inside will be tree-shaken,
 // so you will not see it in your final bundle.
-if (process.env.NODE_ENV === 'development' && !isTMA('simple')) {
+if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window !== "undefined") {
   let shouldMock: boolean;
 
   // Try to extract launch parameters to check if the current environment is Telegram-based.

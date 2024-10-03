@@ -5,8 +5,8 @@ import EligibleCollection from "./EligibleCollection.section";
 const EligibleAsset = () => {
   return (
     <main className="flex flex-col gap-3 px-3 min-h-screen">
-      <div className="bg-neutral-200 dark:bg-neutral-800 rounded-xl flex flex-col items-center p-2 w-full">
-        <Typography weight="bold" variant="text-xs" className="!text-primary-purple-105 truncate w-full text-center">Decentralized with Portalis and Team</Typography> 
+      <div className="bg-white bg-opacity-30 dark:bg-neutral-800 rounded-xl flex flex-col items-center p-2 w-full">
+        <Typography weight="bold" variant="text-xs" className="!text-primary-purple-105 truncate w-full text-center py-2">Decentralized with Portalis and Team</Typography> 
       </div>
       <div className="flex flex-col items-center">
         <Typography weight="bold">Eligible Assets</Typography>
