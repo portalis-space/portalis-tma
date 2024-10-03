@@ -22,8 +22,14 @@ const SignIn = () => {
 
   const signin = useLogin({
     onSuccess: (res) => {
-      Cookies.set(sessionName, res.data.attributes.accessToken.token);
-      Cookies.set(sessionRefreshName, res.data.attributes.refreshToken.token);
+      Cookies.set(sessionName, res.data.attributes.accessToken.token, { 
+        sameSite: 'None', 
+        secure: true 
+      });
+      Cookies.set(sessionRefreshName, res.data.attributes.refreshToken.token, { 
+        sameSite: 'None', 
+        secure: true 
+      });
       queryClient.invalidateQueries({queryKey: [useGetCurrentUserQueryKey]});
       router.replace('/');
     },
