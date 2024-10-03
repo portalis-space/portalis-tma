@@ -3,8 +3,8 @@ import {
   useMutation,
   UseMutationOptions,
 } from '@tanstack/react-query';
-import { LoginParams, LoginResponses } from '../Types.auth';
-import { CommonErrorCodeType } from '@/services/common/Types.common';
+import { LoginParams, LoginResponses } from '../Auth.types';
+import { CommonErrorCodeType } from '@/services/common/Common.types';
 
 async function execute(
   params: LoginParams,

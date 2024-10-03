@@ -29,7 +29,7 @@ const NFTCard = (props: Props) => {
             className="w-full h-auto aspect-square object-cover rounded-md"
             onClick={() => onClick ? onClick() : {}}
           />
-          {owned && <div className="absolute w-20 h-10 bg-primary-green-500 justify-end rotate-45 -right-7 -top-2">
+          {owned && <div className="absolute w-20 h-10 bg-primary-blue-500 justify-end rotate-45 -right-7 -top-2">
             <Typography className="!text-primary-purple-105 font-bold text-center pt-6 text-[8px]">OWNED!</Typography>
           </div>}
           {!owned && <Button size="small" variant="filled" className="rounded-lg py-2 bg-primary-purple-106 absolute top-1 left-1" onClick={() => onCLickBuy ? onCLickBuy() : {}}>Buy</Button>}

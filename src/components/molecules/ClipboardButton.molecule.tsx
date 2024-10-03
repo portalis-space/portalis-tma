@@ -22,7 +22,7 @@ export const ClipboardButton: React.FC<ClipboardButtonProps> = ({ textToCopy }) 
       onClick={handleCopy}
       className="text-neutral-800 dark:text-neutral-200"
     >
-      {isCopied ? <HiCheck className='dark:text-primary-green-500' /> : <HiClipboard /> }
+      {isCopied ? <HiCheck className='dark:text-primary-blue-500' /> : <HiClipboard /> }
     </button>
   );
 };

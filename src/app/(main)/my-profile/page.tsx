@@ -1,13 +1,17 @@
 "use client"
 import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
+import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import InputWithIcon from "@/components/molecules/InputWithIcon.molecule";
 import { Switch } from "@/components/molecules/Switch.molecule";
 import { useAuthContext } from "@/contexts/Auth.context";
 import { useDarkMode } from "@/contexts/DarkMode.context";
+import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 import { HiAtSymbol, HiChatBubbleLeft, HiIdentification, HiUser } from "react-icons/hi2";
 
 const MyProfile = () => {
+  const launchParam = retrieveLaunchParams();
+  console.log(launchParam);
   const {currentUserData} = useAuthContext();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -46,6 +50,8 @@ const MyProfile = () => {
           </div>
         </div>
         <Button variant="outlined">Logout</Button>
+        <Typography variant="text-sm" className="w-1/3">Copy Launch Param</Typography>
+        <ClipboardButton textToCopy={launchParam ? JSON.stringify(launchParam) : '-'} />
       </section>
     </main>
   )

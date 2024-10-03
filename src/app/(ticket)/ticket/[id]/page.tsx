@@ -20,7 +20,7 @@ const TicketDetail = () => {
           </div>
           <div className="flex flex-row items-center justify-between">
             <Typography variant="text-lg" weight="bold" className="text-center">Ticket Detail</Typography>
-            <div className="bg-primary-green-500 px-2 py-1 rounded-lg">
+            <div className="bg-primary-blue-500 px-2 py-1 rounded-lg">
               <Typography variant="text-xs" className="!text-primary-purple-106">Available</Typography>
             </div>
           </div>

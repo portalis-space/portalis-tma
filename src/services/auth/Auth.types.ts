@@ -1,4 +1,4 @@
-import { APIMetaTimestampType, JsonAPIType } from "../common/Types.common";
+import { APIMetaTimestampType, JsonAPIType } from "../common/Common.types";
 
 export type LoginParams = {
   token: string;

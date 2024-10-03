@@ -26,7 +26,7 @@ export default function Home() {
   };
   
   return (
-      <main className="flex flex-col justify-between pt-10 pb-20">
+      <main className="flex flex-col justify-between">
         <section className="slider-container px-3 mb-10">
           <Slider {...carouselSetting}>
             <Image
@@ -56,7 +56,7 @@ export default function Home() {
             </Typography>
             <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/active-eligible-event')}>See All</Button>
           </div>
-          <div className="slider-container p-3 mb-10 bg-primary-purple-102 min-h-[160px] lg:min-h-[240px] w-full rounded-lg">
+          <div className="slider-container p-3 mb-10 bg-neutral-300 dark:bg-neutral-700 min-h-[180px] lg:min-h-[260px] w-full rounded-lg">
             <Slider {...eligibleSetting}>
               <EventCard className="mx-1"/>
               <EventCard className="mx-1"/>
@@ -71,7 +71,7 @@ export default function Home() {
             <Typography
               variant="text-lg"
               weight="bold"
-              className="bg-primary-green-500 !text-primary-purple-105 px-2 rounded"
+              className="bg-primary-blue-500 !text-primary-purple-109 px-2 rounded"
             >
               Featured Event
             </Typography>

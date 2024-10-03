@@ -18,7 +18,7 @@ const EventDetail = () => {
           height={540}
           className="w-full h-auto object-cover rounded-lg"
         />
-        <div className="absolute top-1 right-4 flex flex-row w-[100px] px-3 py-1 gap-1 items-center rounded bg-primary-green-500">
+        <div className="absolute top-1 right-4 flex flex-row w-[100px] px-3 py-1 gap-1 items-center rounded bg-primary-blue-500">
           <HiMiniFlag className="text-primary-purple-108" />
           <Typography variant="text-xs" weight="bold" className="!text-primary-purple-108">Featured</Typography>
         </div>

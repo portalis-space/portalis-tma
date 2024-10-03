@@ -1,4 +1,4 @@
-import { JsonAPIType } from "@/services/common/Types.common";
+import { JsonAPIType } from "@/services/common/Common.types";
 
 export type UserAttributesType = {
   chatId: string;

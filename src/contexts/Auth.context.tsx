@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { UserType } from '@/services/user/queries/Types.user';
 import { useGetCurrentUserQuery } from '@/services/user/queries/GetCurrentUser.query';
 import Loader from '@/components/molecules/Loader.molecule';
+import '../utils/TelegramMocks';
 
 interface IProps {
   children?: ReactNode

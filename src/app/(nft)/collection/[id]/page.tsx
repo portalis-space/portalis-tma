@@ -19,7 +19,7 @@ const CollectionDetail = () => {
           height={540}
           className="w-full h-auto aspect-square object-cover rounded-lg"
         />
-        <div className="absolute top-1 right-4 flex flex-row px-3 py-1 gap-1 items-center rounded bg-primary-green-500 text-primary-purple-108">
+        <div className="absolute top-1 right-4 flex flex-row px-3 py-1 gap-1 items-center rounded bg-primary-blue-500 text-primary-purple-108">
           <HiGift />
           <Typography variant="text-xs" weight="bold" className="!text-primary-purple-108">Drop</Typography>
         </div>
