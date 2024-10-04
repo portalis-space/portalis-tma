@@ -40,10 +40,10 @@ if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window 
       },
       initData: {
         user: {
-          id: 1912605236,
-          firstName: 'Gia',
-          lastName: 'Endong',
-          username: 'giaendong',
+          id: 99281932,
+          firstName: 'Andrew',
+          lastName: 'Rogue',
+          username: 'rogue',
           languageCode: 'en',
           isPremium: true,
           allowsWriteToPm: true,
@@ -56,10 +56,10 @@ if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window 
       },
       initDataRaw: new URLSearchParams([
         ['user', JSON.stringify({
-          id: 1912605236,
-          first_name: 'Gia',
-          last_name: 'Endong',
-          username: 'giaendong',
+          id: 99281932,
+          first_name: 'Andrew',
+          last_name: 'Rogue',
+          username: 'rogue',
           language_code: 'en',
           is_premium: true,
           allows_write_to_pm: true,
