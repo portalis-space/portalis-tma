@@ -2,6 +2,7 @@ import { useQuery, QueryObserverResult } from '@tanstack/react-query';
 import { GetCurrentUserResponse } from './Types.user';
 import { CommonErrorCodeType } from '@/services/common/Common.types';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+
 export const useGetCurrentUserQueryKey = 'useGetCurrentUserQueryKey';
 
 export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {

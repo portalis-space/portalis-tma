@@ -3,15 +3,14 @@ import {
   useMutation,
   UseMutationOptions,
 } from "@tanstack/react-query";
-import Cookies from "js-cookie";
-import { sessionName } from "@/commons/common.constant";
 import { CreateUploaderParams, CreateUploaderResponse } from "../Uploader.types";
 import { CommonErrorCodeType } from "@/services/common/Common.types";
+import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 
 async function execute(
   params: CreateUploaderParams
 ): Promise<CreateUploaderResponse> {
-  const token = Cookies.get(sessionName);
+  const token = typeof window !== "undefined" && retrieveLaunchParams().initDataRaw;
   try {
     const formData = new FormData();
     formData.append("file", params.file);

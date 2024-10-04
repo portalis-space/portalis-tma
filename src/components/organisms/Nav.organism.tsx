@@ -2,7 +2,7 @@
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { HiChevronLeft, HiChevronRight, HiHome, HiMiniFlag, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
+import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiMiniFlag, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
 
 const Nav = () => {
   const pathname = usePathname();
@@ -13,11 +13,14 @@ const Nav = () => {
       <Link href={'/'}>
         <HiHome className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/'})} />
       </Link>
+      <Link href={'/quest'}>
+        <HiMiniFlag className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/quest'})}/>
+      </Link>
       <Link href={'/create-utility'}>
         <HiPlusCircle className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/create'})}/>
       </Link>
-      <Link href={'/quest'}>
-        <HiMiniFlag className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/quest'})}/>
+      <Link href={'/event'}>
+        <HiClock className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/event'})}/>
       </Link>
       <Link href={'/my-profile'}>
         <HiUserCircle className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/my-profile'})} />

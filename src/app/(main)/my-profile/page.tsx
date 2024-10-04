@@ -11,7 +11,7 @@ import Link from "next/link";
 import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiIdentification, HiOutlineWallet, HiTicket, HiUser, HiUserCircle } from "react-icons/hi2";
 
 const MyProfile = () => {
-  const launchParam = retrieveLaunchParams();
+  const launchParam = typeof window !== "undefined" && retrieveLaunchParams();
   console.log(launchParam);
   const {currentUserData} = useAuthContext();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
