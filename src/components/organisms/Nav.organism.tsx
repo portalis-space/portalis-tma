@@ -17,7 +17,7 @@ const Nav = () => {
         <HiMiniFlag className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/quest'})}/>
       </Link>
       <Link href={'/create-utility'}>
-        <HiPlusCircle className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/create'})}/>
+        <HiPlusCircle className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/create-utility'})}/>
       </Link>
       <Link href={'/event'}>
         <HiClock className={cn("w-6 h-6 text-neutral-800 dark:text-neutral-200", {"!text-primary-purple-105" : pathname === '/event'})}/>
