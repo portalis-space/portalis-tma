@@ -3,8 +3,8 @@ import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { UserType } from '@/services/user/queries/Types.user';
 import { useGetCurrentUserQuery } from '@/services/user/queries/GetCurrentUser.query';
-import Loader from '@/components/molecules/Loader.molecule';
 import '../utils/TelegramMocks';
+import Splash from '@/components/organisms/Splash.organism';
 
 interface IProps {
   children?: ReactNode
@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }: IProps) => {
 
   if (isLoading || (!isAuthPage && !currentUserData)) {
     return (
-      <main className="flex flex-col h-screen w-screen justify-center items-center bg-neutral-50 dark:bg-neutral-950">
-        <Loader />
-      </main>
+      <Splash />
     )
   }
   return (
