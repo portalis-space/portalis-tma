@@ -4,7 +4,7 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { HiChevronRight, HiMapPin, HiMiniGlobeAlt, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
+import { HiChevronRight, HiMapPin, HiMiniGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
 
 const EventDetail = () => {
   const router = useRouter();
@@ -65,6 +65,12 @@ const EventDetail = () => {
           <span className="flex flex-row items-center gap-2">
             <HiUserGroup className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
             <Typography variant="text-sm">See Visitor Data</Typography>
+          </span>
+        </Button>
+        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/camera')}>
+          <span className="flex flex-row items-center gap-2">
+            <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
+            <Typography variant="text-sm">Scan Now</Typography>
           </span>
         </Button>
       </section>
