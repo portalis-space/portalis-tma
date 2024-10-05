@@ -19,7 +19,7 @@ const NFTCard = (props: Props) => {
     onCLickBuy
   } = props;
   return (
-      <div className={cn("flex flex-col rounded-lg p-2 bg-primary-purple-109 w-full gap-3", className)}>
+      <div className={cn("flex flex-col rounded-lg p-2 bg-gradient-to-br from-primary-blue-600 via-primary-purple-105 to-primary-purple-107 w-full gap-3", className)}>
         <div className="relative w-full overflow-hidden">
           <Image
             alt="eventImage"

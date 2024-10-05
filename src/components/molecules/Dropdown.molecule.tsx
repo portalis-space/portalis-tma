@@ -50,7 +50,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div className={`relative w-full ${className}`} ref={dropdownRef}>
       <button
         type="button"
-        className="w-full bg-primary-blue-100 dark:bg-neutral-950 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-primary-purple-105 focus:border-primary-purple-105"
+        className="w-full bg-neutral-50 dark:bg-neutral-950 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-primary-purple-105 focus:border-primary-purple-105"
         onClick={toggleDropdown}
       >
         {selectedOption?.element || label} {/* Show selected element or label */}
@@ -60,7 +60,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {isOpen && (
-        <ul className="absolute z-10 mt-1 w-full bg-primary-blue-100 dark:bg-neutral-950 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
+        <ul className="absolute z-10 mt-1 w-full bg-neutral-50 dark:bg-neutral-950 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
           {options.map((option) => (
             <li
               key={option.id}

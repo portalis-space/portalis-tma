@@ -12,7 +12,7 @@ const GenerateTicket = () => {
     <main className="flex flex-col pb-16 gap-2 min-h-screen">
       <Typography variant="text-lg" weight="bold" className="text-center">Generate Ticket</Typography>
       <section className="px-3 lg:px-10">
-        <div className="flex flex-col w-full gap-3 bg-white bg-opacity-30 dark:bg-neutral-800 shadow dark:shadow-neutral-700 p-3">
+        <div className="flex flex-col w-full gap-3 bg-neutral-200 dark:bg-neutral-800 shadow dark:shadow-neutral-700 p-3">
           <Typography variant="text-sm" weight="bold" className="text-center">NFT Bird Chirping</Typography>
           <div className="rounded-lg px-10">
             <Image
@@ -54,7 +54,7 @@ const GenerateTicket = () => {
         </div>
       </section>
       <BottomArea>
-        <Button size="large" variant="filled" className="rounded-lg bg-primary-purple-106" onClick={() => router.push('/ticket/1')}>Generate Ticket</Button>
+        <Button size="large" variant="filled" className="rounded-full bg-primary-purple-106" onClick={() => router.push('/ticket/1')}>Generate Ticket</Button>
       </BottomArea>
     </main>
   )

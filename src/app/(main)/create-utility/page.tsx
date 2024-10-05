@@ -9,9 +9,9 @@ const CreateUtility = () => {
         <Typography variant="text-xs" weight="bold" className="text-center">Choose new utility you want to create.</Typography>
       </div>
       <section className="flex flex-col w-full gap-3">
-        <div className="w-full flex flex-row items-center justify-center bg-white bg-opacity-50 dark:bg-neutral-800 p-5 gap-2 rounded-lg">
-          <HiClock className="text-primary-blue-800 dark:text-primary-blue-500 w-16 h-16" />
-          <Typography variant="text-3xl" weight="extra-bold" className="text-primary-blue-800 dark:!text-primary-blue-500">EVENT</Typography>
+        <div className="w-full flex flex-row items-center justify-center bg-primary-blue-500 dark:bg-neutral-800 p-5 gap-2 rounded-lg shadow-lg">
+          <HiClock className="text-neutral-50 dark:text-primary-blue-500 w-16 h-16" />
+          <Typography variant="text-3xl" weight="extra-bold" className="text-neutral-50 dark:!text-primary-blue-500">EVENT</Typography>
         </div>
       </section>
     </main>

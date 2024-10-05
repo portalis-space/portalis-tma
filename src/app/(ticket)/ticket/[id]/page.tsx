@@ -83,7 +83,7 @@ const TicketDetail = () => {
         <Button
           size="large"
           variant="filled"
-          className="rounded-lg bg-primary-purple-106"
+          className="rounded-full bg-primary-purple-106"
           onClick={() => setViewQR(!viewQR)}
         >
             {viewQR ? 'Close' : 'Show QR'}

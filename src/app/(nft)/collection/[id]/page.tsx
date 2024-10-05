@@ -19,14 +19,14 @@ const CollectionDetail = () => {
           height={540}
           className="w-full h-auto aspect-square object-cover rounded-lg"
         />
-        <div className="absolute top-1 right-4 flex flex-row px-3 py-1 gap-1 items-center rounded bg-primary-blue-500 text-primary-purple-108">
+        <div className="absolute top-1 right-4 flex flex-row px-3 py-1 gap-1 items-center rounded bg-gradient-to-br from-primary-purple-105 via-primary-purple-108 to-primary-purple-105 text-neutral-50">
           <HiGift />
-          <Typography variant="text-xs" weight="bold" className="!text-primary-purple-108">Drop</Typography>
+          <Typography variant="text-xs" weight="bold" className="!text-neutral-50">Drop</Typography>
         </div>
       </section>
       <section className="flex flex-col gap-3 px-3">
-        <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">Orange Bird With Sound Like a Thunder</Typography>
-        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-white bg-opacity-30 dark:bg-neutral-800 flex-auto">
+        <Typography variant="text-2xl" weight="extra-bold" className="bg-gradient-to-b from-primary-purple-107 via-primary-blue-600 to-primary-purple-105 inline-block !text-transparent bg-clip-text">Orange Bird With Sound Like a Thunder</Typography>
+        <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex-auto">
           <div className="flex flex-row items-center gap-2">
             <HiUserCircle className="text-primary-purple-105"/>
             <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">Portalis Team</Typography>
@@ -71,7 +71,7 @@ const CollectionDetail = () => {
         </div>
       </section>
       <BottomArea>
-        <Button size="large" variant="filled" className="rounded-lg">Buy Now</Button>
+        <Button size="large" variant="filled" className="rounded-full">Buy Now</Button>
       </BottomArea>
     </main>
   )

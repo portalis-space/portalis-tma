@@ -22,10 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en" className=''>
       <link rel="icon" href="/favicon.ico" sizes="any" />
-      <body className={cn(OpenSans.className, "min-h-screen bg-primary-blue-100  dark:bg-primary-blue-900")}>
+      <body className={cn(OpenSans.className, "min-h-screen bg-white  dark:bg-black")}>
         <Suspense>
           <Providers>
-            <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-primary-blue-400 dark:bg-neutral-950 pt-6 pb-20">
+            <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-0 bg-neutral-100 dark:bg-neutral-900 pt-6 pb-20">
                 {children}
               <Nav />
             </div>

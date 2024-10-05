@@ -4,7 +4,7 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { HiChevronRight, HiMapPin, HiMiniFlag, HiMiniGlobeAlt, HiUserCircle, HiUserGroup } from "react-icons/hi2";
+import { HiChevronRight, HiMapPin, HiMiniGlobeAlt, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
 
 const EventDetail = () => {
   const router = useRouter();
@@ -18,9 +18,9 @@ const EventDetail = () => {
           height={540}
           className="w-full h-auto object-cover rounded-lg"
         />
-        <div className="absolute top-1 right-4 flex flex-row w-[100px] px-3 py-1 gap-1 items-center rounded bg-primary-blue-500">
-          <HiMiniFlag className="text-primary-purple-108" />
-          <Typography variant="text-xs" weight="bold" className="!text-primary-purple-108">Featured</Typography>
+        <div className="absolute top-1 right-4 flex flex-row p-2 gap-1 items-center rounded bg-gradient-to-br from-primary-blue-500 via-primary-blue-800 to-primary-blue-500">
+          <HiStar className="text-neutral-50" />
+          <Typography variant="text-xs" weight="bold" className="!text-neutral-50">Featured</Typography>
         </div>
       </section>
       <section className="flex flex-col gap-3 px-3">
@@ -69,7 +69,7 @@ const EventDetail = () => {
         </Button>
       </section>
       <BottomArea>
-        <Button size="large" variant="filled" className="rounded-lg bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
+        <Button size="large" variant="filled" className="rounded-full bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
       </BottomArea>
     </main>
   )

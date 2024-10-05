@@ -61,7 +61,7 @@ export default function Home() {
             <Typography
               variant="text-lg"
               weight="bold"
-              className="bg-primary-purple-105 !text-neutral-200 px-2 rounded"
+              className="bg-gradient-to-br from-primary-blue-600 to-primary-purple-105 inline-block !text-transparent bg-clip-text"
             >
               Active Eligible Event
             </Typography>
@@ -82,7 +82,7 @@ export default function Home() {
             <Typography
               variant="text-lg"
               weight="bold"
-              className="bg-primary-blue-500 !text-primary-purple-109 px-2 rounded"
+              className="bg-gradient-to-tr from-primary-purple-104 to-primary-blue-600 inline-block !text-transparent bg-clip-text"
             >
               Featured Event
             </Typography>
@@ -95,12 +95,13 @@ export default function Home() {
             <EventCard />
           </div>
         </section>
-        <section className="flex flex-col mb-10 px-3">
-          <div className="w-full sticky top-0 bg-primary-blue-400 dark:bg-neutral-950 pb-3">
+        <section className="flex flex-col mb-10">
+          <div className="w-full bg-neutral-50 dark:bg-neutral-900 pb-3 z-50 sticky top-0 px-3">
             <div className="flex flex-row items-center justify-between">
               <Typography
                 variant="text-lg"
                 weight="bold"
+                className="bg-gradient-to-b from-primary-purple-105 to-primary-blue-500 inline-block !text-transparent bg-clip-text"
               >
                 Discover More Event
               </Typography>
@@ -108,7 +109,7 @@ export default function Home() {
             </div>
             <InputWithIcon headingIcon={<HiMagnifyingGlass className="text-neutral-800 dark:text-neutral-200" />} />
           </div>
-          <div className="flex flex-col w-full gap-2">
+          <div className="flex flex-col w-full gap-2 px-3">
             <EventCard />
             <EventCard />
             <EventCard />
