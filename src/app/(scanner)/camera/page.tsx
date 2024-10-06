@@ -1,7 +1,7 @@
 "use client"
 import Button from '@/components/atoms/Button.atom';
 import Typography from '@/components/atoms/Typography.atom';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { HiOutlineArrowUturnRight } from 'react-icons/hi2';
 
 const Camera: React.FC = () => {
@@ -14,7 +14,7 @@ const Camera: React.FC = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
   };
 
-  const openCamera = async (selectedFacingMode: 'user' | 'environment') => {
+  const openCamera = useCallback(async(selectedFacingMode: 'user' | 'environment') => {
     try {
       const constraints = isMobileDevice()
         ? { video: { facingMode: { exact: selectedFacingMode } } } // Mobile: front or back camera
@@ -29,7 +29,7 @@ const Camera: React.FC = () => {
     } catch (error) {
       console.error('Error accessing camera:', error);
     }
-  };
+  }, []);
 
   const closeCamera = () => {
     if (videoRef.current && videoRef.current.srcObject) {
@@ -56,7 +56,7 @@ const Camera: React.FC = () => {
     return () => {
       closeCamera();
     };
-  }, [facingMode]); // Re-run when the facing mode changes
+  }, [facingMode, openCamera]); // Re-run when the facing mode changes
 
   return (
     <main className="flex flex-col items-center h-screen gap-3">
