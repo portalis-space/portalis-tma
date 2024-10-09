@@ -1,5 +1,4 @@
 "use client"
-import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
 import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import InputWithIcon from "@/components/molecules/InputWithIcon.molecule";
@@ -7,6 +6,7 @@ import { Switch } from "@/components/molecules/Switch.molecule";
 import { useAuthContext } from "@/contexts/Auth.context";
 import { useDarkMode } from "@/contexts/DarkMode.context";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
+import Image from "next/image";
 import Link from "next/link";
 import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiIdentification, HiOutlineWallet, HiTicket, HiUser, HiUserCircle } from "react-icons/hi2";
 
@@ -21,7 +21,17 @@ const MyProfile = () => {
       <Typography variant="text-lg" weight="bold" className="text-center">My Profile</Typography>
       <section className="flex flex-col w-full gap-3">
         <div className="flex flex-col lg:flex-row items-center gap-2">
-          <HiUserCircle className="text-neutral-800 dark:text-neutral-200 w-40 h-40 lg:basis-1/3" />
+          {
+            currentUserData?.attributes.profilePics ?
+            <Image
+              alt='profile image'
+              src={currentUserData?.attributes.profilePics}
+              width={200}
+              height={200}
+              className="w-40 h-40 lg:basis-1/3 object-cover rounded-full"
+            /> :
+            <HiUserCircle className="text-neutral-800 dark:text-neutral-200 w-40 h-40 lg:basis-1/3" />
+          }
           <div className="flex flex-col gap-2 lg:basis-2/3">
             <div className="flex flex-row justify-start items-center">
               <Typography variant="text-sm" className="w-1/3">User ID</Typography>
@@ -70,7 +80,6 @@ const MyProfile = () => {
             <Typography variant="text-xs">{isDarkMode ? 'ON' : 'OFF'}</Typography>
           </div>
         </div>
-        <Button variant="outlined">Logout</Button>
         <Typography variant="text-sm" className="w-1/3">Copy Launch Param</Typography>
         <ClipboardButton textToCopy={launchParam ? JSON.stringify(launchParam) : '-'} />
       </section>

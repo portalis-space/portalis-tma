@@ -23,3 +23,17 @@ export const shortenAddress = (
     return `${prefix}...${suffix}`;
   }
 };
+
+export const handleImageBridge = (uri?: string, isError?: boolean): string | undefined => {
+  if (uri) {
+    if (!uri.startsWith("https://")) {
+      if (isError) {
+        return `https://ipfs.io/ipfs/${uri}`
+      }
+      return `https://cloudflare-ipfs.com/ipfs/${uri}`
+    } else {
+      return uri;
+    }
+  }
+  return undefined;
+};

@@ -1,20 +1,21 @@
 import { useQuery, QueryObserverResult } from '@tanstack/react-query';
-import { GetCurrentUserResponse } from '../User.types';
 import { CommonErrorCodeType } from '@/services/common/Common.types';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { GetOwnedNFTsParams, GetOwnedNFTsResponse } from '../Web3.types';
 
-export const useGetCurrentUserQueryKey = 'useGetCurrentUserQueryKey';
+export const useGetOwnedNFTsQueryKey = 'useGetOwnedNFTsQueryKey';
 
-export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {
+export function useGetOwnedNFTsQuery(params: GetOwnedNFTsParams): QueryObserverResult<GetOwnedNFTsResponse, CommonErrorCodeType> {
   const token = typeof window !== "undefined" && retrieveLaunchParams().initDataRaw;
   return useQuery({
     queryKey: [
-      useGetCurrentUserQueryKey,
-      token,
+      useGetOwnedNFTsQueryKey,
+      params,
+      token
     ],
     queryFn: async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/me`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/nfts/owned?page=${params.page}&size=${params.size}&walletAddress=${params.walletAddress}&chain=${params.chain}&type=${params.type}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResp
         throw error;
       }
     },
-    enabled: !!token,  // Only run the query if the auth token exists
+    enabled: !!token && !!params.page && !!params.size && !!params.walletAddress && !!params.chain,
     retry: false,
     refetchOnWindowFocus: true,
   });

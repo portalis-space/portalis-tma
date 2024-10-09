@@ -1,5 +1,5 @@
 "use client"
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DarkModeProvider } from "@/contexts/DarkMode.context";
@@ -35,7 +35,29 @@ const modal = createAppKit({
 
 const Providers = ({ children, cookies }: { children: ReactNode; cookies: string | null }) => {
   const [queryClient] = useState(new QueryClient());
-  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
+  const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies);
+
+  // GLOBAL MODAL
+  useEffect(() => {
+    const modalRootId = 'modal-root';
+    let modalRoot = document.getElementById(modalRootId);
+
+    // If modal-root doesn't exist, create it
+    if (!modalRoot) {
+      modalRoot = document.createElement('div');
+      modalRoot.id = modalRootId;
+      document.body.appendChild(modalRoot);
+    }
+
+    return () => {
+      // Safely remove modal-root only if it exists in the body
+      const modalRootInBody = document.getElementById(modalRootId);
+      if (modalRootInBody && modalRootInBody.parentElement === document.body) {
+        document.body.removeChild(modalRootInBody);
+      }
+    };
+  }, []);
+
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>

@@ -1,13 +1,14 @@
-import React, { Suspense } from 'react';
-import { Metadata } from 'next';
-import Providers from '@/utils/Providers';
-import { cn } from '@/utils/cn';
-import { OpenSans } from '@/fonts/Fonts';
-import './globals.css'
+import React, { Suspense } from "react";
+import { Metadata } from "next";
+import Providers from "@/utils/Providers";
+import { cn } from "@/utils/cn";
+import { OpenSans } from "@/fonts/Fonts";
+import "./globals.css"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Nav from '@/components/organisms/Nav.organism';
-import { headers } from 'next/headers';
+import "react-datepicker/dist/react-datepicker.css";
+import Nav from "@/components/organisms/Nav.organism";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: 'Portalis',

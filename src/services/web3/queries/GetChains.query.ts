@@ -1,20 +1,21 @@
 import { useQuery, QueryObserverResult } from '@tanstack/react-query';
-import { GetCurrentUserResponse } from '../User.types';
 import { CommonErrorCodeType } from '@/services/common/Common.types';
 import { retrieveLaunchParams } from '@telegram-apps/sdk-react';
+import { GetChainsParams, GetChainsResponse } from '../Web3.types';
 
-export const useGetCurrentUserQueryKey = 'useGetCurrentUserQueryKey';
+export const useGetChainsQueryKey = 'useGetChainsQueryKey';
 
-export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResponse, CommonErrorCodeType> {
+export function useGetChainsQuery(params: GetChainsParams): QueryObserverResult<GetChainsResponse, CommonErrorCodeType> {
   const token = typeof window !== "undefined" && retrieveLaunchParams().initDataRaw;
   return useQuery({
     queryKey: [
-      useGetCurrentUserQueryKey,
-      token,
+      useGetChainsQueryKey,
+      params,
+      token
     ],
     queryFn: async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/me`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/chains/${params.contractType}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ export function useGetCurrentUserQuery(): QueryObserverResult<GetCurrentUserResp
         throw error;
       }
     },
-    enabled: !!token,  // Only run the query if the auth token exists
+    enabled: !!token && !!params.contractType,  // Only run the query if the auth token exists
     retry: false,
     refetchOnWindowFocus: true,
   });

@@ -12,7 +12,7 @@ const InputWithIcon: React.FC<InputProps> = ({wrapperStyle, className, headingIc
     {
       headingIcon && headingIcon
     }
-    <input className={`bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 w-full rounded-xl px-5 py-2 border-transparent outline-none focus:border-transparent focus:ring-0 focus:outline-none ${className ? className : ''}`} {...props}/>
+    <input className={`bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 w-full rounded-xl px-5 py-3 border-transparent outline-none focus:border-transparent focus:ring-0 focus:outline-none ${className ? className : ''}`} {...props}/>
     {
       trailingIcon && trailingIcon
     }

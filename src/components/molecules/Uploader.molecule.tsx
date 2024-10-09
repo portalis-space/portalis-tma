@@ -75,7 +75,7 @@ const Uploader: FC<UploaderPropsType> = ({
                 alt="nusamarket text logo"
                 className="h-[56px] w-auto"
               />
-              <Typography variant="text-xs">Click here to upload.</Typography>
+              <Typography variant="text-xs" className="text-center">Click here to upload.</Typography>
             </div>
             <div className="flex flex-col gap-2">
               <Typography weight="bold">Upload Image</Typography>

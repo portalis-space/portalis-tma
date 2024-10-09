@@ -4,7 +4,7 @@ export type UserAttributesType = {
   chatId: string;
   username: string;
   userId: string;
-  profilePics: [];
+  profilePics: string;
   firstName: string;
   lastName: string;
 }

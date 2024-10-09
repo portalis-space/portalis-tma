@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { UserType } from '@/services/user/queries/Types.user';
+import { UserType } from '@/services/user/User.types';
 import { useGetCurrentUserQuery } from '@/services/user/queries/GetCurrentUser.query';
 import '../utils/TelegramMocks';
 import Splash from '@/components/organisms/Splash.organism';

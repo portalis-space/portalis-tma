@@ -54,16 +54,16 @@ const Typography: FC<PropsWithChildren<TypographyProps>> = (props) => {
       className={cn(
         font,
         {
-          " text-[60px] leading-[72px]": variant === "text-6xl",
-          " text-[48px] leading-[60px]": variant === "text-5xl",
-          " text-[36px] leading-[40px]": variant === "text-4xl",
-          " text-[30px] leading-[36px]": variant === "text-3xl",
-          " text-[24px] leading-[32px]": variant === "text-2xl",
-          " text-[20px] leading-[28px]": variant === "text-xl",
-          " text-[18px] leading-[28px]": variant === "text-lg",
-          " text-[16px] leading-[20px]": variant === "text-base",
-          " text-[14px] leading-[20px]": variant === "text-sm",
-          " text-[12px] leading-[16px]": variant === "text-xs"
+          " text-[48px] leading-[60px]": variant === "text-6xl",
+          " text-[36px] leading-[48px]": variant === "text-5xl",
+          " text-[30px] leading-[36px]": variant === "text-4xl",
+          " text-[24px] leading-[32px]": variant === "text-3xl",
+          " text-[20px] leading-[28px]": variant === "text-2xl",
+          " text-[18px] leading-[28px]": variant === "text-xl",
+          " text-[16px] leading-[20px]": variant === "text-lg",
+          " text-[14px] leading-[20px]": variant === "text-base",
+          " text-[12px] leading-[16px]": variant === "text-sm",
+          " text-[11px] leading-[16px]": variant === "text-xs"
         },
         {
           "font-light": weight === "light",

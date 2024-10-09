@@ -133,3 +133,37 @@ body {
   transform: translate(-50%, -50%);
   animation-delay: 0s;
 }
+
+.react-datepicker-popper {
+  z-index: 50;
+  margin-left: 4px;
+}
+
+.react-datepicker {
+  background-color: #fff;
+  border: 1px solid #737373;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #b541fa !important;
+  color: #fff;
+  border-radius: 0.5rem;
+}
+
+.react-datepicker__day--today {
+  background-color: #5ec0d0;
+  border-radius: 0.5rem;
+}
+
+.react-datepicker__header {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 0.5rem;
+}
+
+.react-datepicker__current-month, .react-datepicker__day-name {
+  color: #fff !important;
+}

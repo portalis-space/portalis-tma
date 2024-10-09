@@ -29,3 +29,6 @@ export type CommonErrorCodeType = {
     detail: string;
   }[]
 }
+
+export type SortType = 'asc' | 'desc';
+export type DayType = 'SUNDAY' | 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY';
