@@ -12,7 +12,6 @@ import { CheckboxItem, MultipleCheckbox } from "@/components/molecules/MultipleC
 import Pagination from "@/components/molecules/Pagination.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import Uploader from "@/components/molecules/Uploader.molecule";
-import Maps from "@/components/organisms/Maps.organism";
 import { DayType } from "@/services/common/Common.types";
 import { EventScheduleTypeType } from "@/services/event/Event.types";
 import { useGetSearchGeocodingQuery } from "@/services/map/queries/useSearchGeocoding.query";
@@ -22,10 +21,14 @@ import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query
 import { ContractType } from "@/services/web3/Web3.types";
 import { shortenAddress } from "@/utils/strings.util";
 import { format, isAfter } from "date-fns";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { HiCalendar, HiChevronRight, HiMapPin, HiOutlineArrowPath, HiOutlineArrowPathRoundedSquare, HiOutlineClock, HiPlus, HiUserGroup, HiXMark } from "react-icons/hi2";
 import { useAccount } from "wagmi";
+
+// dynamic maps
+const Maps = dynamic(() => import("@/components/organisms/Maps.organism"), {ssr: false});
 
 type EligibleContractType = {
   type: ContractType;
@@ -78,7 +81,13 @@ const CreateEvent = () => {
   const {data: chainsQuery} = useGetChainsQuery({contractType});
   const chainsData = useMemo(() => chainsQuery?.data, [chainsQuery?.data]);
 
-  const {isLoading: isOwnedNFTsLoading, data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({page: NFTsPage, size: 10, walletAddress: address, chain: accountChain?.name?.toLowerCase(), type: 'evm' });
+  const {isLoading: isOwnedNFTsLoading, data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({
+    page: NFTsPage,
+    size: 10,
+    walletAddress: address,
+    chain: accountChain?.name === 'Ethereum' ? accountChain?.name?.substring(0,3)?.toLowerCase() : accountChain?.name?.toLowerCase(),
+    type: 'evm'
+  });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
   const ownedNFtsMeta= useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
 
