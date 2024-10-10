@@ -83,14 +83,14 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
               eventData?.attributes?.owner?.profilePics ?
               <Image
                 alt="userImage"
-                src={'/assets/nft-placeholder.jpg'}
+                src={eventData?.attributes?.owner?.profilePics || '/assets/nft-placeholder.jpg'}
                 width={640}
                 height={640}
                 className="w-6 h-6 object-cover rounded-full"
               /> :
               <HiUserCircle className="!text-primary-purple-105 w-6 h-6" />
             }
-            <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">Portalis Team</Typography>
+            <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">{eventData?.attributes.owner.username}</Typography>
           </div>
           <HiChevronRight className="text-primary-purple-105" />
         </div>

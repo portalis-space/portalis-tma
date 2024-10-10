@@ -45,8 +45,8 @@ const CreateEvent = () => {
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [scheduleType, setScheduleType] = useState<EventScheduleTypeType>('ONE_TIME');
   const [scheduleInterval, setScheduleInterval] = useState<DayType[] | undefined>(undefined);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [lat, setLat] = useState<number | undefined>(undefined);
   const [long, setLong] = useState<number | undefined>(undefined);
   const [location, setLocation] = useState("");
@@ -235,8 +235,8 @@ const CreateEvent = () => {
 
   const handleRemoveDate = useCallback(() => {
     setScheduleType('ONE_TIME');
-    setStartDate(undefined);
-    setEndDate(undefined);
+    setStartDate(null);
+    setEndDate(null);
     setScheduleInterval(undefined);
   }, []);
 
@@ -259,9 +259,9 @@ const CreateEvent = () => {
   const handleCreate = useCallback(() => {
     createEvent.mutate({
       startDate: startDate ? format(startDate, 'yyyy-MM-dd') : undefined,
-      startTime: startDate ? format(startDate, 'hh:mm:ss') : undefined,
+      startTime: startDate ? format(startDate, 'HH:mm:ss') : undefined,
       endDate: endDate ? format(endDate, 'yyyy-MM-dd') : undefined,
-      endTime: startDate ? format(startDate, 'hh:mm:ss') : undefined,
+      endTime: endDate ? format(endDate, 'HH:mm:ss') : undefined,
       scheduleType,
       timezone,
       scheduleInterval,
@@ -453,12 +453,12 @@ const CreateEvent = () => {
           <Dropdown options={scheduleTypeOptions} label="Schedule Type" onSelect={handleSelectScheduleType} selectedOption={scheduleType} />
           <div className="flex flex-col gap-0.5 w-full">
             <Typography variant="text-xs">Start</Typography>
-            <Calendar calendarId="create-datepicker-start" initialDate={startDate} onDateTimeChange={(date) => setStartDate(date)} showTime={true} />
+            <Calendar calendarId="create-datepicker-start" selectedDate={startDate} onDateTimeChange={(date) => setStartDate(date)} showTime={true} />
             { !startDate && <Typography variant="text-xs" className="!text-red-500">please choose start date</Typography> }
           </div>
           <div className="flex flex-col gap-0.5 w-full">
             <Typography variant="text-xs">End</Typography>
-            <Calendar calendarId="create-datepicker-end" initialDate={endDate} onDateTimeChange={(date) => setEndDate(date)} showTime={true} />
+            <Calendar calendarId="create-datepicker-end" selectedDate={endDate} onDateTimeChange={(date) => setEndDate(date)} showTime={true} />
             { !endDate && <Typography variant="text-xs" className="!text-red-500">please choose end date</Typography> }
           </div>
           { isStartAfterEnd && <Typography variant="text-xs" className="!text-red-500">end date must after start date</Typography> }
