@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         }`}
       >
         <div
-          className="bg-neutral-50 dark:bg-neutral-950 w-full max-w-lg mx-auto py-6 px-2 rounded-lg shadow-lg relative transform transition-all"
+          className="bg-neutral-50 dark:bg-neutral-950 w-full max-w-lg mx-auto pt-6 pb-20 px-2 rounded-lg shadow-lg relative transform transition-all"
         >
           {/* Close Button */}
           <button
