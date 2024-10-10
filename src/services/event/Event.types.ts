@@ -26,6 +26,42 @@ export type EventSchedulesType = {
   status: "INACTIVE" | "ACTIVE";
 }
 
+export type EventContractAdressesType = {
+  id: string;
+  deploy_block_number?: number;
+  description?: string;
+  discord?: string;
+  email?: string;
+  erc_type?: string;
+  featured_url?: string;
+  floor_price?: number;
+  github?: string;
+  instagram?: string;
+  is_spam?: false,
+  items_total?: number;
+  kind?: string;
+  large_image_url?: string;
+  logo_url?: string;
+  medium?: string;
+  name?: string;
+  opensea_slug?: string;
+  opensea_verified?: string;
+  owner?: string;
+  owners_total?: 113183,
+  price_symbol?: string;
+  royalty?: string;
+  symbol?: string;
+  telegram?: string;
+  twitter?: string;
+  verified?: false,
+  website?: string;
+  contract_address?: string;
+  collections_with_same_name?: unknown[];
+  banner_url?: string;
+  amounts_total?: number;
+  attributes?: unknown[];
+}
+
 export type EventAttributesType = {
   title: string;
   description: string;
@@ -39,7 +75,10 @@ export type EventAttributesType = {
   timezone: string;
   createdAt: string;
   updatedAt: string;
+  schedulesCount?: number;
   schedules?: EventSchedulesType[];
+  scanners?: string[];
+  contractAddresses?: EventContractAdressesType[];
 }
 
 export type EventType = {

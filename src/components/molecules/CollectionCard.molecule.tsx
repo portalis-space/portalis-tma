@@ -14,10 +14,11 @@ interface Props {
   collection?: CollectionType;
   withModal?: boolean;
   owned?: boolean;
-  onClickUse?: (isFromOwnedList?: boolean, ownedAddress?: string) => void;
+  onClickUseOnCreation?: (isFromOwnedList?: boolean, ownedAddress?: string) => void;
+  onClickOnGeneration?: (contractAddress: string) => void;
 }
 
-const CollectionCard = ({className = '', collection, withModal = false, owned = false, onClickUse}: Props) => {
+const CollectionCard = ({className = '', collection, withModal = false, owned = false, onClickUseOnCreation, onClickOnGeneration}: Props) => {
   const router = useRouter();
   const [isNFTModalOpen, setIsNFTModalOpen] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
@@ -64,10 +65,17 @@ const CollectionCard = ({className = '', collection, withModal = false, owned = 
                   <NFTCard
                     nft={nft}
                     owned={owned}
-                    onClickUse={
-                      onClickUse && nft.contract_address ?
+                    onClickUseOnCreation={
+                      onClickUseOnCreation && nft.contract_address ?
                       () => {
-                        onClickUse(true, nft.contract_address);
+                        onClickUseOnCreation(true, nft.contract_address);
+                        setIsNFTModalOpen(false);
+                      } : undefined
+                    }
+                    onClickOnGeneration={
+                      onClickOnGeneration && nft.contract_address ?
+                      () => {
+                        onClickOnGeneration(nft.contract_address);
                         setIsNFTModalOpen(false);
                       } : undefined
                     }

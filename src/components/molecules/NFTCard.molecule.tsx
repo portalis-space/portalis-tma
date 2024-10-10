@@ -13,7 +13,8 @@ interface Props {
   owned?: boolean;
   onClick?: () => void;
   onCLickBuy?: () => void;
-  onClickUse?: () => void;
+  onClickUseOnCreation?: () => void;
+  onClickOnGeneration?: () => void;
   nft?: NFTAttributesType;
 }
 
@@ -22,7 +23,8 @@ const NFTCard = ({
   owned = false,
   onClick,
   onCLickBuy,
-  onClickUse,
+  onClickUseOnCreation,
+  onClickOnGeneration,
   nft
 }: Props) => {
   const [isImageError, setIsImageError] = useState(false);
@@ -60,7 +62,8 @@ const NFTCard = ({
             <Typography weight="bold" variant="text-xs" className="truncate !text-primary-purple-101">{nft?.mint_price}</Typography>
           </div>
         </div>
-        {onClickUse && <Button variant="outlined" onClick={onClickUse}>Use</Button>}
+        {onClickUseOnCreation && <Button variant="outlined" onClick={onClickUseOnCreation}>Use</Button>}
+        {onClickOnGeneration && <Button variant="outlined" onClick={onClickOnGeneration}>Generate Ticket</Button>}
       </div>
   )
 }

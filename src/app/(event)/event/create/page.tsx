@@ -501,7 +501,7 @@ const CreateEvent = () => {
                       collection={collection}
                       withModal={true}
                       owned={true}
-                      onClickUse={handleAddEligibleContractAddress}
+                      onClickUseOnCreation={handleAddEligibleContractAddress}
                     />
                   </div>
                 )

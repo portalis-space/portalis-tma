@@ -26,7 +26,7 @@ const Wallet = () => {
     size: 10,
     walletAddress: address,
     chain: chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
-    type: 'evm'
+    type: 'evm' // TODO: Change when TON available
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
   const ownedNFtsMeta= useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);

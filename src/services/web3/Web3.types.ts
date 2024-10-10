@@ -82,6 +82,7 @@ export type GetOwnedNFTsParams = {
   walletAddress?: string;
   chain?: string;
   type: ContractType;
+  contractAddress?: string[];
 }
 
 export type GetOwnedNFTsResponse = {

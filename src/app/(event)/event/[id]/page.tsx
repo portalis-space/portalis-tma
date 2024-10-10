@@ -10,10 +10,14 @@ import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
 import { useGetEventsKey } from "@/services/event/queries/GetEvents.query";
 import { useQueryClient } from "@tanstack/react-query";
 import { compareDesc, format } from "date-fns";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { HiCalendar, HiChevronRight, HiMapPin, HiMiniGlobeAlt, HiOutlineGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
+import { HiCalendar, HiChevronRight, HiMapPin, HiOutlineGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
+
+// dynamic maps
+const Maps = dynamic(() => import("@/components/organisms/Maps.organism"));
 
 const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
   const queryClient = useQueryClient();
@@ -106,7 +110,10 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             </div>
           </div>
           <Button variant="tinted" className="w-auto p-1 flex flex-col border border-primary-purple-105" onClick={() => setIsModalOpen(true)}>
-            <HiCalendar className="text-primary-purple-105" />
+            <div className="flex flex-row items-center">
+              <Typography className="text-[10px] !text-primary-purple-105 p-0 m-0">{eventData?.attributes.schedulesCount}</Typography>
+              <HiCalendar className="text-primary-purple-105 pl-1" />
+            </div>
             <Typography className="text-[10px] !text-primary-purple-105">Schedule</Typography>
           </Button>
         </div>
@@ -126,28 +133,33 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             <Typography className="text-sm lg:text-base">{eventData?.attributes.location.address}</Typography>
           </div>
         </div>
+        {
+          eventData?.attributes.location.latitude && eventData?.attributes.location.longitude &&
+          <Maps
+            className="!h-[160px] rounded-xl relative z-[1]"
+            lat={eventData?.attributes.location.latitude}
+            lng={eventData?.attributes.location.longitude}
+          />
+        }
         <div className="flex flex-col">
           <Typography weight="bold" className="text-base">Event Description</Typography>
           <Typography className="text-base">{eventData?.attributes.description}</Typography>
         </div>
-        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('https://portalis.fun')}>
-          <span className="flex flex-row items-center gap-2">
-            <HiMiniGlobeAlt className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
-            <Typography variant="text-sm">Visit Website</Typography>
-          </span>
-        </Button>
-        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/event/1/visitor')}>
+        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push(`/event/${id}/visitor`)}>
           <span className="flex flex-row items-center gap-2">
             <HiUserGroup className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
             <Typography variant="text-sm">See Visitor Data</Typography>
           </span>
         </Button>
-        <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/camera')}>
-          <span className="flex flex-row items-center gap-2">
-            <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
-            <Typography variant="text-sm">Scan Now</Typography>
-          </span>
-        </Button>
+        {
+          currentUserData?.attributes.username && eventData?.attributes.scanners && eventData?.attributes.scanners.length > 0 && eventData?.attributes.scanners.includes(currentUserData?.attributes.username) &&
+          <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/camera')}>
+            <span className="flex flex-row items-center gap-2">
+              <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
+              <Typography variant="text-sm">Scan Now</Typography>
+            </span>
+          </Button>
+        }
         {
           currentUserData?.attributes.username === eventData?.attributes.owner.username &&
           <Button size="small" variant="outlined" className="rounded-lg" onClick={() => setIsDeleteModalOpen(true)}>
@@ -159,7 +171,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
         }
       </section>
       <BottomArea>
-        <Button size="large" variant="filled" className="rounded-full bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
+        <Button size="large" variant="filled" className="rounded-full bg-primary-purple-106" onClick={() => router.push(`/event/${id}/eligible`)}>Check Eligible Asset</Button>
       </BottomArea>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="flex flex-col max-h-screen overflow-y-auto pb-16">
