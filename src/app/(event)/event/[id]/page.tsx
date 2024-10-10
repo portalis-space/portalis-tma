@@ -72,7 +72,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           className="w-full h-auto object-cover rounded-lg"
         />
         {
-          eventQuery?.data.attributes.isHighlighted &&
+          eventQuery?.data?.attributes?.isHighlighted &&
           <div className="absolute top-1 right-4 flex flex-row p-2 gap-1 items-center rounded bg-gradient-to-br from-primary-blue-500 via-primary-blue-800 to-primary-blue-500">
             <HiStar className="text-neutral-50" />
             <Typography variant="text-xs" weight="bold" className="!text-neutral-50">Featured</Typography>
@@ -80,7 +80,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
         }
       </section>
       <section className="flex flex-col gap-3 px-3">
-        <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">{eventData?.attributes.title}</Typography>
+        <Typography variant="text-2xl" weight="extra-bold" className="text-primary-purple-108">{eventData?.attributes?.title}</Typography>
         <div className="flex flex-row items-center justify-between p-4 gap-1 rounded-lg bg-white bg-opacity-30 dark:bg-neutral-800 flex-auto">
           <div className="flex flex-row items-center gap-2">
             {
@@ -94,7 +94,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
               /> :
               <HiUserCircle className="!text-primary-purple-105 w-6 h-6" />
             }
-            <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">{eventData?.attributes.owner.username}</Typography>
+            <Typography variant="text-xs" weight="bold" className="!text-primary-purple-105">{eventData?.attributes?.owner?.username}</Typography>
           </div>
           <HiChevronRight className="text-primary-purple-105" />
         </div>
@@ -111,7 +111,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           </div>
           <Button variant="tinted" className="w-auto p-1 flex flex-col border border-primary-purple-105" onClick={() => setIsModalOpen(true)}>
             <div className="flex flex-row items-center">
-              <Typography className="text-[10px] !text-primary-purple-105 p-0 m-0">{eventData?.attributes.schedulesCount}</Typography>
+              <Typography className="text-[10px] !text-primary-purple-105 p-0 m-0">{eventData?.attributes?.schedulesCount}</Typography>
               <HiCalendar className="text-primary-purple-105 pl-1" />
             </div>
             <Typography className="text-[10px] !text-primary-purple-105">Schedule</Typography>
@@ -122,7 +122,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             <HiUserGroup className="w-6 h-6 mx-2 text-primary-purple-101" />
           </div>
           <div className="flex flex-col">
-            <Typography weight="bold" className="text-neutral-800 text-sm lg:text-base">{eventData?.attributes.capacity} Seats</Typography>
+            <Typography weight="bold" className="text-neutral-800 text-sm lg:text-base">{eventData?.attributes?.capacity} Seats</Typography>
           </div>
         </div>
         <div className="flex flex-row items-start gap-2">
@@ -130,20 +130,20 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             <HiMapPin className="w-6 h-6 mx-2 text-primary-purple-101" />
           </div>
           <div className="flex flex-col">
-            <Typography className="text-sm lg:text-base">{eventData?.attributes.location.address}</Typography>
+            <Typography className="text-sm lg:text-base">{eventData?.attributes?.location?.address}</Typography>
           </div>
         </div>
         {
-          eventData?.attributes.location.latitude && eventData?.attributes.location.longitude &&
+          eventData?.attributes?.location?.latitude && eventData?.attributes?.location?.longitude &&
           <Maps
             className="!h-[160px] rounded-xl relative z-[1]"
-            lat={eventData?.attributes.location.latitude}
-            lng={eventData?.attributes.location.longitude}
+            lat={eventData.attributes.location.latitude}
+            lng={eventData.attributes.location.longitude}
           />
         }
         <div className="flex flex-col">
           <Typography weight="bold" className="text-base">Event Description</Typography>
-          <Typography className="text-base">{eventData?.attributes.description}</Typography>
+          <Typography className="text-base">{eventData?.attributes?.description}</Typography>
         </div>
         <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push(`/event/${id}/visitor`)}>
           <span className="flex flex-row items-center gap-2">
@@ -152,7 +152,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           </span>
         </Button>
         {
-          currentUserData?.attributes.username && eventData?.attributes.scanners && eventData?.attributes.scanners.length > 0 && eventData?.attributes.scanners.includes(currentUserData?.attributes.username) &&
+          currentUserData?.attributes?.username && eventData?.attributes?.scanners && eventData?.attributes?.scanners.length > 0 && eventData?.attributes?.scanners.includes(currentUserData?.attributes?.username) &&
           <Button size="small" variant="outlined" className="rounded-lg" onClick={() => router.push('/camera')}>
             <span className="flex flex-row items-center gap-2">
               <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
@@ -161,7 +161,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           </Button>
         }
         {
-          currentUserData?.attributes.username === eventData?.attributes.owner.username &&
+          currentUserData?.attributes?.username === eventData?.attributes?.owner?.username &&
           <Button size="small" variant="outlined" className="rounded-lg" onClick={() => setIsDeleteModalOpen(true)}>
             <span className="flex flex-row items-center gap-2">
               <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>

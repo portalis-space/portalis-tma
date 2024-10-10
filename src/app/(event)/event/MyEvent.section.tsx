@@ -16,7 +16,7 @@ const MyEvent = () => {
   const {isLoading: isEventsLoading, data: eventsQuery} = useGetEventsQuery({
     page,
     size: 10,
-    "sort[schedule]": 'desc',
+    "sort[schedule]": 'asc',
     search: searchText,
     owner: currentUserData?.id,
   });

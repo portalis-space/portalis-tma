@@ -30,21 +30,21 @@ const eligibleSetting = {
 
 export default function Home() {
   const router = useRouter();
-  const {address, chainId} = useAccount();
+  const {address, chain} = useAccount();
   const [searchText, setSearchText] = useState("");
 
   const {isLoading: isEligibleEventsLoading , data: eligibleEventsQuery} = useGetEventsQuery({
-    page: address && chainId ? 1 : undefined,
+    page: address && chain ? 1 : undefined,
     size: 4,
     eligibleEvent: true,
     wallet: address,
-    chain: 'eth',
-    type: 'evm'
+    chain: chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
+    type: 'evm' // TODO change when TON available
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);
   const {isLoading: isFeaturedEventsLoading, data: featuredEventsQuery} = useGetEventsQuery({page: 1, size: 4, isHighlighted: true});
   const featuredEventData = useMemo(() => featuredEventsQuery?.data, [featuredEventsQuery?.data]);
-  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page: 1, size: 4, "sort[schedule]": 'desc', search: searchText});
+  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page: 1, size: 4, "sort[schedule]": 'asc', search: searchText, status: 'UPCOMING'});
   const discoverEventsData = useMemo(() => discoverEventsQuery?.data, [discoverEventsQuery?.data]);
 
   return (
@@ -92,7 +92,7 @@ export default function Home() {
           </div>
           {isEligibleEventsLoading && <Loader />}
           {
-            eligibleEventData ?
+            eligibleEventData && eligibleEventData.length > 0 ?
             <div className="slider-container p-3 mb-10 w-full rounded-lg">
               <Slider {...eligibleSetting}>
                 { eligibleEventData.map((event) => <EventCard key={event.id} event={event} />) }
@@ -133,7 +133,7 @@ export default function Home() {
                 weight="bold"
                 className="bg-gradient-to-b from-primary-purple-105 to-primary-blue-500 inline-block !text-transparent bg-clip-text"
               >
-                Discover More Event
+                Upcoming Event
               </Typography>
               <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/discover')}>See All</Button>
             </div>
@@ -145,6 +145,7 @@ export default function Home() {
               discoverEventsData?.map((event) => <EventCard key={event.id} event={event} />)
             }
           </div>
+          <Button variant="filled" onClick={() => router.push('/discover')} className="w-1/2 self-center mt-3">Discover More</Button>
         </section>
       </main>
   )

@@ -29,19 +29,19 @@ const EventCard = (props: Props) => {
                 className="w-full h-48 lg:h-64 object-cover rounded-xl"
               />
               <div className="absolute bottom-0 w-full bg-gradient-to-t backdrop-blur-sm from-white/30 to-white/[0.001] p-2 flex flex-row items-center justify-between">
-                <Typography weight="light" variant="text-base" className="!text-neutral-50 w-full">{event?.attributes.title}</Typography>
+                <Typography weight="light" variant="text-base" className="!text-neutral-50 w-full">{event?.attributes?.title}</Typography>
                 <div className="w-20 h-12 flex flex-col items-center bg-neutral-200 rounded-lg px-1">
-                  <Typography variant="text-xs" className="!text-primary-purple-105">{event?.attributes.startAt ? format(event.attributes.startAt, 'LLL, do') : '-'}</Typography>
+                  <Typography variant="text-xs" className="!text-primary-purple-105">{event?.attributes?.startAt ? format(event.attributes.startAt, 'LLL, do') : '-'}</Typography>
                   <div className="bg-gradient-to-br from-primary-purple-105 to-primary-blue-600 w-full h-[28px] flex items-center justify-center rounded-lg">
-                    <Typography variant="text-xs" className="!text-neutral-50">{event?.attributes.startAt ? format(event.attributes.startAt, 'hh:mmaaa') : '-'}</Typography>
+                    <Typography variant="text-xs" className="!text-neutral-50">{event?.attributes?.startAt ? format(event.attributes.startAt, 'hh:mmaaa') : '-'}</Typography>
                   </div>
                 </div>
               </div>
               <div className="absolute top-0 left-0 p-2 flex flex-row items-center">
                 <div className="bg-neutral-50 dark:bg-neutral-950 rounded-xl p-2">
-                  <Typography weight="semi-bold" className="text-[10px]">{event?.attributes.capacity} SEATS</Typography>
+                  <Typography weight="semi-bold" className="text-[10px]">{event?.attributes?.capacity} SEATS</Typography>
                 </div>
-                { event?.attributes.isHighlighted &&
+                { event?.attributes?.isHighlighted &&
                   <div className="bg-gradient-to-br from-primary-blue-500 via-primary-blue-700 to-primary-blue-500 rounded-full p-2">
                     <HiStar className="text-neutral-50 w-3 h-3" />
                   </div>
@@ -61,11 +61,11 @@ const EventCard = (props: Props) => {
                   /> :
                   <HiUserCircle className="text-neutral-800 dark:text-neutral-200" />
                 }
-                <Typography variant="text-sm" weight="bold" className="truncate flex-1">{event?.attributes.owner.username}</Typography>
+                <Typography variant="text-sm" weight="bold" className="truncate flex-1">{event?.attributes?.owner?.username}</Typography>
               </div>
               <div className="flex flex-row items-center gap-2">
                 <HiMapPin className="text-neutral-800 dark:text-neutral-200 w-4 h-4" />
-                <Typography weight="light" variant="text-sm" className="truncate flex-1">{event?.attributes.location.address}</Typography>
+                <Typography weight="light" variant="text-sm" className="truncate flex-1">{event?.attributes?.location?.address}</Typography>
               </div>
             </div>
           </div>

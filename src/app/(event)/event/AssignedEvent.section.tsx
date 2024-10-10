@@ -13,7 +13,7 @@ const AssignedEvent = () => {
   const {isLoading: isEventsLoading, data: eventsQuery} = useGetEventsQuery({
     page,
     size: 10,
-    "sort[schedule]": 'desc',
+    "sort[schedule]": 'asc',
     search: searchText,
     scannerEvent: true
   });
