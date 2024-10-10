@@ -28,7 +28,7 @@ import { HiCalendar, HiChevronRight, HiMapPin, HiOutlineArrowPath, HiOutlineArro
 import { useAccount } from "wagmi";
 
 // dynamic maps
-const Maps = dynamic(() => import("@/components/organisms/Maps.organism"), {ssr: false});
+const Maps = dynamic(() => import("@/components/organisms/Maps.organism"));
 
 type EligibleContractType = {
   type: ContractType;
@@ -178,7 +178,7 @@ const CreateEvent = () => {
       chain,
       contractAddress
     };
-    if (!eligibleContracts.some((contract) => contract.contractAddress === contractAddress)) {
+    if (!eligibleContracts.some((contract) => contract.contractAddress === (isFromOwnedList ? ownedAddress : contractAddress) )) {
       setEligibleContracts([...eligibleContracts, newEligibleContract]);
       setContractType('evm');
       setChain('');
@@ -325,7 +325,7 @@ const CreateEvent = () => {
               searchMapResult &&
               searchMapResult.length > 0 &&
               openSuggestLocation && (
-                <div className="bg-neutral-50 dark:bg-neutral-950 left-0 p-3 rounded-xl border-2 w-full absolute z-10">
+                <div className="bg-neutral-50 dark:bg-neutral-950 left-0 p-3 rounded-xl border-2 w-full absolute z-50">
                   {searchMapResult?.map((item, index) => (
                     <div
                       role="button"
@@ -457,6 +457,7 @@ const CreateEvent = () => {
                 )
               }
             </div>
+            {eligibleErr && <Typography variant="text-xs" className="!text-red-500">{eligibleErr}</Typography>} 
             <Pagination page={NFTsPage} setPage={setNFTsPage} meta={ownedNFtsMeta} />
           </div> :
           <div className="flex flex-col gap-2 py-4">
