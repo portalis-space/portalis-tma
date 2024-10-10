@@ -6,6 +6,7 @@ import Button from "@/components/atoms/Button.atom";
 import { cn } from "@/utils/cn";
 import OwnedEligibleCollection from "./OwnedEligibleCollection.section";
 import Loader from "@/components/molecules/Loader.molecule";
+import AllEligibleCollection from "./AllEligibleCollection.section";
 
 const EligibleAsset = ({ params: {id} }: { params: { id: string } }) => {
   const [activeTab, setActiveTab] = useState<'owned' | 'all'>('owned');
@@ -41,7 +42,12 @@ const EligibleAsset = ({ params: {id} }: { params: { id: string } }) => {
         <div className="flex flex-row items-center justify-center pt-2"><Loader /></div> :
         activeTab === 'owned' ?
           <OwnedEligibleCollection eventData={eventData} /> :
-          <></>
+          <div className="flex flex-col w-full">
+            { 
+              eventData?.attributes.contractAddresses &&
+              eventData.attributes.contractAddresses.map((address, index) => <AllEligibleCollection contractAddress={address.contract_address} name={address.name} key={index} />)
+            }
+          </div>
       }
     </main>
   )

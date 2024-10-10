@@ -31,6 +31,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.mypinata.cloud",
         pathname: '**',
+      },
+      {
+        protocol: "https",
+        hostname: "**.sandbox.game",
+        pathname: '**',
       }
     ]
   }

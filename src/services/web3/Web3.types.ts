@@ -55,6 +55,11 @@ export type NFTAttributesType = {
   rarity_rank: unknown;
 }
 
+export type NFTType = {
+  type: "nft";
+  attributes: NFTAttributesType;
+}
+
 export type CollectionAttributesType = {
   contract_address: string;
   contract_name: string;
@@ -90,4 +95,20 @@ export type GetOwnedNFTsResponse = {
   meta: APIMetaType;
   links: APILinksType;
   data: CollectionType[];
+}
+
+export type GetNFTsByContractParams = {
+  page: number;
+  size: number;
+  chain?: string;
+  type: ContractType;
+  contractAddress?: string;
+  cursor?: string;
+}
+
+export type GetNFTsByContractResponse = {
+  jsonapi: JsonAPIType;
+  meta: APIMetaType;
+  links: APILinksType;
+  data: NFTType[];
 }
