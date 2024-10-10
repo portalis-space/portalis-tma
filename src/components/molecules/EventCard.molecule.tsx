@@ -55,16 +55,16 @@ const EventCard = (props: Props) => {
                   <Image
                     alt="userImage"
                     src={event?.attributes.owner.profilePics}
-                    width={960}
-                    height={540}
-                    className="w-3 h-3 object-cover rounded-full"
+                    width={200}
+                    height={200}
+                    className="w-4 h-4 object-cover rounded-full"
                   /> :
                   <HiUserCircle className="text-neutral-800 dark:text-neutral-200" />
                 }
                 <Typography variant="text-sm" weight="bold" className="truncate flex-1">{event?.attributes.owner.username}</Typography>
               </div>
               <div className="flex flex-row items-center gap-2">
-                <HiMapPin className="text-neutral-800 dark:text-neutral-200" />
+                <HiMapPin className="text-neutral-800 dark:text-neutral-200 w-4 h-4" />
                 <Typography weight="light" variant="text-sm" className="truncate flex-1">{event?.attributes.location.address}</Typography>
               </div>
             </div>

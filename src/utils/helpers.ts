@@ -28,9 +28,9 @@ export const handleImageBridge = (uri?: string, isError?: boolean): string | und
   if (uri) {
     if (!uri.startsWith("https://")) {
       if (isError) {
-        return `https://ipfs.io/ipfs/${uri}`
+        return `https://cloudflare-ipfs.com/ipfs/${uri}`
       }
-      return `https://cloudflare-ipfs.com/ipfs/${uri}`
+      return `https://ipfs.io/ipfs/${uri}`
     } else {
       return uri;
     }

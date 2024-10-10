@@ -21,7 +21,7 @@ interface propsType {
 }
 
 const DefaultIcon = L.icon({
-  iconRetinaUrl: "/assets/maps/marker-icon-2x.png",
+  iconRetinaUrl: "/assets/maps/marker-icon.png",
   iconUrl: "/assets/maps/marker-icon.png",
   shadowUrl: "/assets/maps/marker-shadow.png"
 });

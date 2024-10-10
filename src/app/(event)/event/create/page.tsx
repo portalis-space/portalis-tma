@@ -12,14 +12,18 @@ import { CheckboxItem, MultipleCheckbox } from "@/components/molecules/MultipleC
 import Pagination from "@/components/molecules/Pagination.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import Uploader from "@/components/molecules/Uploader.molecule";
+import { useAuthContext } from "@/contexts/Auth.context";
 import { DayType } from "@/services/common/Common.types";
 import { EventScheduleTypeType } from "@/services/event/Event.types";
+import useCreateEvent from "@/services/event/mutations/CreateEvent.query";
+import { useGetEventsKey } from "@/services/event/queries/GetEvents.query";
 import { useGetSearchGeocodingQuery } from "@/services/map/queries/useSearchGeocoding.query";
 import { UploaderAttributesType } from "@/services/uploader/Uploader.types";
 import { useGetChainsQuery } from "@/services/web3/queries/GetChains.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
-import { ContractType } from "@/services/web3/Web3.types";
-import { shortenAddress } from "@/utils/strings.util";
+import { ContractType, EligibleContractType } from "@/services/web3/Web3.types";
+import { shortenAddress } from "@/utils/helpers";
+import { useQueryClient } from "@tanstack/react-query";
 import { format, isAfter } from "date-fns";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -30,15 +34,11 @@ import { useAccount } from "wagmi";
 // dynamic maps
 const Maps = dynamic(() => import("@/components/organisms/Maps.organism"));
 
-type EligibleContractType = {
-  type: ContractType;
-  chain: string;
-  contractAddress: string;
-}
-
 const CreateEvent = () => {
+  const queryClient = useQueryClient();
   const { address, chain: accountChain } = useAccount();
   const router = useRouter();
+  const {currentUserData} = useAuthContext();
 
   const [eventImage, setEventImage] = useState<UploaderAttributesType | undefined>(undefined);
   const [title, setTitle] = useState("");
@@ -66,8 +66,10 @@ const CreateEvent = () => {
   const [scannerErr, setScannerErr] = useState<string | undefined>(undefined);
   const [capacity, setCapacity] = useState(1);
   const [description, setDescription] = useState("");
+  const [isCreateLoading, setIsCreateLoading] = useState(false);
+  const [createErrMessage, setCreateErrMessage] = useState<string | undefined>(undefined);
 
-  console.log(title, capacity, description);
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 // ######################################################################################################### QUERIES & MUTATIONS
   const {isLoading: isSearchGeoLoading, ...searchGeocodingQuery } = useGetSearchGeocodingQuery({
@@ -90,6 +92,23 @@ const CreateEvent = () => {
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
   const ownedNFtsMeta= useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
+
+  const createEvent = useCreateEvent({
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({queryKey: [useGetEventsKey]});
+      router.push(`/event/${res.data.id}`);
+    },
+    onError: (e) => {
+      setCreateErrMessage(e.errors[0].detail)
+    },
+    onMutate: () => {
+      setIsCreateLoading(true);
+      setCreateErrMessage(undefined);
+    },
+    onSettled: () => {
+      setIsCreateLoading(false);
+    }
+  });
 
 // ######################################################################################################### END OF QUERIES & MUTATIONS
 
@@ -237,6 +256,29 @@ const CreateEvent = () => {
     setLong(undefined);
   }, []);
 
+  const handleCreate = useCallback(() => {
+    createEvent.mutate({
+      startDate: startDate ? format(startDate, 'yyyy-MM-dd') : undefined,
+      startTime: startDate ? format(startDate, 'hh:mm:ss') : undefined,
+      endDate: endDate ? format(endDate, 'yyyy-MM-dd') : undefined,
+      endTime: startDate ? format(startDate, 'hh:mm:ss') : undefined,
+      scheduleType,
+      timezone,
+      scheduleInterval,
+      title,
+      description,
+      location: {
+        latitude: lat || 0,
+        longitude: long || 0,
+        address: locationDetail
+      },
+      banner: eventImage?.fileUrl,
+      capacity,
+      contractAddresses: eligibleContracts,
+      scanners: currentUserData?.attributes.username ? [...additionalScanner, currentUserData?.attributes.username] : additionalScanner
+    })
+  }, [additionalScanner, capacity, createEvent, currentUserData?.attributes.username, description, eligibleContracts, endDate, eventImage?.fileUrl, lat, locationDetail, long, scheduleInterval, scheduleType, startDate, timezone, title]);
+
   return (
     <main className="flex flex-col px-3 gap-2 min-h-screen">
       <Typography variant="text-lg" weight="bold" className="text-center">Create New Event</Typography>
@@ -289,11 +331,11 @@ const CreateEvent = () => {
               lat={lat}
               lng={long}
               onDblClick={(e) => {
-                setSearchLocation(e?.name);
+                // setSearchLocation(e?.name);
                 setLat(Number(e?.lat));
                 setLong(Number(e?.lon));
-                setLocation(e?.name);
-                setLocationDetail(e?.display_name);
+                // setLocation(e?.name);
+                // setLocationDetail(e?.display_name);
               }}
             />
             {
@@ -334,6 +376,7 @@ const CreateEvent = () => {
                       onClick={() => {
                         setLat(Number(item.lat));
                         setLong(Number(item.lon));
+                        setLocationDetail(item.display_name);
                         setOpenSuggestLocation(false);
                       }}
                     >
@@ -391,7 +434,14 @@ const CreateEvent = () => {
           }
           <Button variant="outlined" onClick={() => setIsScannerModalOpen(true)}><HiPlus /></Button>
         </div>
-        <Button variant="filled">Create Event</Button>
+        <Button
+          variant="filled"
+          disabled={isCreateLoading || !title || !startDate || !endDate || !lat || !long || !capacity}
+          onClick={handleCreate}
+        >
+          {isCreateLoading ? <Loader /> : 'Create Event'}
+        </Button>
+        { createErrMessage && <Typography variant="text-xs" className="text-red-500 text-center">{createErrMessage}</Typography> }
       </section>
       <Modal
         isOpen={isDateModalOpen}
@@ -399,7 +449,7 @@ const CreateEvent = () => {
       >
         <div className="flex flex-col gap-2 py-4">
           <Typography variant="text-base" weight="bold" className="text-center">Set Your Event Date</Typography>
-          <Typography variant="text-xs" className="text-center">Your Timezone : {Intl.DateTimeFormat().resolvedOptions().timeZone || '-'}</Typography>
+          <Typography variant="text-xs" className="text-center">Your Timezone : {timezone || '-'}</Typography>
           <Dropdown options={scheduleTypeOptions} label="Schedule Type" onSelect={handleSelectScheduleType} selectedOption={scheduleType} />
           <div className="flex flex-col gap-0.5 w-full">
             <Typography variant="text-xs">Start</Typography>

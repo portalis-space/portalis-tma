@@ -4,19 +4,50 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Modal from "@/components/molecules/Modal.molecule";
+import { useAuthContext } from "@/contexts/Auth.context";
+import useDeleteEvent from "@/services/event/mutations/DeleteEvent.query";
 import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
+import { useGetEventsKey } from "@/services/event/queries/GetEvents.query";
+import { useQueryClient } from "@tanstack/react-query";
 import { compareDesc, format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { HiCalendar, HiChevronRight, HiMapPin, HiMiniGlobeAlt, HiOutlineGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
 
 const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
+  const {currentUserData} = useAuthContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleteEventLoading, setIsDeleteEventLoading] = useState(false);
+  const [deleteEventErrMessage, setDeleteEventErrMessage] = useState<string | undefined>(undefined);
 
   const {isLoading, data: eventQuery} = useGetEventQuery({id});
   const eventData = useMemo(() => eventQuery?.data, [eventQuery?.data]);
+
+  const deleteEvent = useDeleteEvent({
+    onSuccess: () => {
+      setIsDeleteModalOpen(false);
+      queryClient.invalidateQueries({queryKey: [useGetEventsKey]});
+      router.push('/event');
+    },
+    onError: (e) => {
+      setDeleteEventErrMessage(e.errors[0].detail)
+    },
+    onMutate: () => {
+      setIsDeleteEventLoading(true);
+      setDeleteEventErrMessage(undefined);
+    },
+    onSettled: () => {
+      setIsDeleteEventLoading(false);
+    }
+  });
+
+  const handleDelete = useCallback(() => {
+    deleteEvent.mutate({id})
+  },[deleteEvent, id])
 
   if (isLoading) {
     return (
@@ -117,6 +148,15 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             <Typography variant="text-sm">Scan Now</Typography>
           </span>
         </Button>
+        {
+          currentUserData?.attributes.username === eventData?.attributes.owner.username &&
+          <Button size="small" variant="outlined" className="rounded-lg" onClick={() => setIsDeleteModalOpen(true)}>
+            <span className="flex flex-row items-center gap-2">
+              <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
+              <Typography variant="text-sm">Delete Event</Typography>
+            </span>
+          </Button>
+        }
       </section>
       <BottomArea>
         <Button size="large" variant="filled" className="rounded-full bg-primary-purple-106" onClick={() => router.push('/event/1/eligible')}>Check Eligible Asset</Button>
@@ -141,6 +181,17 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
               </div>
             )
           }
+        </div>
+      </Modal>
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}>
+        <div className="flex flex-col gap-5 items-center">
+          <div className="flex flex-col items-center">
+            <Typography variant="text-sm">You attempted to delete this event.</Typography>
+            <Typography variant="text-base" weight="bold">Are You Sure?</Typography>
+          </div>
+          {deleteEventErrMessage && <Typography variant="text-xs" className="text-center text-red-500">{deleteEventErrMessage}</Typography>}
+          <Button variant="outlined" onClick={handleDelete} disabled={isDeleteEventLoading}>{isDeleteEventLoading ? <Loader /> : 'Delete Now'}</Button>
+          <Button variant="outlined" onClick={() => setIsDeleteModalOpen(false)}>Cancel</Button>
         </div>
       </Modal>
     </main>

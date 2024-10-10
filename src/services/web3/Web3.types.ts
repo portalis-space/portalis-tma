@@ -2,6 +2,12 @@ import { APILinksType, APIMetaType, JsonAPIType } from "../common/Common.types";
 
 export type ContractType = 'evm' | 'ton';
 
+export type EligibleContractType = {
+  type: ContractType;
+  chain: string;
+  contractAddress: string;
+}
+
 export type GetChainsParams = {
   contractType: ContractType;
 }

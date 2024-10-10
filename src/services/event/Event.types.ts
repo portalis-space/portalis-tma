@@ -1,10 +1,11 @@
-import { APILinksType, APIMetaType, JsonAPIType, SortType } from "../common/Common.types";
+import { APILinksType, APIMetaType, DayType, JsonAPIType, SortType } from "../common/Common.types";
+import { EligibleContractType } from "../web3/Web3.types";
 
 export type EventStatusType = 'ONGOING' | 'UPCOMING' | 'PAST';
 export type EventScheduleTypeType = 'ONE_TIME' | 'DAILY' | 'WEEKLY';
 
 export type EventLocationType = {
-  type: string;
+  type?: string;
   latitude: number;
   longitude: number;
   address: string;
@@ -81,6 +82,44 @@ export type GetEventParams = {
 export type GetEventResponse = {
   jsonapi: JsonAPIType;
   data: EventType;
+}
+
+export type CreateEventParams = {
+  startDate?: string;
+  startTime?: string;
+  endDate?: string;
+  endTime?: string;
+  scheduleType?: EventScheduleTypeType;
+  timezone?: string;
+  scheduleInterval?: DayType[];
+  title?: string;
+  description?: string;
+  location?: EventLocationType;
+  banner?: string;
+  capacity?: number;
+  isHighlighted?: boolean;
+  contractAddresses?: EligibleContractType[];
+  scanners?: string[];
+}
+
+export type CreateEventResponse = {
+  jsonapi: JsonAPIType;
+  data: {
+    type: "event";
+    id: string;
+  }
+}
+
+export type DeleteEventParams = {
+  id: string;
+}
+
+export type DeleteEventResponse = {
+  jsonapi: JsonAPIType;
+  data: {
+    type: "event";
+    id: string;
+  }
 }
 
 // ############################################ PARTICIPANT / VISITOR

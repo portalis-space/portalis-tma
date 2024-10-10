@@ -1,4 +1,4 @@
-import { copyToClipboard } from '@/utils/strings.util';
+import { copyToClipboard } from '@/utils/helpers';
 import { useState } from 'react';
 import { HiCheck, HiClipboard } from 'react-icons/hi2';
 

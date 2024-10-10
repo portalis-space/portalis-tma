@@ -3,7 +3,7 @@ import Image from "next/image";
 import Typography from "../atoms/Typography.atom";
 import { cn } from "@/utils/cn";
 import { CollectionType } from "@/services/web3/Web3.types";
-import { handleImageBridge } from "@/utils/strings.util";
+import { handleImageBridge } from "@/utils/helpers";
 import Modal from "./Modal.molecule";
 import { useState } from "react";
 import NFTCard from "./NFTCard.molecule";

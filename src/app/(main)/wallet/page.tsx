@@ -6,7 +6,7 @@ import CollectionCard from "@/components/molecules/CollectionCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
-import { shortenAddress } from "@/utils/strings.util";
+import { shortenAddress } from "@/utils/helpers";
 import { useAppKit, useWalletInfo } from "@reown/appkit/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";

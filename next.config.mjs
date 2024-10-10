@@ -26,6 +26,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "cloudflare-ipfs.com",
         pathname: '**',
+      },
+      {
+        protocol: "https",
+        hostname: "**.mypinata.cloud",
+        pathname: '**',
       }
     ]
   }

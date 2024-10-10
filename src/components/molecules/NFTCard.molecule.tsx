@@ -4,7 +4,7 @@ import Typography from "../atoms/Typography.atom";
 import { cn } from "@/utils/cn";
 import Button from "../atoms/Button.atom";
 import { NFTAttributesType } from "@/services/web3/Web3.types";
-import { handleImageBridge, shortenAddress } from "@/utils/strings.util";
+import { handleImageBridge, shortenAddress } from "@/utils/helpers";
 import { ClipboardButton } from "./ClipboardButton.molecule";
 import { useState } from "react";
 
