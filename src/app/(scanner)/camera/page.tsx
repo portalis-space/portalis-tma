@@ -52,6 +52,7 @@ const Camera: React.FC = () => {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
         setCameraActive(true);
+        setScanning(true);
       }
     } catch (error: unknown) {
       console.error('Error accessing camera:', error);

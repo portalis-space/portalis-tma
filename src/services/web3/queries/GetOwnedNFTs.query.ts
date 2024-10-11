@@ -16,7 +16,9 @@ export function useGetOwnedNFTsQuery(params: GetOwnedNFTsParams): QueryObserverR
     queryFn: async () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/nfts/owned?page=${params.page}&size=${params.size}&walletAddress=${params.walletAddress}&chain=${params.chain}&type=${params.type}${
-          params.contractAddress ? `&contractAddress=${params.contractAddress}` : encodeURIComponent("")
+          params.contractAddress && params.contractAddress.length > 0 ?
+            params.contractAddress.forEach((address) => `&contractAddress[]=${address}`) :
+            encodeURIComponent("")
         }`, {
           method: 'GET',
           headers: {
