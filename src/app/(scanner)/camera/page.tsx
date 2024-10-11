@@ -1,6 +1,9 @@
 "use client";
 import Button from '@/components/atoms/Button.atom';
 import Typography from '@/components/atoms/Typography.atom';
+import Loader from '@/components/molecules/Loader.molecule';
+import useScanTicket from '@/services/ticket/mutations/ScanTicket.query';
+import { cn } from '@/utils/cn';
 import jsQR from 'jsqr';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { HiOutlineArrowUturnRight } from 'react-icons/hi2';
@@ -12,6 +15,26 @@ const Camera: React.FC = () => {
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment'); // Default to back camera
   const [scanning, setScanning] = useState<boolean>(true);
   const [QRString, setQRString] = useState('');
+  const [isScanLoading, setIsScanLoading] = useState(false);
+  const [isScanSuccess, setIsScanSuccess] = useState(false);
+  const [scanErrMessage, setScanErrMessage] = useState<string | undefined>(undefined);
+
+  const scanTicket = useScanTicket({
+    onSuccess: () => {
+      setIsScanSuccess(true);
+    },
+    onError: (err) => {
+      setScanErrMessage(err.errors[0].detail)
+    },
+    onMutate: () => {
+      setIsScanLoading(true);
+      setScanning(false);
+    },
+    onSettled: () => {
+      setIsScanLoading(false);
+      setScanning(true);
+    }
+  })
 
   // Detect if the user is on a mobile device
   const isMobileDevice = () => {
@@ -91,7 +114,8 @@ const Camera: React.FC = () => {
           const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
 
           if (qrCode) {
-            setQRString(qrCode.data)
+            setQRString(qrCode.data);
+            scanTicket.mutate({qrString: qrCode.data})
           }
         }
       }
@@ -101,14 +125,17 @@ const Camera: React.FC = () => {
       const interval = setInterval(scanQrCode, 3000); // Scan every 500ms
       return () => clearInterval(interval); // Clear the interval on component unmount
     }
-  }, [scanning, cameraActive]);
+  }, [scanning, cameraActive, scanTicket]);
 
   return (
     <main className="flex flex-col items-center h-screen gap-3">
       <Typography variant='text-lg' weight='bold'>Scan Ticket</Typography>
-      <div>
+      <div className='relative'>
         <video ref={videoRef} className="border-2 border-gray-300 min-h-64" autoPlay playsInline muted />
         <canvas ref={canvasRef} className="hidden" />
+        {
+          isScanLoading && <div className='absolute w-full h-full top-0 flex justify-center bg-neutral-900 bg-opacity-70'><Loader /></div>
+        }
       </div>
       <div className='flex flex-row items-center justify-center gap-5 w-full px-3'>
         {cameraActive ? (
@@ -126,6 +153,13 @@ const Camera: React.FC = () => {
           </Button>
         )}
       </div>
+      <Typography variant='text-xs' className={cn('text-center !text-primary-blue-600', {'!text-red-400': !scanning})}>{scanning ? 'Scanner Ready' : 'Scanner Not Ready'}</Typography>
+      {
+        isScanSuccess && <Typography variant='text-xs' className='text-center'>Success</Typography>
+      }
+      {
+        scanErrMessage && <Typography variant='text-xs' className='text-center !text-red-500'>{scanErrMessage}</Typography>
+      }
       <Typography variant='text-xs' className='text-center'>{QRString}</Typography>
     </main>
   );
