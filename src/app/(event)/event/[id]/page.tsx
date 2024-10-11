@@ -8,8 +8,9 @@ import { useAuthContext } from "@/contexts/Auth.context";
 import useDeleteEvent from "@/services/event/mutations/DeleteEvent.query";
 import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
 import { useGetEventsKey } from "@/services/event/queries/GetEvents.query";
+import { cn } from "@/utils/cn";
 import { useQueryClient } from "@tanstack/react-query";
-import { compareDesc, format } from "date-fns";
+import { compareDesc, format, isAfter, isWithinInterval } from "date-fns";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -27,6 +28,8 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleteEventLoading, setIsDeleteEventLoading] = useState(false);
   const [deleteEventErrMessage, setDeleteEventErrMessage] = useState<string | undefined>(undefined);
+
+  const now = new Date();
 
   const {isLoading, data: eventQuery} = useGetEventQuery({id});
   const eventData = useMemo(() => eventQuery?.data, [eventQuery?.data]);
@@ -179,11 +182,24 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           {
             eventData?.attributes?.schedules && eventData.attributes.schedules.sort((a, b) => compareDesc(b.startAt, a.startAt)).map((schedule, index) => 
               <div className="flex flex-col" key={index}>
-                <div className="w-5 h-[50px] border-r-2 border-primary-purple-105" />
+                <div className={
+                  cn("w-5 h-[50px] border-r-2 border-primary-purple-105",
+                    {"border-neutral-500": isAfter(now, schedule.endAt)},
+                    {"border-primary-blue-600": isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                  )}
+                />
                 <div className="flex flex-row items-center gap-2">
-                  <div className="w-10 h-10 flex flex-col items-center bg-primary-purple-107 rounded-lg">
+                  <div className={
+                    cn("w-10 h-10 flex flex-col items-center bg-primary-purple-107 rounded-lg",
+                      {"bg-neutral-500": isAfter(now, schedule.endAt)},
+                      {"bg-primary-blue-600 animate-pulse": isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                    )}>
                     <Typography weight="bold" className="text-neutral-50 text-[10px]">{schedule?.startAt ? format(schedule.startAt, 'LLL') : '-'}</Typography>
-                    <Typography variant="text-xs" weight="bold" className="text-neutral-50 bg-primary-purple-105 rounded px-2.5 py-0.5">{schedule?.startAt ? format(schedule.startAt, 'dd') : '-'}</Typography>
+                    <Typography variant="text-xs" weight="bold" className={
+                      cn("text-neutral-50 bg-primary-purple-105 rounded px-2.5 py-0.5",
+                        {"bg-neutral-500": isAfter(now, schedule.endAt)},
+                        {"bg-primary-blue-700": isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                      )}>{schedule?.startAt ? format(schedule.startAt, 'dd') : '-'}</Typography>
                   </div>
                   <div className="flex flex-col">
                     <Typography variant="text-xs">{schedule?.startAt ? format(schedule.startAt, 'LLL dd, y hh:mmaaa'):'-'}</Typography>

@@ -47,7 +47,7 @@ export type EventContractAdressesType = {
   opensea_slug?: string;
   opensea_verified?: string;
   owner?: string;
-  owners_total?: 113183,
+  owners_total?: number;
   price_symbol?: string;
   royalty?: string;
   symbol?: string;
@@ -56,7 +56,7 @@ export type EventContractAdressesType = {
   verified?: false,
   website?: string;
   contract_address?: string;
-  collections_with_same_name?: unknown[];
+  collections_with_same_name?: string[];
   banner_url?: string;
   amounts_total?: number;
   attributes?: unknown[];

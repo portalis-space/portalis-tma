@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Typography from "../atoms/Typography.atom";
 import { cn } from "@/utils/cn";
-import { CollectionType } from "@/services/web3/Web3.types";
+import { CollectionNFTType } from "@/services/web3/Web3.types";
 import { handleImageBridge } from "@/utils/helpers";
 import Modal from "./Modal.molecule";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 interface Props {
   className?: string;
-  collection?: CollectionType;
+  collection?: CollectionNFTType;
   withModal?: boolean;
   owned?: boolean;
   onClickUseOnCreation?: (isFromOwnedList?: boolean, ownedAddress?: string) => void;
@@ -27,7 +27,7 @@ const CollectionCard = ({className = '', collection, withModal = false, owned = 
     <>
       <div
         className={cn("flex flex-col rounded-lg p-2 bg-white bg-opacity-50 dark:bg-neutral-800 w-full shadow-lg", className)}
-        onClick={() => withModal ? setIsNFTModalOpen(true) : router.push('/collection/1')}
+        onClick={() => withModal ? setIsNFTModalOpen(true) : router.push(`/collection/${collection?.attributes?.contract_address}`)}
       >
         <Image
           alt="eventImage"
@@ -41,15 +41,15 @@ const CollectionCard = ({className = '', collection, withModal = false, owned = 
           <Typography weight="extra-bold" variant="text-base" className="truncate !text-primary-blue-900 dark:!text-primary-blue-500">{collection?.attributes.contract_name}</Typography>
           <div className="flex flex-row items-center gap-2">
             <Typography className="text-[10px] basis-5/12">Floor Price</Typography>
-            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes.floor_price}</Typography>
+            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes?.floor_price} {collection?.attributes?.symbol}</Typography>
           </div>
           <div className="flex flex-row items-center gap-2">
             <Typography className="text-[10px] basis-5/12">Supply</Typography>
-            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes.items_total}</Typography>
+            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes?.items_total}</Typography>
           </div>
           <div className="flex flex-row items-center gap-2">
             <Typography className="text-[10px] basis-5/12">Owned</Typography>
-            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes.owns_total}</Typography>
+            <Typography weight="bold" variant="text-sm" className="truncate">{collection?.attributes?.owns_total}</Typography>
           </div>
         </div>   
       </div>

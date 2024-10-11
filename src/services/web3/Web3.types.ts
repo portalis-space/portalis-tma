@@ -60,7 +60,7 @@ export type NFTType = {
   attributes: NFTAttributesType;
 }
 
-export type CollectionAttributesType = {
+export type CollectionNFTAttributesType = {
   contract_address: string;
   contract_name: string;
   logo_url: string;
@@ -75,10 +75,50 @@ export type CollectionAttributesType = {
   assets: NFTAttributesType[];
 }
 
+export type CollectionNFTType = {
+  type: "collection-nft";
+  attributes: CollectionNFTAttributesType;
+}
+
+export type CollectionAttributesType = {
+  deploy_block_number: number;
+  description: string;
+  discord: string;
+  email: string;
+  erc_type: string;
+  featured_url: string;
+  floor_price: number;
+  github: string;
+  instagram: string;
+  is_spam: boolean;
+  items_total: number;
+  kind: string;
+  large_image_url: string;
+  logo_url: string;
+  medium: string;
+  name: string;
+  opensea_slug: string;
+  opensea_verified: string;
+  owner: string;
+  owners_total: number;
+  price_symbol: string;
+  royalty: number;
+  symbol: string;
+  telegram: string;
+  twitter: string;
+  verified: boolean;
+  website: string;
+  contract_address: string;
+  collections_with_same_name: string[];
+  banner_url: string;
+  amounts_total: number;
+  attributes: unknown[]
+}
 
 export type CollectionType = {
-  type: "collection-nft";
-  attributes: CollectionAttributesType;
+  type: 'collection';
+  id: string;
+  attributes:  CollectionAttributesType;
 }
 
 export type GetOwnedNFTsParams = {
@@ -94,7 +134,7 @@ export type GetOwnedNFTsResponse = {
   jsonapi: JsonAPIType;
   meta: APIMetaType;
   links: APILinksType;
-  data: CollectionType[];
+  data: CollectionNFTType[];
 }
 
 export type GetNFTsByContractParams = {
@@ -111,4 +151,15 @@ export type GetNFTsByContractResponse = {
   meta: APIMetaType;
   links: APILinksType;
   data: NFTType[];
+}
+
+export type GetCollectionParams = {
+  contractAddress?: string;
+  type?: ContractType;
+  chain?: string;
+}
+
+export type GetCollectionResponse = {
+  jsonapi: JsonAPIType;
+  data: CollectionType;
 }

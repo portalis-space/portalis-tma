@@ -1,4 +1,5 @@
 "use client"
+import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
 import CollectionCard from "@/components/molecules/CollectionCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
@@ -56,7 +57,12 @@ const OwnedEligibleCollection = ({eventData}: Props) => {
         </>
       }
       {
-        !isGetOwnedNFTLoading && ownedNFtsData && ownedNFtsData.length === 0 && <Typography variant="text-xs" className="text-center">You don&apos;t have any eligible item.</Typography>
+        !isGetOwnedNFTLoading && ((ownedNFtsData && ownedNFtsData.length === 0) ||  !ownedNFtsData) &&
+        <div className="flex flex-col items-center py-3 gap-2">
+          <Typography variant="text-sm">You don&apos;t have any eligible NFT.</Typography>
+          <Typography variant="text-sm">Connect or change your wallet.</Typography>
+          <Button variant="filled" onClick={() => router.push('/wallet')} className="w-1/2">Go to My Wallet</Button>
+        </div>
       }
     </section>
   )

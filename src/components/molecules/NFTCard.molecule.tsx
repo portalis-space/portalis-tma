@@ -59,7 +59,7 @@ const NFTCard = ({
           </div>
           <div className="flex flex-row items-center gap-2">
             <Typography variant="text-xs" className="truncate !text-primary-purple-101 w-[28px]">Price</Typography>
-            <Typography weight="bold" variant="text-xs" className="truncate !text-primary-purple-101">{nft?.mint_price}</Typography>
+            <Typography weight="bold" variant="text-xs" className="truncate !text-primary-purple-101">{nft?.mint_price} {nft?.latest_trade_symbol}</Typography>
           </div>
         </div>
         {onClickUseOnCreation && <Button variant="outlined" onClick={onClickUseOnCreation}>Use</Button>}
