@@ -15,7 +15,7 @@ interface Props {
   withModal?: boolean;
   owned?: boolean;
   onClickUseOnCreation?: (isFromOwnedList?: boolean, ownedAddress?: string) => void;
-  onClickOnGeneration?: (contractAddress: string) => void;
+  onClickOnGeneration?: (contractAddress: string, token: string) => void;
 }
 
 const CollectionCard = ({className = '', collection, withModal = false, owned = false, onClickUseOnCreation, onClickOnGeneration}: Props) => {
@@ -75,7 +75,7 @@ const CollectionCard = ({className = '', collection, withModal = false, owned = 
                     onClickOnGeneration={
                       onClickOnGeneration && nft.contract_address ?
                       () => {
-                        onClickOnGeneration(nft.contract_address);
+                        onClickOnGeneration(nft.contract_address, nft.token_id);
                         setIsNFTModalOpen(false);
                       } : undefined
                     }

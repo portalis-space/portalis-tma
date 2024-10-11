@@ -217,7 +217,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
             <Typography variant="text-sm">You attempted to delete this event.</Typography>
             <Typography variant="text-base" weight="bold">Are You Sure?</Typography>
           </div>
-          {deleteEventErrMessage && <Typography variant="text-xs" className="text-center text-red-500">{deleteEventErrMessage}</Typography>}
+          {deleteEventErrMessage && <Typography variant="text-xs" className="text-center !text-red-500">{deleteEventErrMessage}</Typography>}
           <Button variant="outlined" onClick={handleDelete} disabled={isDeleteEventLoading}>{isDeleteEventLoading ? <Loader /> : 'Delete Now'}</Button>
           <Button variant="outlined" onClick={() => setIsDeleteModalOpen(false)}>Cancel</Button>
         </div>

@@ -441,7 +441,7 @@ const CreateEvent = () => {
         >
           {isCreateLoading ? <Loader /> : 'Create Event'}
         </Button>
-        { createErrMessage && <Typography variant="text-xs" className="text-red-500 text-center">{createErrMessage}</Typography> }
+        { createErrMessage && <Typography variant="text-xs" className="!text-red-500 text-center">{createErrMessage}</Typography> }
       </section>
       <Modal
         isOpen={isDateModalOpen}

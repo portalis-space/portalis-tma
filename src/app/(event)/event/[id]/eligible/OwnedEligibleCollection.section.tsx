@@ -32,8 +32,8 @@ const OwnedEligibleCollection = ({eventData}: Props) => {
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
   const ownedNFtsMeta = useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
 
-  const handleUseNFTToGenerate = useCallback((address: string) => {
-    router.push(`/generate-ticket?id=${eventData?.id}&address=${address}`)
+  const handleUseNFTToGenerate = useCallback((address: string, token: string) => {
+    router.push(`/generate-ticket?id=${eventData?.id}&address=${address}&token=${token}`)
   }, [eventData?.id, router])
 
   return (

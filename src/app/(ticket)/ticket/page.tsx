@@ -1,40 +1,45 @@
 "use client"
-import Button from "@/components/atoms/Button.atom";
-import { useState } from "react";
-import { cn } from "@/utils/cn";
+import { useMemo, useState } from "react";
 import Typography from "@/components/atoms/Typography.atom";
 import TicketCard from "@/components/molecules/TicketCard.molecule";
+import { useGetTicketsQuery } from "@/services/ticket/queries/GetTickets.query";
+import { useAccount } from "wagmi";
+import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
+import Loader from "@/components/molecules/Loader.molecule";
+import Pagination from "@/components/molecules/Pagination.molecule";
 
 const MyTicket = () => {
-  const [activeTab, setActiveTab] = useState<'all' | 'available' | 'used'>('all')
+  const {address} = useAccount();
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const {isLoading: isGetTicketLoading, data: getTicketsQuery} = useGetTicketsQuery({
+    page,
+    size: 10,
+    search,
+    walletAddress: address
+  });
+  const ticketsData = useMemo(() => getTicketsQuery?.data, [getTicketsQuery?.data]);
+  const ticketsMeta = useMemo(() => getTicketsQuery?.meta, [getTicketsQuery?.meta]);
+
   return (
     <main className="flex flex-col gap-3 px-3 min-h-screen">
       <Typography weight="bold" className="text-center">My Ticket</Typography>
-      <section className="flex flex-row justify-around items-center">
-        <Button
-          size="small"
-          variant="tinted"
-          onClick={() => activeTab !== 'all' && setActiveTab('all')}
-          className={cn("w-full border-b-2 border-transparent rounded-none",{" border-primary-purple-101": activeTab === 'all'})}
-        >All</Button>
-        <Button
-          size="small"
-          variant="tinted"
-          onClick={() => activeTab !== 'available' && setActiveTab('available')}
-          className={cn("w-full border-b-2 border-transparent rounded-none",{"border-primary-purple-101": activeTab === 'available'})}
-        >Available</Button>
-        <Button
-          size="small"
-          variant="tinted"
-          onClick={() => activeTab !== 'used' && setActiveTab('used')}
-          className={cn("w-full border-b-2 border-transparent rounded-none",{"border-primary-purple-101": activeTab === 'used'})}
-        >Used</Button>
-      </section>
+      <SearchWithDebounce setSearchText={setSearch} />
       <section className="flex flex-col gap-3">
-        <TicketCard />
-        <TicketCard />
-        <TicketCard />
-        <TicketCard disabled />
+        {
+          isGetTicketLoading && <div className="flex items-center justify-center h-1/3 w-full"><Loader /></div>
+        }
+        {
+           ticketsData && ticketsData.length > 0 &&
+            <>
+              { ticketsData.map((ticket, index) => <TicketCard key={index} />) }
+              <Pagination page={page} setPage={setPage} meta={ticketsMeta} />
+            </>
+        }
+        {
+          !isGetTicketLoading && <Typography variant="text-xs" className="text-center">No ticket found.</Typography>
+        }
       </section>
     </main>
   )
