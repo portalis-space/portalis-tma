@@ -34,7 +34,7 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
 
   const {isLoading: isEligibleEventsLoading , data: eligibleEventsQuery} = useGetEventsQuery({
-    page: address && chain ? 1 : undefined,
+    page: address && chain?.name ? 1 : undefined,
     size: 4,
     eligibleEvent: true,
     wallet: address,

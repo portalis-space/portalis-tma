@@ -12,7 +12,7 @@ import { useAccount } from "wagmi";
 
 const ActiveEligibleEvent = () => {
   const router = useRouter();
-  const {address, chainId} = useAccount();
+  const {address, chainId, chain} = useAccount();
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
 
@@ -21,7 +21,7 @@ const ActiveEligibleEvent = () => {
     size: 10,
     eligibleEvent: true,
     wallet: address,
-    chain: 'eth',
+    chain: chain?.name ? (chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase()) : 'eth',
     type: 'evm',
     search: searchText
   });
