@@ -46,7 +46,7 @@ const Wallet = () => {
           walletInfo ?
           <>
             {
-              walletInfo.icon &&
+              walletInfo?.icon &&
               <Image
                 src={walletInfo.icon}
                 alt='wallet icon'

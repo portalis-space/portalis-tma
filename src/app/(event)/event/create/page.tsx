@@ -188,9 +188,9 @@ const CreateEvent = () => {
 
   const handleAddEligibleContractAddress = useCallback((isFromOwnedList?: boolean, ownedAddress?: string) => {
     setEligibleErr(undefined);
-    const newEligibleContract = isFromOwnedList && ownedAddress ? {
+    const newEligibleContract = isFromOwnedList && ownedAddress && accountChain?.name ? {
       type: 'evm' as ContractType, // TODO: change when TON available
-      chain: accountChain?.name?.toLowerCase() || '',
+      chain: accountChain?.name === 'Ethereum' ? accountChain?.name?.substring(0,3)?.toLowerCase() : accountChain?.name?.toLowerCase(),
       contractAddress: ownedAddress || ''
     } : {
       type: contractType,
