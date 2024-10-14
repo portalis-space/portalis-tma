@@ -1,7 +1,13 @@
+"use client"
 import Typography from "@/components/atoms/Typography.atom";
-import { HiCheck, HiXMark } from "react-icons/hi2";
+import { useGetQuestQuery } from "@/services/quest/queries/GetQuests.query";
+import { useMemo } from "react";
+import { HiCheck } from "react-icons/hi2";
 
 const Quest = () => {
+
+  const {data: questsQuery} = useGetQuestQuery();
+  const questsData = useMemo(() => questsQuery?.data, [questsQuery?.data]);
   return (
     <main className="flex flex-col px-3 gap-5 min-h-screen">
       <div className="flex flex-col gap-2">
@@ -13,34 +19,20 @@ const Quest = () => {
         </div>
       </div>
       <section className="flex flex-col w-full gap-3">
-        <div className="w-full flex flex-row items-center justify-between bg-white bg-opacity-30 dark:bg-neutral-800 p-3 gap-2 rounded-lg shadow">
-          <Typography variant="text-sm" weight="bold">Connect your wallet</Typography>
-          <div className="flex flex-row items-center gap-2">
-            <Typography variant="text-sm" weight="bold">100pts</Typography>
-            <HiCheck className="text-primary-purple-105" />
-          </div>
-        </div>
-        <div className="w-full flex flex-row items-center justify-between bg-white bg-opacity-30 dark:bg-neutral-800 p-3 gap-2 rounded-lg shadow">
-          <Typography variant="text-sm" weight="bold">Create your first event</Typography>
-          <div className="flex flex-row items-center gap-2">
-            <Typography variant="text-sm" weight="bold">50pts</Typography>
-            <HiXMark className="text-neutral-500" />
-          </div>
-        </div>
-        <div className="w-full flex flex-row items-center justify-between bg-white bg-opacity-30 dark:bg-neutral-800 p-3 gap-2 rounded-lg shadow">
-          <Typography variant="text-sm" weight="bold">Generate your first ticket</Typography>
-          <div className="flex flex-row items-center gap-2">
-            <Typography variant="text-sm" weight="bold">100pts</Typography>
-            <HiXMark className="text-neutral-500" />
-          </div>
-        </div>
-        <div className="w-full flex flex-row items-center justify-between bg-white bg-opacity-30 dark:bg-neutral-800 p-3 gap-2 rounded-lg shadow">
-          <Typography variant="text-sm" weight="bold">Attend 3 Event</Typography>
-          <div className="flex flex-row items-center gap-2">
-            <Typography variant="text-sm" weight="bold">150pts</Typography>
-            <HiXMark className="text-neutral-500" />
-          </div>
-        </div>
+        {
+          questsData?.map((quest) => 
+            <div className="w-full flex flex-row items-start justify-between bg-white bg-opacity-30 dark:bg-neutral-800 p-3 gap-2 rounded-lg shadow" key={quest.id}>
+              <div className="flex flex-col">
+                <Typography variant="text-sm" weight="bold">{quest.attributes.task}</Typography>
+                <Typography variant="text-sm">{quest.attributes.description}</Typography>
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <Typography variant="text-sm" weight="bold">{quest.attributes.reqAmount}</Typography>
+                <HiCheck className="text-primary-purple-105" />
+              </div>
+            </div>
+          )
+        }
       </section>
     </main>
   )

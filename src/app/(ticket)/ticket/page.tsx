@@ -33,7 +33,7 @@ const MyTicket = () => {
         {
            ticketsData && ticketsData.length > 0 &&
             <>
-              { ticketsData.map((ticket, index) => <TicketCard key={index} />) }
+              { ticketsData.map((ticket, index) => <TicketCard key={index} ticket={ticket} />) }
               <Pagination page={page} setPage={setPage} meta={ticketsMeta} />
             </>
         }

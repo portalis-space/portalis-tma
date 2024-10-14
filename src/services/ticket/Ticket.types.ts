@@ -1,4 +1,29 @@
 import { APILinksType, APIMetaType, JsonAPIType } from "../common/Common.types";
+import { EventAttributesType } from "../event/Event.types";
+import { UserAttributesType } from "../user/User.types";
+import { ContractType } from "../web3/Web3.types";
+
+export type TicketStatusType = 'AVAILABLE' | 'UNAVAILABLE';
+
+export type TicketAttributesType = {
+  chain: string;
+  contractAddress: string;
+  event: EventAttributesType & {id: string};
+  expiredAt: string;
+  issuedAt: string;
+  owner: UserAttributesType & {id: string};
+  status: TicketStatusType;
+  ticketNumber: string;
+  token: string;
+  type: ContractType;
+  walletAddress: string;
+}
+
+export type TicketType = {
+  type: "ticket";
+  id: string;
+  attributes: TicketAttributesType;
+}
 
 export type GenerateTicketParams = {
   token: string;
@@ -12,9 +37,23 @@ export type GenerateTicketParams = {
 export type GenerateTicketResponse = {
   jsonapi: JsonAPIType;
   data: {
-    type: string;
-    id: string;
-  }
+    type: 'ticket';
+    attributes: {
+      ticketNumber: string;
+      issuedAt: string;
+      token: string;
+      contractAddress: string;
+      walletAddress: string;
+      event: string;
+      expiredAt: string;
+      status: TicketStatusType;
+      type: ContractType;
+      chain: string;
+      _id: string;
+      createdAt: string;
+      updatedAt: string;
+    }
+  };
 }
 
 export type GenerateQRParams = {
@@ -24,7 +63,13 @@ export type GenerateQRParams = {
 
 export type GenerateQRResponse = {
   jsonapi: JsonAPIType;
-  data: unknown;
+  data: {
+    type: string;
+    attributes: {
+      expiredAt: number;
+      qrString: string;
+    }
+  } 
 }
 
 export type ScanTicketParams = {
@@ -48,5 +93,14 @@ export type GetTicketsResponse = {
   jsonapi: JsonAPIType;
   meta: APIMetaType;
   links: APILinksType;
-  data: unknown[];
+  data: TicketType[];
+}
+
+export type GetTicketParams = {
+  id: string;
+}
+
+export type GetTicketResponse = {
+  jsonapi: JsonAPIType;
+  data: TicketType;
 }

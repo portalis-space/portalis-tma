@@ -44,7 +44,7 @@ const GenerateTicket = () => {
 
   const generateTicket = useGenerateTicket({
     onSuccess: (res) => {
-      router.replace(`/ticket/${res.data.id}`)
+      router.replace(`/ticket/${res.data.attributes._id}`)
     },
     onError: (err) => {
       setGenerateTicketErrorMessage(err.errors[0].detail)

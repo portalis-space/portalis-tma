@@ -20,7 +20,7 @@ const CollectionDetail = ({ params: {id} }: { params: { id: string } }) => {
   const [isImageError, setIsImageError] = useState(false);
   const isDrop = false;
 
-  const {data: collectionQuery} = useGetCollectionQuery({
+  const {isLoading: isCollectionQueryLoading, data: collectionQuery} = useGetCollectionQuery({
     contractAddress: id,
     chain: chain?.name ? (chain.name === 'Ethereum' ? chain.name.substring(0,3)?.toLowerCase() : chain.name.toLowerCase()) : undefined,
     type: 'evm' // TODO: change when TON available
@@ -35,6 +35,14 @@ const CollectionDetail = ({ params: {id} }: { params: { id: string } }) => {
     contractAddress: id
   });
   const NFtsData = useMemo(() => getNFTsByContractQuery?.data, [getNFTsByContractQuery?.data]);
+
+  if (isCollectionQueryLoading) {
+    return (
+      <main className="flex flex-col pb-16 gap-2 min-h-screen items-center justify-center">
+        <Loader />
+      </main>
+    )
+  }
 
   return (
     <main className="flex flex-col pb-16 gap-2 min-h-screen">
