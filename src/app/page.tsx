@@ -100,7 +100,6 @@ export default function Home() {
             </div> : !isEligibleEventsLoading &&
             <div className="flex flex-col items-center py-3 gap-2">
               <Typography variant="text-sm">You don&apos;t have any eligible event.</Typography>
-              <Typography variant="text-sm">Connect or change your wallet.</Typography>
               <Button variant="filled" onClick={() => router.push('/wallet')} className="w-1/2">Go to My Wallet</Button>
             </div>
           }
