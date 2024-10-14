@@ -96,7 +96,7 @@ export function useGetEventsQuery(
       }
     },
     enabled: !!params.page && !!params.size && !!token,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     retry: false
   });
 }

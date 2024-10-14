@@ -36,6 +36,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.sandbox.game",
         pathname: '**',
+      },
+      {
+        protocol: "https",
+        hostname: "**.artblocks.io",
+        pathname: '**',
       }
     ]
   }

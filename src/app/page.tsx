@@ -39,7 +39,8 @@ export default function Home() {
     eligibleEvent: true,
     wallet: address,
     chain: chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
-    type: 'evm' // TODO change when TON available
+    type: 'evm', // TODO change when TON available
+    status: 'ONGOING'
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);
   const {isLoading: isFeaturedEventsLoading, data: featuredEventsQuery} = useGetEventsQuery({page: 1, size: 4, isHighlighted: true});

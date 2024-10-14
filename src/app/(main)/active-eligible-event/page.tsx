@@ -23,7 +23,8 @@ const ActiveEligibleEvent = () => {
     wallet: address,
     chain: chain?.name ? (chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase()) : 'eth',
     type: 'evm',
-    search: searchText
+    search: searchText,
+    status: 'ONGOING'
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);
   const eligibleEventMeta = useMemo(() => eligibleEventsQuery?.meta, [eligibleEventsQuery?.meta]);
