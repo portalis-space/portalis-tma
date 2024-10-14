@@ -98,6 +98,7 @@ const Camera: React.FC = () => {
   useEffect(() => {
     const scanQrCode = () => {
       if (canvasRef.current && videoRef.current && cameraActive) {
+        console.log('ok')
         const canvas = canvasRef.current;
         const video = videoRef.current;
         const ctx = canvas.getContext("2d");
@@ -110,10 +111,10 @@ const Camera: React.FC = () => {
 
           // Extract the image data from the canvas
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
+          console.log(imageData);
           // Use jsQR to scan for QR codes
           const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
-
+          console.log(qrCode)
           if (qrCode) {
             setQRString(qrCode.data);
             scanTicket.mutate({qrString: qrCode.data})
@@ -123,7 +124,7 @@ const Camera: React.FC = () => {
     };
 
     if (scanning) {
-      const interval = setInterval(scanQrCode, 3000); // Scan every 500ms
+      const interval = setInterval(scanQrCode, 3000); // Scan every 3000ms
       return () => clearInterval(interval); // Clear the interval on component unmount
     }
   }, [scanning, cameraActive, scanTicket]);

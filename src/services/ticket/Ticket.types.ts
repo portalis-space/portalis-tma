@@ -76,11 +76,6 @@ export type ScanTicketParams = {
   qrString: string;
 }
 
-export type ScanTicketResponse = {
-  jsonapi: JsonAPIType;
-  data: unknown;
-}
-
 export type GetTicketsParams = {
   page?: number;
   size: number;

@@ -8,16 +8,18 @@ import useGenerateQR from "@/services/ticket/mutations/GenerateQR.query";
 import { useGetTicketQuery } from "@/services/ticket/queries/GetTicket.query";
 import { shortenAddress } from "@/utils/helpers";
 import { differenceInMilliseconds, format, fromUnixTime } from "date-fns";
+import { useQRCode } from "next-qrcode";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { HiChevronRight, HiMapPin } from "react-icons/hi2";
-import QRCode from "react-qr-code";
 import { useAccount } from "wagmi";
 
 const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
   const { address } = useAccount();
   const router = useRouter();
+  const { Canvas } = useQRCode();
+
   const [QR, setQR] = useState('');
   const [QRErrorMessage, setQRErrorMessage] = useState<string | undefined>(undefined);
   const [isGenerateQRLoading, setIsGenerateQRLoading] = useState(false);
@@ -146,10 +148,17 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
         {QRErrorMessage && <Typography variant="text-xs" className="!text-red-500 bg-neutral-200 bg-opacity-15 backdrop-blur self-center max-w-min text-nowrap p-2 rounded">{QRErrorMessage}</Typography>}
         {
           QR && !isGenerateQRLoading &&
-          <QRCode
-            value={QR}
-            className="w-full md:w-1/2 lg:w-1/3 h-auto aspect-square object-cover rounded-lg mb-3 mx-auto my-0 z-50 px-3"
-          />
+          <div className="w-full md:w-1/2 lg:w-1/3 h-auto rounded-lg mb-3 mx-auto my-0 z-50 px-3 flex items-center justify-center">
+            <Canvas
+              text={QR}
+              options={{
+                errorCorrectionLevel: 'M',
+                margin: 3,
+                scale: 4,
+                width: 300,
+              }}
+            />
+          </div>
         }
         {
           address ? 

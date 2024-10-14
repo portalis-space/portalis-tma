@@ -5,11 +5,11 @@ import {
 } from "@tanstack/react-query";
 import { CommonErrorCodeType } from "@/services/common/Common.types";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
-import { ScanTicketParams, ScanTicketResponse } from "../Ticket.types";
+import { ScanTicketParams } from "../Ticket.types";
 
 async function execute(
   params: ScanTicketParams
-): Promise<ScanTicketResponse> {
+): Promise<unknown> {
   const token = typeof window !== "undefined" && retrieveLaunchParams().initDataRaw;
   try {
     const response = await fetch(
@@ -27,7 +27,7 @@ async function execute(
       const text = await response.text();
       throw JSON.parse(text);
     }
-    return response.json();
+    return response;
   } catch (error: unknown) {
     console.error(error);
     throw error;
@@ -36,12 +36,12 @@ async function execute(
 
 export default function useScanTicket(
   options: UseMutationOptions<
-    ScanTicketResponse,
+    unknown,
     CommonErrorCodeType,
     ScanTicketParams
   >
 ): UseBaseMutationResult<
-  ScanTicketResponse,
+  unknown,
   CommonErrorCodeType,
   ScanTicketParams,
   unknown
