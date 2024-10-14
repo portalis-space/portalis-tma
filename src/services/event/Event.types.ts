@@ -1,4 +1,6 @@
 import { APILinksType, APIMetaType, DayType, JsonAPIType, SortType } from "../common/Common.types";
+import { TicketAttributesType } from "../ticket/Ticket.types";
+import { UserAttributesType } from "../user/User.types";
 import { EligibleContractType } from "../web3/Web3.types";
 
 export type EventStatusType = 'ONGOING' | 'UPCOMING' | 'PAST';
@@ -166,7 +168,12 @@ export type DeleteEventResponse = {
 export type EventVisitorType = {
   type: "participant";
   id: string;
-  attributes: unknown;
+  attributes: {
+    event: EventAttributesType;
+    schedule: EventSchedulesType;
+    ticket: TicketAttributesType;
+    user: UserAttributesType;
+  };
 }
 
 export type GetEventVisitorDataParams = {
