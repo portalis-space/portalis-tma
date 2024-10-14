@@ -161,23 +161,25 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
           </div>
         }
         {
-          address ? 
-          <Button
-            size="large"
-            variant="filled"
-            className="rounded-full bg-primary-purple-106"
-            onClick={QR !== '' ? handleCloseQR : handleGenerateQR}
-          >
-              {isGenerateQRLoading ? <Loader /> : QR ? 'Close' : 'Show QR'}
-          </Button> : 
-          <Button
-            size="large"
-            variant="filled"
-            className="rounded-full bg-primary-purple-106"
-            onClick={() => router.push('/wallet')}
-          >
-              Connect Wallet To Generate QR
-          </Button>
+          ticketData?.attributes.status !== 'USED' && (
+            address ? 
+            <Button
+              size="large"
+              variant="filled"
+              className="rounded-full bg-primary-purple-106"
+              onClick={QR !== '' ? handleCloseQR : handleGenerateQR}
+            >
+                {isGenerateQRLoading ? <Loader /> : QR ? 'Close' : 'Show QR'}
+            </Button> : 
+            <Button
+              size="large"
+              variant="filled"
+              className="rounded-full bg-primary-purple-106"
+              onClick={() => router.push('/wallet')}
+            >
+                Connect Wallet To Generate QR
+            </Button>
+          )
         }
       </BottomArea>
     </main>

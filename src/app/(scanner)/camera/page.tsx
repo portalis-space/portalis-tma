@@ -14,7 +14,6 @@ const Camera: React.FC = () => {
   const [cameraActive, setCameraActive] = useState(false);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment'); // Default to back camera
   const [scanning, setScanning] = useState<boolean>(true);
-  const [QRString, setQRString] = useState('');
   const [isScanLoading, setIsScanLoading] = useState(false);
   const [isScanSuccess, setIsScanSuccess] = useState(false);
   const [scanErrMessage, setScanErrMessage] = useState<string | undefined>(undefined);
@@ -27,6 +26,7 @@ const Camera: React.FC = () => {
       setScanErrMessage(err.errors[0].detail)
     },
     onMutate: () => {
+      setScanErrMessage(undefined);
       setIsScanLoading(true);
       setScanning(false);
     },
@@ -98,7 +98,6 @@ const Camera: React.FC = () => {
   useEffect(() => {
     const scanQrCode = () => {
       if (canvasRef.current && videoRef.current && cameraActive) {
-        console.log('ok')
         const canvas = canvasRef.current;
         const video = videoRef.current;
         const ctx = canvas.getContext("2d");
@@ -111,12 +110,10 @@ const Camera: React.FC = () => {
 
           // Extract the image data from the canvas
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          console.log(imageData);
           // Use jsQR to scan for QR codes
           const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
-          console.log(qrCode)
-          if (qrCode) {
-            setQRString(qrCode.data);
+          if (qrCode && qrCode.data) {
+            console.log(qrCode);
             scanTicket.mutate({qrString: qrCode.data})
           }
         }
@@ -124,7 +121,7 @@ const Camera: React.FC = () => {
     };
 
     if (scanning) {
-      const interval = setInterval(scanQrCode, 3000); // Scan every 3000ms
+      const interval = setInterval(scanQrCode, 2000); // Scan every 3000ms
       return () => clearInterval(interval); // Clear the interval on component unmount
     }
   }, [scanning, cameraActive, scanTicket]);
@@ -162,7 +159,6 @@ const Camera: React.FC = () => {
       {
         scanErrMessage && <Typography variant='text-xs' className='text-center !text-red-500'>{scanErrMessage}</Typography>
       }
-      <Typography variant='text-xs' className='text-center'>{QRString}</Typography>
     </main>
   );
 };

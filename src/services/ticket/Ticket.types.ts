@@ -3,7 +3,7 @@ import { EventAttributesType } from "../event/Event.types";
 import { UserAttributesType } from "../user/User.types";
 import { ContractType } from "../web3/Web3.types";
 
-export type TicketStatusType = 'AVAILABLE' | 'UNAVAILABLE';
+export type TicketStatusType = 'AVAILABLE' | 'UNAVAILABLE' | 'USED';
 
 export type TicketAttributesType = {
   chain: string;
