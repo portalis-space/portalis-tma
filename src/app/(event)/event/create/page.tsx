@@ -22,7 +22,7 @@ import { UploaderAttributesType } from "@/services/uploader/Uploader.types";
 import { useGetChainsQuery } from "@/services/web3/queries/GetChains.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
 import { ContractType, EligibleContractType } from "@/services/web3/Web3.types";
-import { shortenAddress } from "@/utils/helpers";
+import { handleChain, shortenAddress } from "@/utils/helpers";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, isAfter } from "date-fns";
 import dynamic from "next/dynamic";
@@ -87,7 +87,7 @@ const CreateEvent = () => {
     page: NFTsPage,
     size: 10,
     walletAddress: address,
-    chain: accountChain?.name === 'Ethereum' ? accountChain?.name?.substring(0,3)?.toLowerCase() : accountChain?.name?.toLowerCase(),
+    chain: handleChain(accountChain?.name),
     type: 'evm'
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
@@ -190,7 +190,7 @@ const CreateEvent = () => {
     setEligibleErr(undefined);
     const newEligibleContract = isFromOwnedList && ownedAddress && accountChain?.name ? {
       type: 'evm' as ContractType, // TODO: change when TON available
-      chain: accountChain?.name === 'Ethereum' ? accountChain?.name?.substring(0,3)?.toLowerCase() : accountChain?.name?.toLowerCase(),
+      chain: handleChain(accountChain?.name) || '',
       contractAddress: ownedAddress || ''
     } : {
       type: contractType,

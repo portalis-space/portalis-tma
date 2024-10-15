@@ -6,6 +6,7 @@ import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import { useGetEventsQuery } from "@/services/event/queries/GetEvents.query";
+import { handleChain } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -21,7 +22,7 @@ const ActiveEligibleEvent = () => {
     size: 10,
     eligibleEvent: true,
     wallet: address,
-    chain: chain?.name ? (chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase()) : 'eth',
+    chain: handleChain(chain?.name),
     type: 'evm',
     search: searchText,
     status: 'ONGOING'

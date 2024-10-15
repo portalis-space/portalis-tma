@@ -5,6 +5,7 @@ import EventCard from "@/components/molecules/EventCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import { useGetEventsQuery } from "@/services/event/queries/GetEvents.query";
+import { handleChain } from "@/utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -38,7 +39,7 @@ export default function Home() {
     size: 4,
     eligibleEvent: true,
     wallet: address,
-    chain: chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
+    chain: handleChain(chain?.name),
     type: 'evm', // TODO change when TON available
     status: 'ONGOING'
   });

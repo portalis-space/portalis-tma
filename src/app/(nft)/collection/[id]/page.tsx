@@ -6,7 +6,7 @@ import Loader from "@/components/molecules/Loader.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
 import { useGetCollectionQuery } from "@/services/web3/queries/GetCollection.query";
 import { useGetNFTsByContractQuery } from "@/services/web3/queries/GetNFTsByContract.query";
-import { handleImageBridge, shortenAddress } from "@/utils/helpers";
+import { handleChain, handleImageBridge, shortenAddress } from "@/utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -22,7 +22,7 @@ const CollectionDetail = ({ params: {id} }: { params: { id: string } }) => {
 
   const {isLoading: isCollectionQueryLoading, data: collectionQuery} = useGetCollectionQuery({
     contractAddress: id,
-    chain: chain?.name ? (chain.name === 'Ethereum' ? chain.name.substring(0,3)?.toLowerCase() : chain.name.toLowerCase()) : undefined,
+    chain: handleChain(chain?.name),
     type: 'evm' // TODO: change when TON available
   })
   const collectionData = useMemo(() => collectionQuery?.data, [collectionQuery?.data]);
@@ -30,7 +30,7 @@ const CollectionDetail = ({ params: {id} }: { params: { id: string } }) => {
   const {isLoading: isNFTsByContractLoading, data: getNFTsByContractQuery} = useGetNFTsByContractQuery({
     page: 1,
     size: 12,
-    chain: chain?.name ? (chain.name === 'Ethereum' ? chain.name?.substring(0,3)?.toLowerCase() : chain.name?.toLowerCase()) : undefined,
+    chain: handleChain(chain?.name),
     type: 'evm', // TODO: Change when TON available
     contractAddress: id
   });

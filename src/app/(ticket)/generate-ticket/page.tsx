@@ -7,7 +7,7 @@ import Modal from "@/components/molecules/Modal.molecule";
 import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
 import useGenerateTicket from "@/services/ticket/mutations/GenerateTicket.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
-import { handleImageBridge } from "@/utils/helpers";
+import { handleChain, handleImageBridge } from "@/utils/helpers";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -35,7 +35,7 @@ const GenerateTicket = () => {
     page: 1,
     size: 1,
     walletAddress: contractAddress ? address : undefined,
-    chain: chain?.name ? (chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase()) : undefined,
+    chain: handleChain(chain?.name),
     type: 'evm', // TODO: Change when TON available
     contractAddress: contractAddress ? [contractAddress] : undefined
   });
@@ -60,7 +60,7 @@ const GenerateTicket = () => {
   const handleGenerate = useCallback(() => {
     if (contractAddress && chain?.name && eventId && token && address) generateTicket.mutate({
       contractAddress,
-      chain: chain.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
+      chain: handleChain(chain?.name) || '',
       event: eventId,
       token,
       type: 'evm', // TODO: Change when TON available,

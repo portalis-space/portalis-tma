@@ -3,6 +3,7 @@ import Typography from "@/components/atoms/Typography.atom";
 import Loader from "@/components/molecules/Loader.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
 import { useGetNFTsByContractQuery } from "@/services/web3/queries/GetNFTsByContract.query";
+import { handleChain } from "@/utils/helpers";
 import Link from "next/link";
 import { useMemo } from "react";
 import { HiChevronDoubleRight } from "react-icons/hi2";
@@ -19,7 +20,7 @@ const AllEligibleCollection = ({contractAddress, name}: Props) => {
   const {isLoading: isGetNFTsByContractLoading, data: getNFTsByContractQuery} = useGetNFTsByContractQuery({
     page: 1,
     size: 5,
-    chain: chain?.name ? (chain.name === 'Ethereum' ? chain.name?.substring(0,3)?.toLowerCase() : chain.name?.toLowerCase()) : undefined,
+    chain: handleChain(chain?.name),
     type: 'evm', // TODO: Change when TON available
     contractAddress
   });

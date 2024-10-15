@@ -37,3 +37,49 @@ export const handleImageBridge = (uri?: string, isError?: boolean): string | und
   }
   return undefined;
 };
+
+export const handleChain = (chain?: string): string | undefined => {
+  if (chain) {
+    switch (chain.toLowerCase()) {
+      case 'ethereum':
+        return 'eth';
+      case 'binancesmartchain':
+        return 'bnb';
+      case 'polygon':
+        return 'polygon';
+      case 'arbitrum':
+        return 'arbitrum';
+      case 'optimism':
+        return 'optimism';
+      case 'zksync':
+        return 'zksync';
+      case 'linea':
+        return 'linea';
+      case 'base':
+        return 'base';
+      case 'avalanche':
+        return 'avalanche';
+      case 'moonbeam':
+        return 'moonbeam';
+      case 'platon':
+        return 'platon';
+      case 'cronos':
+        return 'cronos';
+      case 'fantom':
+        return 'fantom';
+      case 'gnosis':
+        return 'gnosis';
+      case 'viction':
+        return 'viction';
+      case 'starknet':
+        return 'starknet';
+      case 'mantle':
+        return 'mantle';
+      case 'blast':
+        return 'blast';
+      default:
+        return chain.toLowerCase();
+    }
+  }
+  return undefined;
+}

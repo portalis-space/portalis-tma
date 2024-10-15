@@ -6,6 +6,7 @@ import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
 import { EventType } from "@/services/event/Event.types";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
+import { handleChain } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
@@ -24,7 +25,7 @@ const OwnedEligibleCollection = ({eventData}: Props) => {
     page,
     size: 10,
     walletAddress: eventData?.attributes?.contractAddresses && eventData.attributes.contractAddresses.length > 0 && address ? address : undefined,
-    chain: chain?.name === 'Ethereum' ? chain?.name?.substring(0,3)?.toLowerCase() : chain?.name?.toLowerCase(),
+    chain: handleChain(chain?.name),
     type: 'evm', // TODO: Change when TON available
     contractAddress: eventData?.attributes?.contractAddresses && eventData.attributes.contractAddresses.length > 0 ?
       eventData.attributes.contractAddresses.map((address) => address.contract_address || '') : undefined
