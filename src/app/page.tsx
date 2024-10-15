@@ -134,9 +134,9 @@ export default function Home() {
                 weight="bold"
                 className="bg-gradient-to-b from-primary-purple-105 to-primary-blue-500 inline-block !text-transparent bg-clip-text"
               >
-                Upcoming Event
+                Discover Event
               </Typography>
-              <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/discover')}>See All</Button>
+              <Button size="small" variant="tinted" className="!text-primary-purple-105" onClick={() => router.push('/discover')}>Discover More</Button>
             </div>
             <SearchWithDebounce setSearchText={setSearchText} />
           </div>

@@ -81,6 +81,7 @@ export type EventAttributesType = {
   schedules?: EventSchedulesType[];
   scanners?: string[];
   contractAddresses?: EventContractAdressesType[];
+  status?: EventStatusType;
 }
 
 export type EventType = {

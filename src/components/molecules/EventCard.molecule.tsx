@@ -28,16 +28,24 @@ const EventCard = (props: Props) => {
                 height={540}
                 className="w-full h-48 lg:h-64 object-cover rounded-xl"
               />
-              <div className="absolute bottom-0 w-full bg-gradient-to-t backdrop-blur-sm from-white/30 to-white/[0.001] p-2 flex flex-row items-center justify-between">
+              <div className="absolute bottom-0 w-full bg-gradient-to-t backdrop-blur-sm from-black/50 via-black/20 to-black/[0.001] p-2 flex flex-row items-center justify-between">
                 <Typography weight="light" variant="text-base" className="!text-neutral-50 w-full">{event?.attributes?.title}</Typography>
                 <div className="w-20 h-12 flex flex-col items-center bg-neutral-200 rounded-lg px-1">
-                  <Typography variant="text-xs" className="!text-primary-purple-105">{event?.attributes?.startAt ? format(event.attributes.startAt, 'LLL, do') : '-'}</Typography>
-                  <div className="bg-gradient-to-br from-primary-purple-105 to-primary-blue-600 w-full h-[28px] flex items-center justify-center rounded-lg">
-                    <Typography variant="text-xs" className="!text-neutral-50">{event?.attributes?.startAt ? format(event.attributes.startAt, 'hh:mmaaa') : '-'}</Typography>
+                  <Typography variant="text-xs" className={cn(
+                    {"!text-primary-blue-700": event?.attributes?.status === 'UPCOMING'},
+                    {"!text-primary-purple-105 animate-pulse": event?.attributes?.status === 'ONGOING'},
+                    {"!text-neutral-500": event?.attributes?.status === 'PAST'},
+                  )}>{event?.attributes?.startAt ? format(event.attributes.startAt, 'LLL, do') : '-'}</Typography>
+                  <div className={cn("w-full h-[28px] flex items-center justify-center rounded-lg",
+                    {"bg-primary-blue-700": event?.attributes?.status === 'UPCOMING'},
+                    {"bg-primary-purple-105": event?.attributes?.status === 'ONGOING'},
+                    {"bg-neutral-500": event?.attributes?.status === 'PAST'},
+                  )}>
+                    <Typography variant="text-xs" className={cn("!text-neutral-50" , {"animate-pulse": event?.attributes?.status === 'ONGOING'})}>{event?.attributes?.startAt ? format(event.attributes.startAt, 'hh:mmaaa') : '-'}</Typography>
                   </div>
                 </div>
               </div>
-              <div className="absolute top-0 left-0 p-2 flex flex-row items-center">
+              <div className="absolute top-0 left-0 p-2 flex flex-row items-center gap-1">
                 <div className="bg-neutral-50 dark:bg-neutral-950 rounded-xl p-2">
                   <Typography weight="semi-bold" className="text-[10px]">{event?.attributes?.capacity} SEATS</Typography>
                 </div>

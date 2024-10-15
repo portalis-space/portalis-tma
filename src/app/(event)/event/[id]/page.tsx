@@ -178,27 +178,27 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
       </BottomArea>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="flex flex-col max-h-screen overflow-y-auto pb-16">
-          <Typography variant="text-base" weight="light" className="rounded-lg p-2 max-w-min border-2 border-primary-purple-105 flex flex-row items-center gap-2"><HiOutlineGlobeAlt />{eventData?.attributes?.timezone}</Typography>
+          <Typography variant="text-base" weight="light" className="rounded-lg p-2 max-w-min border-2 border-primary-blue-600 flex flex-row items-center gap-2"><HiOutlineGlobeAlt />{eventData?.attributes?.timezone}</Typography>
           {
             eventData?.attributes?.schedules && eventData.attributes.schedules.sort((a, b) => compareDesc(b.startAt, a.startAt)).map((schedule, index) => 
               <div className="flex flex-col" key={index}>
                 <div className={
-                  cn("w-5 h-[50px] border-r-2 border-primary-purple-105",
+                  cn("w-5 h-[50px] border-r-2 border-primary-blue-600",
                     {"border-neutral-500": schedule?.endAt && isAfter(now, schedule.endAt)},
-                    {"border-primary-blue-600": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                    {"border-primary-purple-105": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
                   )}
                 />
                 <div className="flex flex-row items-center gap-2">
                   <div className={
-                    cn("w-10 h-10 flex flex-col items-center bg-primary-purple-107 rounded-lg",
+                    cn("w-10 h-10 flex flex-col items-center bg-primary-blue-600 rounded-lg",
                       {"bg-neutral-500": schedule?.endAt && isAfter(now, schedule.endAt)},
-                      {"bg-primary-blue-600 animate-pulse": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                      {"bg-primary-purple-107 animate-pulse": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
                     )}>
                     <Typography weight="bold" className="text-neutral-50 text-[10px]">{schedule?.startAt ? format(schedule.startAt, 'LLL') : '-'}</Typography>
                     <Typography variant="text-xs" weight="bold" className={
-                      cn("text-neutral-50 bg-primary-purple-105 rounded px-2.5 py-0.5",
-                        {"bg-neutral-500": schedule?.endAt && isAfter(now, schedule.endAt)},
-                        {"bg-primary-blue-700": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
+                      cn("text-neutral-50 bg-primary-blue-700 rounded px-2.5 py-0.5",
+                        {"bg-neutral-600": schedule?.endAt && isAfter(now, schedule.endAt)},
+                        {"bg-primary-purple-105": schedule?.startAt && schedule?.endAt && isWithinInterval(now, {start:schedule.startAt, end:schedule.endAt})}
                       )}>{schedule?.startAt ? format(schedule.startAt, 'dd') : '-'}</Typography>
                   </div>
                   <div className="flex flex-col">

@@ -1,6 +1,5 @@
 "use client"
 import Typography from "@/components/atoms/Typography.atom";
-import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import InputWithIcon from "@/components/molecules/InputWithIcon.molecule";
 import { Switch } from "@/components/molecules/Switch.molecule";
 import { useAuthContext } from "@/contexts/Auth.context";
@@ -80,8 +79,6 @@ const MyProfile = () => {
             <Typography variant="text-xs">{isDarkMode ? 'ON' : 'OFF'}</Typography>
           </div>
         </div>
-        <Typography variant="text-sm" className="w-1/3">Copy Launch Param</Typography>
-        <ClipboardButton textToCopy={launchParam ? JSON.stringify(launchParam) : '-'} />
       </section>
     </main>
   )
