@@ -15,7 +15,8 @@ const AssignedEvent = () => {
     size: 10,
     "sort[schedule]": 'asc',
     search: searchText,
-    scannerEvent: true
+    scannerEvent: true,
+    status: ['ONGOING', 'UPCOMING']
   });
   const eventsData = useMemo(() => eventsQuery?.data, [eventsQuery?.data]);
   const eventsMeta = useMemo(() => eventsQuery?.meta, [eventsQuery?.meta]);
