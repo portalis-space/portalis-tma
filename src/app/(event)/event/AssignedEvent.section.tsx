@@ -21,7 +21,9 @@ const AssignedEvent = () => {
   const eventsMeta = useMemo(() => eventsQuery?.meta, [eventsQuery?.meta]);
   return (
     <section className="flex flex-col gap-3">
-      <SearchWithDebounce setSearchText={setSearchText} setPage={setPage} />
+      <div className="flex flex-col sticky top-0 py-2 z-50 bg-neutral-100 dark:bg-neutral-900">
+        <SearchWithDebounce setSearchText={setSearchText} setPage={setPage} />
+      </div>
       <div className="flex flex-col w-full gap-2">
         {
           eventsData?.map((event) => <EventCard key={event.id} event={event} />)

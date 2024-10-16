@@ -4,34 +4,37 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
-import { useAuthContext } from "@/contexts/Auth.context";
+import Modal from "@/components/molecules/Modal.molecule";
 import useSocket from "@/hooks/useSocket";
 import useGenerateQR from "@/services/ticket/mutations/GenerateQR.query";
-import { useGetTicketQuery } from "@/services/ticket/queries/GetTicket.query";
+import { useGetTicketKey, useGetTicketQuery } from "@/services/ticket/queries/GetTicket.query";
+import { useGetTicketsKey } from "@/services/ticket/queries/GetTickets.query";
 import { shortenAddress } from "@/utils/helpers";
+import { useQueryClient } from "@tanstack/react-query";
 import { differenceInMilliseconds, format, fromUnixTime } from "date-fns";
 import { useQRCode } from "next-qrcode";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { HiChevronRight, HiMapPin } from "react-icons/hi2";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { HiCheckCircle, HiChevronRight, HiMapPin } from "react-icons/hi2";
 import { useAccount } from "wagmi";
 
 const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
-  const {currentUserData} = useAuthContext();
-  const { broadcastData } = useSocket(currentUserData?.attributes?.userId || '');
+  const { scanListenerData } = useSocket();
   const { address } = useAccount();
   const router = useRouter();
   const { Canvas } = useQRCode();
+  const queryClient = useQueryClient();
 
   const [QR, setQR] = useState('');
   const [QRErrorMessage, setQRErrorMessage] = useState<string | undefined>(undefined);
   const [isGenerateQRLoading, setIsGenerateQRLoading] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   const {isLoading: isTicketQueryLoading, data: ticketQuery} = useGetTicketQuery({id});
   const ticketData = useMemo(() => ticketQuery?.data, [ticketQuery?.data]);
-console.log(broadcastData);
+
   const generateQR = useGenerateQR({
     onSuccess: (res) => {
       setQRErrorMessage(undefined);
@@ -80,6 +83,14 @@ console.log(broadcastData);
       timeoutRef.current = null;
     }
   }, []);
+
+  useEffect(() => {
+    if (scanListenerData && scanListenerData.ticket.ticketNumber === ticketData?.attributes.ticketNumber) {
+      setIsSuccessModalOpen(true);
+      queryClient.invalidateQueries({queryKey: [useGetTicketKey]});
+      queryClient.invalidateQueries({queryKey: [useGetTicketsKey]});
+    }
+  }, [queryClient, scanListenerData, ticketData?.attributes.ticketNumber])
 
   if (isTicketQueryLoading) {
     return (
@@ -186,6 +197,16 @@ console.log(broadcastData);
           )
         }
       </BottomArea>
+      <Modal isOpen={isSuccessModalOpen} onClose={() => setIsSuccessModalOpen(false)}>
+        <div className="flex flex-col gap-5 items-center justify-center py-20">
+          <div className="flex flex-col items-center w-full">
+            <HiCheckCircle className="text-primary-purple-105 w-1/2 h-auto animate-bounce" />
+            <Typography variant="text-xl" weight="bold">Scan Successful!</Typography>
+          </div>
+          <Button variant="outlined" onClick={() => router.push('/ticket')}>Go To My Ticket</Button>
+          <Button variant="outlined" onClick={() => setIsSuccessModalOpen(false)}>Close</Button>
+        </div>
+      </Modal>
     </main>
   )
 }

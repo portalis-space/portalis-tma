@@ -166,15 +166,17 @@ export type DeleteEventResponse = {
 
 // ############################################ PARTICIPANT / VISITOR
 
+export type EventVisitorAttributesType = {
+  event: EventAttributesType;
+  schedule: EventSchedulesType;
+  ticket: TicketAttributesType;
+  user: UserAttributesType;
+};
+
 export type EventVisitorType = {
   type: "participant";
   id: string;
-  attributes: {
-    event: EventAttributesType;
-    schedule: EventSchedulesType;
-    ticket: TicketAttributesType;
-    user: UserAttributesType;
-  };
+  attributes: EventVisitorAttributesType;
 }
 
 export type GetEventVisitorDataParams = {

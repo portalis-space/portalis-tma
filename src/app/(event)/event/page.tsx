@@ -18,13 +18,13 @@ const Discover = () => {
           size="small"
           variant="tinted"
           onClick={() => activeTab !== 'self' && router.push('/event?t=self')}
-          className={cn("w-full border-b-2 border-transparent rounded-none",{" border-primary-purple-105": activeTab === 'self'})}
+          className={cn("w-full border-2 border-transparent rounded-xl",{" border-primary-purple-105": activeTab === 'self'})}
         >Created</Button>
         <Button
           size="small"
           variant="tinted"
           onClick={() => activeTab !== 'assigned' && router.push('/event?t=assigned')}
-          className={cn("w-full border-b-2 border-transparent rounded-none",{"border-primary-purple-105": activeTab === 'assigned'})}
+          className={cn("w-full border-2 border-transparent rounded-xl",{"border-primary-purple-105": activeTab === 'assigned'})}
         >Assigned</Button>
       </div>
       {activeTab === 'self' && <MyEvent />}

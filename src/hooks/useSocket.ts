@@ -1,16 +1,22 @@
-// hooks/useSocket.ts
+import { useAuthContext } from '@/contexts/Auth.context';
+import { EventVisitorAttributesType } from '@/services/event/Event.types';
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 const SOCKET_SERVER_URL = process.env.NEXT_PUBLIC_WSS;
 
-const useSocket = (userId: string) => {
+const useSocket = () => {
+  const {currentUserData} = useAuthContext();
+  const userId = currentUserData?.id || '';
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [broadcastData, setBroadcastData] = useState<unknown>(null);
+  const [scanListenerData, setScanListenerData] = useState<EventVisitorAttributesType | undefined>(undefined);
 
   useEffect(() => {
     const newSocket = io(SOCKET_SERVER_URL, {
-      transports: ['websocket'], // Use WebSocket transport
+      // transports: ['websocket'], // Use WebSocket transport
+      extraHeaders: {
+        authorization: userId
+      }
     });
 
     setSocket(newSocket);
@@ -26,10 +32,30 @@ const useSocket = (userId: string) => {
       }
     });
 
-    // Listen for broadcasts for this userId
-    newSocket.on('broadcast', (data: undefined) => {
+    newSocket.on("connect_error", (error) => {
+      if (newSocket.active) {
+        // temporary failure, the socket will automatically try to reconnect
+        console.log('connect active')
+      } else {
+        // the connection was denied by the server
+        // in that case, `socket.connect()` must be manually called in order to reconnect
+        console.log(error.message);
+      }
+    });
+
+    newSocket.on('disconnect', (reason) => {
+      if (newSocket.active) {
+        // temporary disconnection, the socket will automatically try to reconnect
+      } else {
+        // the connection was forcefully closed by the server or the client itself
+        // in that case, `socket.connect()` must be manually called in order to reconnect
+        console.log(reason);
+      }
+    });
+
+    newSocket.on(userId, (data: EventVisitorAttributesType) => {
       console.log(`Received broadcast for user ${userId}:`, data);
-      setBroadcastData(data); // Update state with received data
+      setScanListenerData(data); // Update state with received data
     });
 
     // Cleanup on component unmount
@@ -38,7 +64,7 @@ const useSocket = (userId: string) => {
     };
   }, [userId]); // Re-run when userId changes
 
-  return { socket, broadcastData };
+  return { socket, scanListenerData };
 };
 
 export default useSocket;
