@@ -85,8 +85,9 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
   }, []);
 
   useEffect(() => {
-    if (scanListenerData && scanListenerData.ticket.ticketNumber === ticketData?.attributes.ticketNumber) {
+    if (scanListenerData?.participant?.ticket?.ticketNumber && ticketData?.attributes?.ticketNumber && scanListenerData.participant.ticket.ticketNumber === ticketData.attributes.ticketNumber) {
       setIsSuccessModalOpen(true);
+      setQR('');
       queryClient.invalidateQueries({queryKey: [useGetTicketKey]});
       queryClient.invalidateQueries({queryKey: [useGetTicketsKey]});
     }

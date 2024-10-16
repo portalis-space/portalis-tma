@@ -1,5 +1,5 @@
 import { useAuthContext } from '@/contexts/Auth.context';
-import { EventVisitorAttributesType } from '@/services/event/Event.types';
+import { WSEventVisitorAttributesType } from '@/services/event/Event.types';
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
@@ -9,7 +9,7 @@ const useSocket = () => {
   const {currentUserData} = useAuthContext();
   const userId = currentUserData?.id || '';
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [scanListenerData, setScanListenerData] = useState<EventVisitorAttributesType | undefined>(undefined);
+  const [scanListenerData, setScanListenerData] = useState<WSEventVisitorAttributesType | undefined>(undefined);
 
   useEffect(() => {
     const newSocket = io(SOCKET_SERVER_URL, {
@@ -53,7 +53,7 @@ const useSocket = () => {
       }
     });
 
-    newSocket.on(userId, (data: EventVisitorAttributesType) => {
+    newSocket.on(userId, (data: WSEventVisitorAttributesType) => {
       console.log(`Received broadcast for user ${userId}:`, data);
       setScanListenerData(data); // Update state with received data
     });

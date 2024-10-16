@@ -173,6 +173,10 @@ export type EventVisitorAttributesType = {
   user: UserAttributesType;
 };
 
+export type WSEventVisitorAttributesType = {
+  participant: EventVisitorAttributesType;
+}
+
 export type EventVisitorType = {
   type: "participant";
   id: string;
