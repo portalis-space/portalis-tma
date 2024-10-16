@@ -25,7 +25,7 @@ const ActiveEligibleEvent = () => {
     chain: handleChain(chain?.name),
     type: 'evm',
     search: searchText,
-    status: 'ONGOING'
+    status: ['ONGOING']
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);
   const eligibleEventMeta = useMemo(() => eligibleEventsQuery?.meta, [eligibleEventsQuery?.meta]);

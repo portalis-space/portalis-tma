@@ -4,6 +4,8 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
+import { useAuthContext } from "@/contexts/Auth.context";
+import useSocket from "@/hooks/useSocket";
 import useGenerateQR from "@/services/ticket/mutations/GenerateQR.query";
 import { useGetTicketQuery } from "@/services/ticket/queries/GetTicket.query";
 import { shortenAddress } from "@/utils/helpers";
@@ -16,6 +18,8 @@ import { HiChevronRight, HiMapPin } from "react-icons/hi2";
 import { useAccount } from "wagmi";
 
 const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
+  const {currentUserData} = useAuthContext();
+  const { broadcastData } = useSocket(currentUserData?.attributes?.userId || '');
   const { address } = useAccount();
   const router = useRouter();
   const { Canvas } = useQRCode();
@@ -27,7 +31,7 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
 
   const {isLoading: isTicketQueryLoading, data: ticketQuery} = useGetTicketQuery({id});
   const ticketData = useMemo(() => ticketQuery?.data, [ticketQuery?.data]);
-
+console.log(broadcastData);
   const generateQR = useGenerateQR({
     onSuccess: (res) => {
       setQRErrorMessage(undefined);

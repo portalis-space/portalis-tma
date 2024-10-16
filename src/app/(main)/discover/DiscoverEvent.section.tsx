@@ -15,7 +15,7 @@ const DiscoverEvent = () => {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
 
-  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page, size: 10, "sort[schedule]": 'asc', search: searchText, status: activeTab});
+  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page, size: 10, "sort[schedule]": 'asc', search: searchText, status: [activeTab]});
   const discoverEventsData = useMemo(() => discoverEventsQuery?.data, [discoverEventsQuery?.data]);
   const discoverEventsMeta = useMemo(() => discoverEventsQuery?.meta, [discoverEventsQuery?.meta]);
 

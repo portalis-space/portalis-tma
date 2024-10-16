@@ -66,9 +66,9 @@ export function useGetEventsQuery(
               ? `&isHighlighted=${params.isHighlighted}`
               : encodeURIComponent("")
           }${
-            params.status !== undefined
-              ? `&status=${params.status}`
-              : encodeURIComponent("")
+            params.status && params.status.length > 0 ?
+              params.status.map((status) => `&status[]=${status}`).join('') :
+              encodeURIComponent("")
           }${
             params.owner !== undefined
               ? `&owner=${params.owner}`

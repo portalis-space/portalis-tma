@@ -41,12 +41,12 @@ export default function Home() {
     wallet: address,
     chain: handleChain(chain?.name),
     type: 'evm', // TODO change when TON available
-    status: 'ONGOING'
+    status: ['ONGOING']
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);
   const {isLoading: isFeaturedEventsLoading, data: featuredEventsQuery} = useGetEventsQuery({page: 1, size: 4, isHighlighted: true});
   const featuredEventData = useMemo(() => featuredEventsQuery?.data, [featuredEventsQuery?.data]);
-  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page: 1, size: 4, "sort[schedule]": 'asc', search: searchText, status: 'UPCOMING'});
+  const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page: 1, size: 4, "sort[schedule]": 'asc', search: searchText, status: ['ONGOING', 'UPCOMING']});
   const discoverEventsData = useMemo(() => discoverEventsQuery?.data, [discoverEventsQuery?.data]);
 
   return (

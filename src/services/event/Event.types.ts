@@ -105,7 +105,7 @@ export type GetEventsParams = {
   type?: 'ton' | 'evm';
   eligibleEvent?: boolean;
   isHighlighted?: boolean;
-  status?: EventStatusType;
+  status?: EventStatusType[];
   owner?: string;
   scannerEvent?: boolean;
 }
