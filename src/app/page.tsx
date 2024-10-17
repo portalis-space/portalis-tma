@@ -6,7 +6,6 @@ import Loader from "@/components/molecules/Loader.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import { useGetEventsQuery } from "@/services/event/queries/GetEvents.query";
 import { handleChain } from "@/utils/helpers";
-import { swipeBehavior } from "@telegram-apps/sdk-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -50,8 +49,6 @@ export default function Home() {
   const {isLoading: isDiscoverEventsLoading, data: discoverEventsQuery} = useGetEventsQuery({page: 1, size: 4, "sort[schedule]": 'asc', search: searchText, status: ['ONGOING', 'UPCOMING']});
   const discoverEventsData = useMemo(() => discoverEventsQuery?.data, [discoverEventsQuery?.data]);
 
-  swipeBehavior.mount();
-  swipeBehavior.enableVertical();
   return (
       <main className="flex flex-col">
         <Image
@@ -151,7 +148,6 @@ export default function Home() {
           </div>
           <Button variant="filled" onClick={() => router.push('/discover')} className="w-1/2 self-center mt-3">Discover More</Button>
         </section>
-        <Typography>swipe is Supported{swipeBehavior.isSupported()}, is mounted {swipeBehavior.isMounted()}, is vertical {swipeBehavior.isVerticalEnabled()} </Typography>
       </main>
   )
 }
