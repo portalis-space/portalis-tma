@@ -1,21 +1,17 @@
 import React from "react";
 
-interface LoaderProps {
-  size?: number;  // Allows changing the size of the loader
+type Props = {
+  className?: string
 }
 
-const Loader: React.FC<LoaderProps> = ({ size = 24 }) => {
+const Loader: React.FC<Props> = ({className}) => {
   return (
     <div className="flex justify-center items-center h-full">
       <div
-        className={`loader`}
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-        }}
+        className={`loader after:bg-neutral-200 dark:after:bg-neutral-800 mt-10 ${className}`}
       >
-        {[...Array(12)].map((_, index) => (
-          <div key={index} className="loader-dot" />
+        {[...Array(4)].map((_, index) => (
+          <span key={index} />
         ))}
       </div>
     </div>

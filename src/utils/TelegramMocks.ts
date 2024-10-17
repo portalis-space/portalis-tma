@@ -6,9 +6,9 @@ import { mockTelegramEnv, isTMA } from '@telegram-apps/sdk-react';
 if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window !== "undefined") {
   mockTelegramEnv({
     "initData": {
-        "authDate": new Date ("2024-10-16T01:42:16.000Z"),
-        "hash": "fd220d1797c849b23376754f6bdcd4093d69aa6a84ea2918fa170348dd4f1d17",
-        "queryId": "AAE0CgByAAAAADQKAHLUyYz9",
+        "authDate": new Date("2024-10-17T03:03:32.000Z"),
+        "hash": "bc944ec0a2329f9ad4d695103239780a61de33e0b3a5504038b3b170106d7e13",
+        "queryId": "AAE0CgByAAAAADQKAHJV3cfE",
         "user": {
             "allowsWriteToPm": true,
             "firstName": "Gia",
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window 
             "username": "giaendong"
         }
     },
-    "initDataRaw": "query_id=AAE0CgByAAAAADQKAHLUyYz9&user=%7B%22id%22%3A1912605236%2C%22first_name%22%3A%22Gia%22%2C%22last_name%22%3A%22Endong%22%2C%22username%22%3A%22giaendong%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1729042936&hash=fd220d1797c849b23376754f6bdcd4093d69aa6a84ea2918fa170348dd4f1d17",
+    "initDataRaw": "query_id=AAE0CgByAAAAADQKAHJV3cfE&user=%7B%22id%22%3A1912605236%2C%22first_name%22%3A%22Gia%22%2C%22last_name%22%3A%22Endong%22%2C%22username%22%3A%22giaendong%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1729134212&hash=bc944ec0a2329f9ad4d695103239780a61de33e0b3a5504038b3b170106d7e13",
     "platform": "web",
     "themeParams": {
         "bgColor": "#212121",

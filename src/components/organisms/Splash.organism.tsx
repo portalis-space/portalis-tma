@@ -12,7 +12,7 @@ const Splash = () => {
           height={100}
           className="w-48 h-auto"
         />
-        <Loader />
+        <Loader className="after:!bg-neutral-950" />
       </div>
     </main>
   )
