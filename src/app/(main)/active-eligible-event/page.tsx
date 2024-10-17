@@ -5,25 +5,24 @@ import EventCard from "@/components/molecules/EventCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { useGetEventsQuery } from "@/services/event/queries/GetEvents.query";
-import { handleChain } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { useAccount } from "wagmi";
 
 const ActiveEligibleEvent = () => {
   const router = useRouter();
-  const {address, chainId, chain} = useAccount();
+  const {contract, activeWalletAddress, activeChain} = useContractContext();
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = useState(1);
 
   const {isLoading: isEligibleEventsLoading , data: eligibleEventsQuery} = useGetEventsQuery({
-    page: address && chainId ? page : undefined,
+    page: activeWalletAddress && activeChain ? page : undefined,
     size: 10,
     eligibleEvent: true,
-    wallet: address,
-    chain: handleChain(chain?.name),
-    type: 'evm',
+    wallet: activeWalletAddress,
+    chain: activeChain,
+    type: contract,
     search: searchText,
     status: ['ONGOING']
   });

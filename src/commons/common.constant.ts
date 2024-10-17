@@ -1,2 +1,1 @@
-export const sessionName = 'portalis-auth-token';
-export const sessionRefreshName = 'portalis-refresh-token';
+export const activeContractName = 'portalis-active-contract';

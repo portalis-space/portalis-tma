@@ -18,7 +18,7 @@ const MyProfile = () => {
   return (
     <main className="flex flex-col px-3 gap-2 min-h-screen">
       <section className="flex flex-col w-full gap-3">
-        <div className="flex flex-col lg:flex-row items-center gap-2 bg-gradient-to-tr from-primary-purple-107 via-primary-purple-105 to-primary-blue-600 p-4 rounded-xl">
+        <div className="flex flex-col items-center gap-2 bg-gradient-to-tr from-primary-purple-107 via-primary-purple-105 to-primary-blue-600 p-4 rounded-xl">
           <Typography variant="text-lg" weight="bold" className="text-center">My Profile</Typography> 
           {
             currentUserData?.attributes.profilePics ?

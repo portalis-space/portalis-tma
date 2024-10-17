@@ -9,6 +9,8 @@ import { wagmiAdapter, projectId } from '@/config'
 import { createAppKit } from '@reown/appkit/react' 
 import { mainnet, polygon } from '@reown/appkit/networks'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
+import { ContractProvider } from "@/contexts/Contract.context";
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 if (!projectId) {
   throw new Error('Project ID is not defined')
@@ -61,14 +63,18 @@ const Providers = ({ children, cookies }: { children: ReactNode; cookies: string
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <DarkModeProvider>
-            {children}
-            <ReactQueryDevtools initialIsOpen={false} />
-          </DarkModeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <TonConnectUIProvider manifestUrl="https://portalis.vercel.app/tonconnect-manifest.json">
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <ContractProvider>
+              <DarkModeProvider>
+                {children}
+                <ReactQueryDevtools initialIsOpen={false} />
+              </DarkModeProvider>
+            </ContractProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </TonConnectUIProvider>
     </WagmiProvider>
   );
 }

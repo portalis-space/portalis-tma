@@ -4,34 +4,34 @@ import Typography from "@/components/atoms/Typography.atom";
 import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { useGetCollectionQuery } from "@/services/web3/queries/GetCollection.query";
 import { useGetNFTsByContractQuery } from "@/services/web3/queries/GetNFTsByContract.query";
-import { handleChain, handleImageBridge, shortenAddress } from "@/utils/helpers";
+import { handleImageBridge, shortenAddress } from "@/utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { HiGift, HiOutlineQueueList } from "react-icons/hi2";
-import { useAccount } from "wagmi";
 
 const CollectionDetail = ({ params: {id} }: { params: { id: string } }) => {
   const router = useRouter();
-  const {chain} = useAccount();
+  const {contract, activeChain} = useContractContext();
 
   const [isImageError, setIsImageError] = useState(false);
   const isDrop = false;
 
   const {isLoading: isCollectionQueryLoading, data: collectionQuery} = useGetCollectionQuery({
     contractAddress: id,
-    chain: handleChain(chain?.name),
-    type: 'evm' // TODO: change when TON available
+    chain: activeChain,
+    type: contract
   })
   const collectionData = useMemo(() => collectionQuery?.data, [collectionQuery?.data]);
 
   const {isLoading: isNFTsByContractLoading, data: getNFTsByContractQuery} = useGetNFTsByContractQuery({
     page: 1,
     size: 12,
-    chain: handleChain(chain?.name),
-    type: 'evm', // TODO: Change when TON available
+    chain: activeChain,
+    type: contract,
     contractAddress: id
   });
   const NFtsData = useMemo(() => getNFTsByContractQuery?.data, [getNFTsByContractQuery?.data]);

@@ -5,6 +5,7 @@ import BottomArea from "@/components/molecules/BottomArea.molecule";
 import { ClipboardButton } from "@/components/molecules/ClipboardButton.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Modal from "@/components/molecules/Modal.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import useSocket from "@/hooks/useSocket";
 import useGenerateQR from "@/services/ticket/mutations/GenerateQR.query";
 import { useGetTicketKey, useGetTicketQuery } from "@/services/ticket/queries/GetTicket.query";
@@ -17,14 +18,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { HiCheckCircle, HiChevronRight, HiMapPin } from "react-icons/hi2";
-import { useAccount } from "wagmi";
 
 const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
   const { scanListenerData } = useSocket();
-  const { address } = useAccount();
   const router = useRouter();
   const { Canvas } = useQRCode();
   const queryClient = useQueryClient();
+  const {activeWalletAddress} = useContractContext();
 
   const [QR, setQR] = useState('');
   const [QRErrorMessage, setQRErrorMessage] = useState<string | undefined>(undefined);
@@ -54,7 +54,7 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
       // Schedule the next generation request based on the expiration time
       if (timeUntilExpiration > 0) {
         timeoutRef.current = setTimeout(() => {
-          generateQR.mutate({ticket: id, walletAddress: address as string}); // Re-trigger the mutation when QR expires
+          generateQR.mutate({ticket: id, walletAddress: activeWalletAddress || ''}); // Re-trigger the mutation when QR expires
         }, timeUntilExpiration);
       }
     },
@@ -71,9 +71,9 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
   });
 
   const handleGenerateQR = useCallback(() => {
-    if (id && address)
-      generateQR.mutate({ticket: id, walletAddress: address as string});
-  }, [address, generateQR, id]);
+    if (id && activeWalletAddress)
+      generateQR.mutate({ticket: id, walletAddress: activeWalletAddress});
+  }, [activeWalletAddress, generateQR, id]);
 
   const handleCloseQR = useCallback(() => {
     setQR(''); // Clear the QR
@@ -178,7 +178,7 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
         }
         {
           ticketData?.attributes.status !== 'USED' && (
-            address ? 
+            activeWalletAddress ? 
             <Button
               size="large"
               variant="filled"

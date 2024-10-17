@@ -3,13 +3,13 @@ import { useMemo, useState } from "react";
 import Typography from "@/components/atoms/Typography.atom";
 import TicketCard from "@/components/molecules/TicketCard.molecule";
 import { useGetTicketsQuery } from "@/services/ticket/queries/GetTickets.query";
-import { useAccount } from "wagmi";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 
 const MyTicket = () => {
-  const {address} = useAccount();
+  const {activeWalletAddress} = useContractContext();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
 
@@ -17,7 +17,7 @@ const MyTicket = () => {
     page,
     size: 10,
     search,
-    walletAddress: address
+    walletAddress: activeWalletAddress
   });
   const ticketsData = useMemo(() => getTicketsQuery?.data, [getTicketsQuery?.data]);
   const ticketsMeta = useMemo(() => getTicketsQuery?.meta, [getTicketsQuery?.meta]);

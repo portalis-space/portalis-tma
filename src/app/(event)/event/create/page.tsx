@@ -13,6 +13,7 @@ import Pagination from "@/components/molecules/Pagination.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
 import Uploader from "@/components/molecules/Uploader.molecule";
 import { useAuthContext } from "@/contexts/Auth.context";
+import { useContractContext } from "@/contexts/Contract.context";
 import { DayType } from "@/services/common/Common.types";
 import { EventScheduleTypeType } from "@/services/event/Event.types";
 import useCreateEvent from "@/services/event/mutations/CreateEvent.query";
@@ -22,23 +23,22 @@ import { UploaderAttributesType } from "@/services/uploader/Uploader.types";
 import { useGetChainsQuery } from "@/services/web3/queries/GetChains.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
 import { ContractType, EligibleContractType } from "@/services/web3/Web3.types";
-import { handleChain, shortenAddress } from "@/utils/helpers";
+import { shortenAddress } from "@/utils/helpers";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, isAfter } from "date-fns";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { HiCalendar, HiChevronRight, HiMapPin, HiOutlineArrowPath, HiOutlineArrowPathRoundedSquare, HiOutlineClock, HiPlus, HiUserGroup, HiXMark } from "react-icons/hi2";
-import { useAccount } from "wagmi";
 
 // dynamic maps
 const Maps = dynamic(() => import("@/components/organisms/Maps.organism"));
 
 const CreateEvent = () => {
   const queryClient = useQueryClient();
-  const { address, chain: accountChain } = useAccount();
   const router = useRouter();
   const {currentUserData} = useAuthContext();
+  const {contract, activeWalletAddress, activeChain} = useContractContext();
 
   const [eventImage, setEventImage] = useState<UploaderAttributesType | undefined>(undefined);
   const [title, setTitle] = useState("");
@@ -86,9 +86,9 @@ const CreateEvent = () => {
   const {isLoading: isOwnedNFTsLoading, data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({
     page: NFTsPage,
     size: 10,
-    walletAddress: address,
-    chain: handleChain(accountChain?.name),
-    type: 'evm'
+    walletAddress: activeWalletAddress,
+    chain: activeChain,
+    type: contract
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
   const ownedNFtsMeta= useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
@@ -188,9 +188,9 @@ const CreateEvent = () => {
 
   const handleAddEligibleContractAddress = useCallback((isFromOwnedList?: boolean, ownedAddress?: string) => {
     setEligibleErr(undefined);
-    const newEligibleContract = isFromOwnedList && ownedAddress && accountChain?.name ? {
-      type: 'evm' as ContractType, // TODO: change when TON available
-      chain: handleChain(accountChain?.name) || '',
+    const newEligibleContract = isFromOwnedList && ownedAddress && activeChain ? {
+      type: contract,
+      chain: activeChain || '',
       contractAddress: ownedAddress || ''
     } : {
       type: contractType,
@@ -206,7 +206,7 @@ const CreateEvent = () => {
     } else {
       setEligibleErr('contract address already exists');
     }
-  }, [contractType, chain, contractAddress, eligibleContracts, accountChain]);
+  }, [contractType, chain, contractAddress, eligibleContracts, activeChain, contract]);
 
   const handleRemoveEligibleContractAddress = useCallback((address: string) => {
     const newEligibleContract = eligibleContracts.filter(item => item.contractAddress !== address);;

@@ -2,12 +2,11 @@
 import Typography from "@/components/atoms/Typography.atom";
 import Loader from "@/components/molecules/Loader.molecule";
 import NFTCard from "@/components/molecules/NFTCard.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { useGetNFTsByContractQuery } from "@/services/web3/queries/GetNFTsByContract.query";
-import { handleChain } from "@/utils/helpers";
 import Link from "next/link";
 import { useMemo } from "react";
 import { HiChevronDoubleRight } from "react-icons/hi2";
-import { useAccount } from "wagmi";
 
 type Props = {
   contractAddress?: string;
@@ -15,13 +14,13 @@ type Props = {
 }
 
 const AllEligibleCollection = ({contractAddress, name}: Props) => {
-  const { chain } = useAccount();
-
+  const {contract, activeChain} = useContractContext();
+  
   const {isLoading: isGetNFTsByContractLoading, data: getNFTsByContractQuery} = useGetNFTsByContractQuery({
     page: 1,
     size: 5,
-    chain: handleChain(chain?.name),
-    type: 'evm', // TODO: Change when TON available
+    chain: activeChain,
+    type: contract,
     contractAddress
   });
   const NFtsData = useMemo(() => getNFTsByContractQuery?.data, [getNFTsByContractQuery?.data]);

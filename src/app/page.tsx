@@ -4,13 +4,12 @@ import Typography from "@/components/atoms/Typography.atom";
 import EventCard from "@/components/molecules/EventCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import SearchWithDebounce from "@/components/molecules/SearchWithDebounce.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { useGetEventsQuery } from "@/services/event/queries/GetEvents.query";
-import { handleChain } from "@/utils/helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Slider from "react-slick";
-import { useAccount } from "wagmi";
 
 const carouselSetting = {
   dots: true,
@@ -30,17 +29,17 @@ const eligibleSetting = {
 };
 
 export default function Home() {
+  const {contract, activeWalletAddress, activeChain} = useContractContext();
   const router = useRouter();
-  const {address, chain} = useAccount();
   const [searchText, setSearchText] = useState("");
 
   const {isLoading: isEligibleEventsLoading , data: eligibleEventsQuery} = useGetEventsQuery({
-    page: address && chain?.name ? 1 : undefined,
+    page: activeWalletAddress && activeChain ? 1 : undefined,
     size: 4,
     eligibleEvent: true,
-    wallet: address,
-    chain: handleChain(chain?.name),
-    type: 'evm', // TODO change when TON available
+    wallet: activeWalletAddress,
+    chain: activeChain,
+    type: contract,
     status: ['ONGOING']
   });
   const eligibleEventData = useMemo(() => eligibleEventsQuery?.data, [eligibleEventsQuery?.data]);

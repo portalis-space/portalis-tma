@@ -39,7 +39,7 @@ const SearchWithDebounce = ({setSearchText , setPage, className = '', isLoading,
   return (
     <InputWithIcon 
       headingIcon={
-        isLoading ? <Loader /> : <HiMagnifyingGlass className={cn("text-neutral-800 dark:text-neutral-200", className)} />
+        isLoading ? <Loader className="!mt-0 !w-4 !h-4 after:!top-0.5 after:!bottom-0.5 after:!left-0.5 after:!right-0.5" /> : <HiMagnifyingGlass className={cn("text-neutral-800 dark:text-neutral-200", className)} />
       }
       onChange={handleSearchText}
       {...props}

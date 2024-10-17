@@ -4,16 +4,16 @@ import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Modal from "@/components/molecules/Modal.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
 import useGenerateTicket from "@/services/ticket/mutations/GenerateTicket.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
-import { handleChain, handleImageBridge } from "@/utils/helpers";
+import { handleImageBridge } from "@/utils/helpers";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { HiMapPin } from "react-icons/hi2";
-import { useAccount } from "wagmi";
 
 const GenerateTicket = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const GenerateTicket = () => {
   const eventId = searchParams.get('id');
   const contractAddress = searchParams.get('address');
   const token = searchParams.get('token');
-  const { address, chain } = useAccount();
+  const {contract, activeWalletAddress, activeChain} = useContractContext();
 
   const [isImageError, setIsImageError] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -34,9 +34,9 @@ const GenerateTicket = () => {
   const {data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({
     page: 1,
     size: 1,
-    walletAddress: contractAddress ? address : undefined,
-    chain: handleChain(chain?.name),
-    type: 'evm', // TODO: Change when TON available
+    walletAddress: activeWalletAddress,
+    chain: activeChain,
+    type: contract,
     contractAddress: contractAddress ? [contractAddress] : undefined
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data[0], [getOwnedNFTsQuery?.data]);
@@ -58,15 +58,15 @@ const GenerateTicket = () => {
   });
 
   const handleGenerate = useCallback(() => {
-    if (contractAddress && chain?.name && eventId && token && address) generateTicket.mutate({
+    if (contractAddress && activeChain && eventId && token && activeWalletAddress) generateTicket.mutate({
       contractAddress,
-      chain: handleChain(chain?.name) || '',
+      chain: activeChain,
       event: eventId,
       token,
-      type: 'evm', // TODO: Change when TON available,
-      walletAddress: address
+      type: contract,
+      walletAddress: activeWalletAddress
     })
-  }, [address, chain?.name, contractAddress, eventId, generateTicket, token])
+  }, [activeWalletAddress, activeChain, contractAddress, eventId, generateTicket, token, contract])
 
   if (!eventId || !contractAddress || !token) {
     return (

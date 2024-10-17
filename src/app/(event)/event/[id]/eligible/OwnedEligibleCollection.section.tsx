@@ -4,12 +4,11 @@ import Typography from "@/components/atoms/Typography.atom";
 import CollectionCard from "@/components/molecules/CollectionCard.molecule";
 import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
+import { useContractContext } from "@/contexts/Contract.context";
 import { EventType } from "@/services/event/Event.types";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
-import { handleChain } from "@/utils/helpers";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
 
 type Props = {
   eventData?: EventType;
@@ -17,16 +16,16 @@ type Props = {
 
 const OwnedEligibleCollection = ({eventData}: Props) => {
   const router = useRouter();
-  const { address, chain } = useAccount();
+  const {contract, activeWalletAddress, activeChain} = useContractContext();
 
   const [page, setPage] = useState(1);
 
   const {isLoading: isGetOwnedNFTLoading, data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({
     page,
     size: 10,
-    walletAddress: eventData?.attributes?.contractAddresses && eventData.attributes.contractAddresses.length > 0 && address ? address : undefined,
-    chain: handleChain(chain?.name),
-    type: 'evm', // TODO: Change when TON available
+    walletAddress: eventData?.attributes?.contractAddresses && eventData.attributes.contractAddresses.length > 0 && activeWalletAddress ? activeWalletAddress : undefined,
+    chain: activeChain,
+    type: contract,
     contractAddress: eventData?.attributes?.contractAddresses && eventData.attributes.contractAddresses.length > 0 ?
       eventData.attributes.contractAddresses.map((address) => address.contract_address || '') : undefined
   });
