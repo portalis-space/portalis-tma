@@ -7,7 +7,7 @@ import { useDarkMode } from "@/contexts/DarkMode.context";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 import Image from "next/image";
 import Link from "next/link";
-import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiIdentification, HiOutlineWallet, HiTicket, HiUser, HiUserCircle } from "react-icons/hi2";
+import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiIdentification, HiOutlineWallet, HiTicket, HiUserCircle } from "react-icons/hi2";
 
 const MyProfile = () => {
   const launchParam = typeof window !== "undefined" && retrieveLaunchParams();
