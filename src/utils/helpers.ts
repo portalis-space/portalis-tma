@@ -83,3 +83,5 @@ export const handleChain = (chain?: string): string | undefined => {
   }
   return undefined;
 }
+
+export const parseNanoTon = (nanoTon?: string): string => nanoTon !== '0' ? (Number(nanoTon) / 1e9).toFixed(2).toString() : nanoTon;

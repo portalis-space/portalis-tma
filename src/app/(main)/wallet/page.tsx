@@ -9,7 +9,7 @@ import { useContractContext } from "@/contexts/Contract.context";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
 import { useGetTONBalanceQuery } from "@/services/web3/queries/GetTONBalance.query";
 import { cn } from "@/utils/cn";
-import { shortenAddress } from "@/utils/helpers";
+import { parseNanoTon, shortenAddress } from "@/utils/helpers";
 import { useAppKit, useWalletInfo } from "@reown/appkit/react";
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import Image from "next/image";
@@ -105,7 +105,7 @@ const Wallet = () => {
               TONBalance && 
               <>
                 <Image src={'/assets/ton-logo.png'} alt='eth-coin' width={48} height={48} className="w-auto h-8" />
-                <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{TONBalance} TON</Typography>
+                <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{parseNanoTon(TONBalance)} TON</Typography>
               </>
             )
           }
