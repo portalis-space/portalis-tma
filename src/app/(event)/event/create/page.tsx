@@ -439,7 +439,7 @@ const CreateEvent = () => {
           disabled={isCreateLoading || !title || !startDate || !endDate || !lat || !long || !capacity}
           onClick={handleCreate}
         >
-          {isCreateLoading ? <Loader /> : 'Create Event'}
+          {isCreateLoading ? 'Creating' : 'Create Event'}
         </Button>
         { createErrMessage && <Typography variant="text-xs" className="!text-red-500 text-center">{createErrMessage}</Typography> }
       </section>

@@ -185,7 +185,7 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
               className="rounded-full bg-primary-purple-106"
               onClick={QR !== '' ? handleCloseQR : handleGenerateQR}
             >
-                {isGenerateQRLoading ? <Loader /> : QR ? 'Close' : 'Show QR'}
+                {isGenerateQRLoading ? 'Loading..' : QR ? 'Close' : 'Show QR'}
             </Button> : 
             <Button
               size="large"

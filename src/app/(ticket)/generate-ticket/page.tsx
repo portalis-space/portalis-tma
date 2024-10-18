@@ -2,7 +2,6 @@
 import Button from "@/components/atoms/Button.atom";
 import Typography from "@/components/atoms/Typography.atom";
 import BottomArea from "@/components/molecules/BottomArea.molecule";
-import Loader from "@/components/molecules/Loader.molecule";
 import Modal from "@/components/molecules/Modal.molecule";
 import { useContractContext } from "@/contexts/Contract.context";
 import { useGetEventQuery } from "@/services/event/queries/GetEvent.query";
@@ -135,7 +134,7 @@ const GenerateTicket = () => {
             <Typography variant="text-base" weight="bold">Are You Sure?</Typography>
           </div>
           {generateTicketErrMessage && <Typography variant="text-xs" className="text-center !text-red-500">{generateTicketErrMessage}</Typography>}
-          <Button variant="outlined" onClick={handleGenerate} disabled={isGenerateTicketLoading}>{isGenerateTicketLoading ? <Loader /> : 'Generate Now'}</Button>
+          <Button variant="outlined" onClick={handleGenerate} disabled={isGenerateTicketLoading}>{isGenerateTicketLoading ? 'Generating' : 'Generate Now'}</Button>
           <Button variant="outlined" onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
         </div>
       </Modal>
