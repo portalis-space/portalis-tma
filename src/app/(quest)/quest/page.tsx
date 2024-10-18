@@ -1,8 +1,8 @@
 "use client"
 import Typography from "@/components/atoms/Typography.atom";
-import { useGetQuestQuery } from "@/services/quest/queries/GetQuests.query";
-import { useMemo } from "react";
-import { HiCheck } from "react-icons/hi2";
+// import { useGetQuestQuery } from "@/services/quest/queries/GetQuests.query";
+// import { useMemo } from "react";
+// import { HiCheck } from "react-icons/hi2";
 
 const Quest = () => {
   // const {data: questsQuery} = useGetQuestQuery();
