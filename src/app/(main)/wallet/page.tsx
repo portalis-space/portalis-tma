@@ -7,6 +7,7 @@ import Loader from "@/components/molecules/Loader.molecule";
 import Pagination from "@/components/molecules/Pagination.molecule";
 import { useContractContext } from "@/contexts/Contract.context";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
+import { useGetTONBalanceQuery } from "@/services/web3/queries/GetTONBalance.query";
 import { cn } from "@/utils/cn";
 import { shortenAddress } from "@/utils/helpers";
 import { useAppKit, useWalletInfo } from "@reown/appkit/react";
@@ -34,7 +35,10 @@ const Wallet = () => {
     type: contract
   });
   const ownedNFtsData = useMemo(() => getOwnedNFTsQuery?.data, [getOwnedNFTsQuery?.data]);
-  const ownedNFtsMeta= useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
+  const ownedNFtsMeta = useMemo(() => getOwnedNFTsQuery?.meta, [getOwnedNFTsQuery?.meta]);
+
+  const {isLoading: isGetTONBalanceLoading, data: TONBalanceQuery} = useGetTONBalanceQuery({walletAddress: contract === 'ton' && activeWalletAddress ? activeWalletAddress : undefined });
+  const TONBalance = useMemo(() => TONBalanceQuery?.result, [TONBalanceQuery?.result])
   
   return (
     <main className="flex flex-col px-3 gap-2 min-h-screen">
@@ -96,7 +100,13 @@ const Wallet = () => {
                 <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{balance.formatted} {balance.symbol}</Typography>
               </>
             ) : (
-              <></>
+              isGetTONBalanceLoading ? 
+              <Loader /> :
+              TONBalance && 
+              <>
+                <Image src={'/assets/ton-logo.png'} alt='eth-coin' width={48} height={48} className="w-auto h-8" />
+                <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{TONBalance} TON</Typography>
+              </>
             )
           }
         </div>

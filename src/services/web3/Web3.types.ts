@@ -163,3 +163,19 @@ export type GetCollectionResponse = {
   jsonapi: JsonAPIType;
   data: CollectionType;
 }
+
+export type GetTONBalanceParams = {
+  walletAddress?: string;
+}
+
+export type GetTONBalanceResponse = {
+  ok: boolean;
+  result: string;
+}
+
+export type GetTONBalanceError = {
+  ok: boolean;
+  result: string;
+  error: string;
+  code: number;
+}

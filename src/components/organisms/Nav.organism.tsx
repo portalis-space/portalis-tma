@@ -1,12 +1,15 @@
 "use client"
+import { useContractContext } from "@/contexts/Contract.context";
 import { cn } from "@/utils/cn";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiMiniFlag, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
 
 const Nav = () => {
+  const {contract} = useContractContext();
   const pathname = usePathname();
-  const router =useRouter();
+  const router = useRouter();
   return (
     <div className="fixed bottom-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-2">
       <div className="flex flex-row justify-around items-center h-12 bg-gradient-to-br from-primary-blue-500 to-primary-purple-105 rounded-full">
@@ -28,6 +31,14 @@ const Nav = () => {
         </Link>
         <HiChevronRight className="text-primary-purple-101 dark:text-primary-purple-109 w-6 h-6" role="button" onClick={() => router.forward()} />
       </div>
+      {
+        ['/', '/quest', '/create-utility', '/event', '/my-profile'].includes(pathname) && contract &&
+        <Link
+          href={'/wallet'}
+          className={`cursor-pointer absolute rounded-full w-10 h-10 bottom-16 left-4 overflow-hidden bg-gradient-to-br to-primary-purple-103 from-primary-blue-300 flex items-center justify-center border-2 border-primary-purple-105 shadow-md shadow-primary-purple-105 ${contract === 'evm' ? 'p-3' : ''}`}>
+          <Image src={contract === 'evm' ? '/assets/svg/eth-coin.svg' : '/assets/ton-logo.png'} alt='contract-logo' width={48} height={48} className="w-auto h-auto" />
+        </Link>
+      }
     </div>
   )
 }
