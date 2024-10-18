@@ -37,7 +37,7 @@ const Quest = () => {
   //   </main>
   // )
   return (
-    <main className="flex flex-col px-3 gap-5 h-screen items-center justify-center">
+    <main className="flex flex-col px-3 gap-5 h-screen items-center pt-[10%]">
       <Typography variant="text-lg" weight="bold" className="!text-primary-purple-105">Quest</Typography>
       <Typography
         variant="text-5xl"
