@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { HiXCircle } from 'react-icons/hi2';
 
 interface ModalProps {
   isOpen: boolean;
@@ -40,7 +41,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
             onClick={onClose}
           >
-            &times;
+            <HiXCircle />
           </button>
 
           {/* Modal Content */}

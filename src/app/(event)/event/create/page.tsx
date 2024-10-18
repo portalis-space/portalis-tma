@@ -445,7 +445,10 @@ const CreateEvent = () => {
       </section>
       <Modal
         isOpen={isDateModalOpen}
-        onClose={() => setIsDateModalOpen(false)}
+        onClose={() => {
+          setIsDateModalOpen(false);
+          handleRemoveDate();
+        }}
       >
         <div className="flex flex-col gap-2 py-4">
           <Typography variant="text-base" weight="bold" className="text-center">Set Your Event Date</Typography>
@@ -474,6 +477,11 @@ const CreateEvent = () => {
             </div>
           }
           { isIntervalError && <Typography variant="text-xs" className="!text-red-500">choose at least 1 day interval</Typography> }
+          <Button variant="filled" onClick={() => setIsDateModalOpen(false)} disabled={isStartAfterEnd || !startDate || !endDate || isIntervalError} className="mt-5">Save</Button>
+          <Button variant="outlined" onClick={() => {
+            setIsDateModalOpen(false);
+            handleRemoveDate();
+          }}>Cancel</Button>
         </div>
       </Modal>
       <Modal
