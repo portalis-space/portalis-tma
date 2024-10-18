@@ -15,7 +15,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { HiCalendar, HiChevronRight, HiMapPin, HiOutlineGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
+import { HiCalendar, HiChevronRight, HiExclamationTriangle, HiMapPin, HiOutlineGlobeAlt, HiQrCode, HiStar, HiUserCircle, HiUserGroup } from "react-icons/hi2";
 
 // dynamic maps
 const Maps = dynamic(() => import("@/components/organisms/Maps.organism"));
@@ -167,7 +167,7 @@ const EventDetail = ({ params: {id} }: { params: { id: string } }) => {
           currentUserData?.attributes?.username === eventData?.attributes?.owner?.username &&
           <Button size="small" variant="outlined" className="rounded-lg" onClick={() => setIsDeleteModalOpen(true)}>
             <span className="flex flex-row items-center gap-2">
-              <HiQrCode className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
+              <HiExclamationTriangle className="w-4 h-4 text-neutral-800 dark:text-neutral-200"/>
               <Typography variant="text-sm">Delete Event</Typography>
             </span>
           </Button>
