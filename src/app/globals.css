@@ -32,10 +32,16 @@ body {
   height: 60px;
   border-radius: 50%;
   background: linear-gradient(#b541fa, #7ce6f4);
-  animation: animate 1s linear infinite;
+  animation: loader-animate 1s linear infinite;
 }
 
-@keyframes animate {
+.nav-icon {
+  border-radius: 50%;
+  background: linear-gradient(#b541fa, #7ce6f4);
+  animation: loader-animate 8s linear infinite;
+}
+
+@keyframes loader-animate {
   0% {
     transform: rotate(0deg);
   }
