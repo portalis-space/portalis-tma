@@ -164,7 +164,7 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
         {QRErrorMessage && <Typography variant="text-xs" className="!text-red-500 bg-neutral-200 bg-opacity-15 backdrop-blur self-center max-w-min text-nowrap p-2 rounded">{QRErrorMessage}</Typography>}
         {
           QR && !isGenerateQRLoading &&
-          <div className="w-full md:w-1/2 lg:w-1/3 h-auto rounded-lg mb-3 mx-auto my-0 z-50 px-3 flex items-center justify-center">
+          <div className="w-full h-screen bg-black bg-opacity-25 backdrop-blur-xl rounded-lg mb-3 mx-auto my-0 z-50 px-3 flex items-center justify-center">
             <Canvas
               text={QR}
               options={{
@@ -184,8 +184,9 @@ const TicketDetail = ({ params: {id} }: { params: { id: string } }) => {
               variant="filled"
               className="rounded-full bg-primary-purple-106"
               onClick={QR !== '' ? handleCloseQR : handleGenerateQR}
+              isLoading={isGenerateQRLoading}
             >
-                {isGenerateQRLoading ? 'Loading..' : QR ? 'Close' : 'Show QR'}
+                {QR ? 'Close' : 'Show QR'}
             </Button> : 
             <Button
               size="large"

@@ -63,7 +63,7 @@ const Uploader: FC<UploaderPropsType> = ({
             alt="images"
             width={300}
             height={300}
-            className={cn("h-[200px] w-full rounded-lg", {"aspect-square": square})}
+            className={cn("h-[200px] w-auto rounded-lg", {"aspect-square": square})}
           />
         ) : (
           <>

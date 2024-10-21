@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from "react";
 import { cn } from "../../utils/cn";
 import { AventaBlack, AventaBold } from "@/fonts/Fonts";
-import Image from "next/image";
+import Loader from "../molecules/Loader.molecule";
 
 export interface ButtonProps {
   className?: string;
@@ -9,7 +9,7 @@ export interface ButtonProps {
   disabled?: boolean;
   variant?: "outlined" | "filled" | "tinted";
   size?: "large" | "medium" | "small";
-  loading?: boolean;
+  isLoading?: boolean;
 }
 const Button: FC<PropsWithChildren<ButtonProps>> = (props) => {
   const {
@@ -19,12 +19,12 @@ const Button: FC<PropsWithChildren<ButtonProps>> = (props) => {
     disabled = false,
     variant = "filled",
     size = "large",
-    loading = false,
+    isLoading = false,
   } = props;
 
   return (
     <button
-      disabled={disabled || loading}
+      disabled={disabled || isLoading}
       className={cn(
         // base style
         size === "small" ? AventaBlack.className : AventaBold.className,
@@ -42,7 +42,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = (props) => {
             variant === "outlined",
           "text-neutral-800 dark:text-neutral-200": variant === "tinted",
           "bg-neutral-500 text-neutral-900 border-transparent":
-            loading,
+            isLoading,
           "cursor-not-allowed bg-neutral-300 text-neutral-400 hover:text-neutral-400 hover:border-none hover:bg-neutral-300":
             disabled,
         },
@@ -50,17 +50,9 @@ const Button: FC<PropsWithChildren<ButtonProps>> = (props) => {
       )}
       onClick={onClick}
     >
-      {!loading && children}
-      {loading && 
-        <Image
-          src="/assets/gif/load.gif"
-          width={0}
-          height={0}
-          alt="loader"
-          priority
-          className="w-4 h-4"
-          unoptimized
-        />
+      {!isLoading && children}
+      {isLoading && 
+        <Loader className="mt-0 !w-5 !h-5 after:!top-0.5 after:!bottom-0.5 after:!left-0.5 after:!right-0.5 !overflow-hidden after:!bg-neutral-200" />
       }
     </button>
   );

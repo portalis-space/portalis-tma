@@ -134,7 +134,7 @@ const GenerateTicket = () => {
             <Typography variant="text-base" weight="bold">Are You Sure?</Typography>
           </div>
           {generateTicketErrMessage && <Typography variant="text-xs" className="text-center !text-red-500">{generateTicketErrMessage}</Typography>}
-          <Button variant="outlined" onClick={handleGenerate} disabled={isGenerateTicketLoading}>{isGenerateTicketLoading ? 'Generating' : 'Generate Now'}</Button>
+          <Button variant="outlined" onClick={handleGenerate} disabled={isGenerateTicketLoading} isLoading={isGenerateTicketLoading}>Generate Now</Button>
           <Button variant="outlined" onClick={() => setIsConfirmationModalOpen(false)}>Cancel</Button>
         </div>
       </Modal>

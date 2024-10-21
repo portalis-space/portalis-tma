@@ -6,9 +6,9 @@ import { mockTelegramEnv, isTMA } from '@telegram-apps/sdk-react';
 if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window !== "undefined") {
   mockTelegramEnv({
     "initData": {
-        "authDate": new Date("2024-10-18T03:59:33.000Z"),
-        "hash": "8d7144b3af09826c46ec6bf11252b7d45615dedb58ea10c899831b5904b7acc4",
-        "queryId": "AAE0CgByAAAAADQKAHLrY2Sv",
+        "authDate": new Date("2024-10-21T01:49:11.000Z"),
+        "hash": "38a36e123cef2bcebed0c3c2c9bb316df378e47381519f25e08939b14de5ce59",
+        "queryId": "AAE0CgByAAAAADQKAHKzWJ4h",
         "user": {
             "allowsWriteToPm": true,
             "firstName": "Gia",
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window 
             "username": "giaendong"
         }
     },
-    "initDataRaw": "query_id=AAE0CgByAAAAADQKAHLrY2Sv&user=%7B%22id%22%3A1912605236%2C%22first_name%22%3A%22Gia%22%2C%22last_name%22%3A%22Endong%22%2C%22username%22%3A%22giaendong%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1729223973&hash=8d7144b3af09826c46ec6bf11252b7d45615dedb58ea10c899831b5904b7acc4",
+    "initDataRaw": "query_id=AAE0CgByAAAAADQKAHKzWJ4h&user=%7B%22id%22%3A1912605236%2C%22first_name%22%3A%22Gia%22%2C%22last_name%22%3A%22Endong%22%2C%22username%22%3A%22giaendong%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1729475351&hash=38a36e123cef2bcebed0c3c2c9bb316df378e47381519f25e08939b14de5ce59",
     "platform": "web",
     "themeParams": {
         "bgColor": "#212121",
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'development' && !isTMA('simple') && typeof window 
         "destructiveTextColor": "#ff595a"
     },
     "version": "7.10"
-  });
+});
   console.info(
     'As long as the current environment was not considered as the Telegram-based one, it was mocked. Take a note, that you should not do it in production and current behavior is only specific to the development process. Environment mocking is also applied only in development mode. So, after building the application, you will not see this behavior and related warning, leading to crashing the application outside Telegram.',
   );
