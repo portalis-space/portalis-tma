@@ -63,7 +63,7 @@ const Providers = ({ children, cookies }: { children: ReactNode; cookies: string
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-      <TonConnectUIProvider manifestUrl="https://portalis.vercel.app/tonconnect-manifest.json">
+      <TonConnectUIProvider manifestUrl={`${process.env.NEXT_PUBLIC_APP_URL}${process.env.NEXT_PUBLIC_TON_MANIFEST_PATH}`}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <ContractProvider>
