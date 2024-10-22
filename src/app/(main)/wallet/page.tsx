@@ -96,7 +96,7 @@ const Wallet = () => {
               <Loader /> :
               balance && 
               <>
-                <Image src={'/assets/svg/eth-coin.svg'} alt='eth-coin' width={48} height={48} className="w-auto h-8" />
+                <Image src={'/assets/eth-logo.png'} alt='eth-logo' width={48} height={48} className="w-auto h-8" />
                 <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{balance.formatted} {balance.symbol}</Typography>
               </>
             ) : (
@@ -104,7 +104,7 @@ const Wallet = () => {
               <Loader /> :
               TONBalance && 
               <>
-                <Image src={'/assets/ton-logo.png'} alt='eth-coin' width={48} height={48} className="w-auto h-8" />
+                <Image src={'/assets/ton-logo.png'} alt='ton-logo' width={48} height={48} className="w-auto h-8" />
                 <Typography variant="text-lg" weight="bold" className="text-primary-purple-106">{parseNanoTon(TONBalance)} TON</Typography>
               </>
             )

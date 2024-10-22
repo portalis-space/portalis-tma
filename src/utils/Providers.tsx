@@ -19,7 +19,7 @@ const metadata = {
   name: 'Portalis Dev',
   description: 'AppKit Example',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://portalis.vercel.app', // origin must match your domain & subdomain
-  icons: [`${process.env.NEXT_PUBLIC_APP_URL}/assets/portalis-logo.png`]
+  icons: [`${process.env.NEXT_PUBLIC_APP_URL}/assets/portalis-icon.png`]
 }
 // Create the modal
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

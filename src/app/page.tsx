@@ -52,12 +52,12 @@ export default function Home() {
       <main className="flex flex-col">
         <Image
           alt="logo"
-          src={'/assets/portalis-logo.png'}
+          src={'/assets/portalis-logo-horizontal.png'}
           width={100}
           height={100}
           className="w-auto h-1/6 self-center"
         />
-        <section className="slider-container px-3 mb-10 mt-2">
+        <section className="slider-container px-3 mb-10 mt-8">
           <Slider {...carouselSetting}>
             <Image
               src={'/assets/event-placeholder.jpg'}
