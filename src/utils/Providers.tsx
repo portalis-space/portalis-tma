@@ -16,8 +16,8 @@ if (!projectId) {
   throw new Error('Project ID is not defined')
 }
 const metadata = {
-  name: 'Portalis Dev',
-  description: 'AppKit Example',
+  name: 'Portalis',
+  description: 'Portalis App',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://portalis.vercel.app', // origin must match your domain & subdomain
   icons: [`${process.env.NEXT_PUBLIC_APP_URL}/assets/portalis-icon.png`]
 }
@@ -59,7 +59,6 @@ const Providers = ({ children, cookies }: { children: ReactNode; cookies: string
       }
     };
   }, []);
-
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>

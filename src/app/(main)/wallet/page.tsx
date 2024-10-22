@@ -86,7 +86,6 @@ const Wallet = () => {
       <section className="flex flex-col w-full gap-3 bg-gradient-to-tr from-primary-purple-107 via-primary-purple-105 to-primary-blue-600 p-4 rounded-xl">
         <Typography variant="text-2xl" weight="bold" className="text-center">My Wallet</Typography>
         <div className="flex flex-col items-center gap-1">
-          <Typography weight="bold" variant="text-xs">ACTIVE CONTRACT</Typography>
           <Dropdown options={contractTypeOptions} label="Contract Type" onSelect={handleSelectContractType} selectedOption={contract} />
         </div>
         <div className="flex flex-row justify-between items-center">
