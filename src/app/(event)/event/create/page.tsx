@@ -20,7 +20,7 @@ import useCreateEvent from "@/services/event/mutations/CreateEvent.query";
 import { useGetEventsKey } from "@/services/event/queries/GetEvents.query";
 import { useGetSearchGeocodingQuery } from "@/services/map/queries/useSearchGeocoding.query";
 import { UploaderAttributesType } from "@/services/uploader/Uploader.types";
-import { useGetChainsQuery } from "@/services/web3/queries/GetChains.query";
+// import { useGetChainsQuery } from "@/services/web3/queries/GetChains.query";
 import { useGetOwnedNFTsQuery } from "@/services/web3/queries/GetOwnedNFTs.query";
 import { ContractType, EligibleContractType } from "@/services/web3/Web3.types";
 import { shortenAddress } from "@/utils/helpers";
@@ -80,8 +80,9 @@ const CreateEvent = () => {
     [searchGeocodingQuery]
   );
 
-  const {data: chainsQuery} = useGetChainsQuery({contractType});
-  const chainsData = useMemo(() => chainsQuery?.data, [chainsQuery?.data]);
+  // ================== REMOVE COMMENT WHEN MANUAL ADD NFT AVAILABLE ===================
+  // const {data: chainsQuery} = useGetChainsQuery({contractType});
+  // const chainsData = useMemo(() => chainsQuery?.data, [chainsQuery?.data]);
 
   const {isLoading: isOwnedNFTsLoading, data: getOwnedNFTsQuery} = useGetOwnedNFTsQuery({
     page: NFTsPage,
@@ -152,38 +153,39 @@ const CreateEvent = () => {
     { id: "SATURDAY", label: "Saturday" },
   ];
 
-  const contractTypeOptions: DropdownOption[] = [
-    {
-      id: 'evm',
-      element: (<Typography variant='text-base'>EVM</Typography>)
-    },
-    {
-      id: 'ton',
-      element: (<Typography variant='text-base'>TON</Typography>)
-    }
-  ]
+  // ================== REMOVE COMMENT WHEN MANUAL ADD NFT AVAILABLE ===================
+  // const contractTypeOptions: DropdownOption[] = [
+  //   {
+  //     id: 'evm',
+  //     element: (<Typography variant='text-base'>EVM</Typography>)
+  //   },
+  //   {
+  //     id: 'ton',
+  //     element: (<Typography variant='text-base'>TON</Typography>)
+  //   }
+  // ]
 
-  const chainOptions: DropdownOption[] = chainsData?.attributes ? Object.keys(chainsData.attributes).map((chain) => ({
-    id: chain.toLowerCase(),
-    element: (<Typography variant='text-base'>{chain}</Typography>)
-  })) : [];
+  // const chainOptions: DropdownOption[] = chainsData?.attributes ? Object.keys(chainsData.attributes).map((chain) => ({
+  //   id: chain.toLowerCase(),
+  //   element: (<Typography variant='text-base'>{chain}</Typography>)
+  // })) : [];
+
+  // const handleSelectContractType = useCallback((optionId: string) => {
+  //   setContractType(optionId as ContractType);
+  //   setChain('');
+  //   setContractAddress('');
+  // }, []);
+
+  // const handleSelectChain = useCallback((optionId: string) => {
+  //   setChain(optionId);
+  //   setContractAddress('');
+  // }, []);
 
   const isStartAfterEnd = startDate && endDate && isAfter(startDate, endDate);
   const isIntervalError = scheduleType === 'WEEKLY' && !(scheduleInterval && scheduleInterval.length > 0);
 
   const handleSelectScheduleType = useCallback((optionId: string) => {
     setScheduleType(optionId as EventScheduleTypeType);
-  }, []);
-
-  const handleSelectContractType = useCallback((optionId: string) => {
-    setContractType(optionId as ContractType);
-    setChain('');
-    setContractAddress('');
-  }, []);
-
-  const handleSelectChain = useCallback((optionId: string) => {
-    setChain(optionId);
-    setContractAddress('');
   }, []);
 
   const handleAddEligibleContractAddress = useCallback((isFromOwnedList?: boolean, ownedAddress?: string) => {
@@ -489,18 +491,18 @@ const CreateEvent = () => {
         isOpen={isContractModalOpen}
         onClose={() => setIsContractModalOpen(false)}
       >
-        <div className="flex flex-col gap-2 py-4">
+        {/* <div className="flex flex-col gap-2 py-4">
           <Typography variant="text-base" weight="bold" className="text-center">Set Your Eligible Contract</Typography>
           <Dropdown options={contractTypeOptions} label="Contract Type" onSelect={handleSelectContractType} selectedOption={contractType} />
           <Dropdown options={chainOptions} label="Chain" onSelect={handleSelectChain} selectedOption={chain} />
           <Input value={contractAddress} onChange={(e) => setContractAddress(e.target.value)} placeholder="Input Your Contract Address" />
           <Button variant="outlined" onClick={handleAddEligibleContractAddress} disabled={!contractType || !chain || !contractAddress}>Add</Button>
           {eligibleErr && <Typography variant="text-xs" className="!text-red-500">{eligibleErr}</Typography>}
-        </div>
+        </div> */}
         {
-          ownedNFtsData && ownedNFtsData.length > 0 ?
+          !isOwnedNFTsLoading && ownedNFtsData && ownedNFtsData.length > 0 ?
           <div className="flex flex-col gap-2 py-4">
-            <Typography variant="text-base" weight="bold" className="text-center">- or -</Typography>
+            {/* <Typography variant="text-base" weight="bold" className="text-center">- or -</Typography> */}
             <Typography variant="text-base" weight="bold" className="text-center">Owned NFT</Typography>
             <div className="flex flex-row flex-wrap">
               {
@@ -520,8 +522,9 @@ const CreateEvent = () => {
             <Pagination page={NFTsPage} setPage={setNFTsPage} meta={ownedNFtsMeta} />
           </div> :
           <div className="flex flex-col gap-2 py-4">
-            <Typography variant="text-base" weight="bold" className="text-center">- or -</Typography>
+            <Typography variant="text-base" weight="bold" className="text-center">You don&apos;t have any eligible NFT</Typography>
             <Button variant="outlined" onClick={() => router.push('/wallet')}>Connect / Switch Your Wallet</Button>
+            <Button variant="outlined" onClick={() => setIsContractModalOpen(false)}>Cancel</Button>
           </div>
         }
         {
