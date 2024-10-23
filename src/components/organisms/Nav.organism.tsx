@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
-import { BackButton } from '@/utils/TMABackButton';
+import { TMABackButton } from '@/utils/TMABackButton';
 
 const Nav = () => {
   const {contract} = useContractContext();
@@ -25,6 +25,7 @@ const Nav = () => {
   return (
     <div className="fixed bottom-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-2">
       <div className="flex flex-row justify-around items-center h-12 bg-gradient-to-br from-primary-blue-500 to-primary-purple-105 rounded-full">
+      <TMABackButton />
         <HiChevronLeft className="text-primary-purple-101 dark:text-primary-purple-109 w-6 h-6" role="button" onClick={() => router.back()} />
         <Link href={'/'}>
           <HiHome className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/'})} />
@@ -48,7 +49,6 @@ const Nav = () => {
         </Link>
         <HiChevronRight className="text-primary-purple-101 dark:text-primary-purple-109 w-6 h-6" role="button" onClick={() => router.forward()} />
       </div>
-      <BackButton />
     </div>
   )
 }
