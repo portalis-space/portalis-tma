@@ -1,15 +1,23 @@
 "use client"
 import { useContractContext } from "@/contexts/Contract.context";
 import { cn } from "@/utils/cn";
+import { backButton } from "@telegram-apps/sdk-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
 
 const Nav = () => {
   const {contract} = useContractContext();
   const pathname = usePathname();
   const router = useRouter();
+  useEffect(() => {
+    if (backButton.isSupported()) {
+      backButton.mount();
+      backButton.onClick(() => router.back())
+    }
+  }, [router])
   return (
     <div className="fixed bottom-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-2">
       <div className="flex flex-row justify-around items-center h-12 bg-gradient-to-br from-primary-blue-500 to-primary-purple-105 rounded-full">

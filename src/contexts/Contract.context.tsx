@@ -33,7 +33,6 @@ export const ContractProvider: React.FC<{ children: ReactNode }> = ({ children }
   useEffect(() => {
     const getFromCookies = Cookies.get(activeContractName) as ContractType;
     if (getFromCookies) {
-      console.log('called', getFromCookies);
       _setContract(getFromCookies)
     }
   }, [])
