@@ -1,31 +1,19 @@
 "use client"
 import { useContractContext } from "@/contexts/Contract.context";
 import { cn } from "@/utils/cn";
-import { init, backButton } from "@telegram-apps/sdk-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
-import { TMABackButton } from '@/utils/TMABackButton';
 
 const Nav = () => {
   const {contract} = useContractContext();
   const pathname = usePathname();
   const router = useRouter();
-
-  if (backButton.isSupported()){
-    // Initialize the package.
-    init();
-
-    // Mount the Back Button, so we will work with 
-    // the actual component properties.
-    backButton.mount();
-  }
   
   return (
     <div className="fixed bottom-0 z-50 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-2">
       <div className="flex flex-row justify-around items-center h-12 bg-gradient-to-br from-primary-blue-500 to-primary-purple-105 rounded-full">
-      <TMABackButton />
         <HiChevronLeft className="text-primary-purple-101 dark:text-primary-purple-109 w-6 h-6" role="button" onClick={() => router.back()} />
         <Link href={'/'}>
           <HiHome className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/'})} />
