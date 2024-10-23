@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiMiniFlag, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
+import { HiChevronLeft, HiChevronRight, HiClock, HiHome, HiPlusCircle, HiUserCircle } from "react-icons/hi2";
 
 const Nav = () => {
   const {contract} = useContractContext();
@@ -17,11 +17,16 @@ const Nav = () => {
         <Link href={'/'}>
           <HiHome className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/'})} />
         </Link>
-        <Link href={'/quest'}>
-          <HiMiniFlag className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/quest'})}/>
-        </Link>
         <Link href={'/create-utility'}>
           <HiPlusCircle className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/create-utility'})}/>
+        </Link>
+        <Link
+          href={'/wallet'}
+          className={`cursor-pointer relative rounded-full w-10 h-10 overflow-hidden flex items-center justify-center ${contract === 'evm' ? 'p-3' : ''}`}>
+          <div className="nav-icon w-full h-full absolute" />
+          <div className="absolute w-8 h-8 bg-neutral-900 rounded-full p-1 flex flex-row items-center justify-center">
+            <Image src={contract === 'evm' ? '/assets/eth-logo.png' : '/assets/ton-logo.png'} alt='contract-logo' width={0} height={0} className="w-auto h-6 p-1" />
+          </div>
         </Link>
         <Link href={'/event'}>
           <HiClock className={cn("w-6 h-6 text-primary-purple-101 dark:text-primary-purple-109", {"dark:text-primary-purple-101 text-primary-purple-109" : pathname === '/event'})}/>
@@ -31,17 +36,6 @@ const Nav = () => {
         </Link>
         <HiChevronRight className="text-primary-purple-101 dark:text-primary-purple-109 w-6 h-6" role="button" onClick={() => router.forward()} />
       </div>
-      {
-        ['/', '/quest', '/create-utility', '/event', '/my-profile'].includes(pathname) && contract &&
-        <Link
-          href={'/wallet'}
-          className={`cursor-pointer absolute rounded-full w-10 h-10 bottom-16 left-4 overflow-hidden flex items-center justify-center ${contract === 'evm' ? 'p-3' : ''}`}>
-          <div className="nav-icon w-full h-full absolute" />
-          <div className="absolute w-8 h-8 bg-neutral-300 dark:bg-neutral-900 rounded-full p-1 flex flex-row items-center justify-center">
-            <Image src={contract === 'evm' ? '/assets/eth-logo.png' : '/assets/ton-logo.png'} alt='contract-logo' width={0} height={0} className="w-auto h-6 p-1" />
-          </div>
-        </Link>
-      }
     </div>
   )
 }

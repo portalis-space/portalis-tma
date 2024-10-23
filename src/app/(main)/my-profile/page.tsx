@@ -7,7 +7,7 @@ import { useDarkMode } from "@/contexts/DarkMode.context";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
 import Image from "next/image";
 import Link from "next/link";
-import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiIdentification, HiOutlineWallet, HiTicket, HiUserCircle } from "react-icons/hi2";
+import { HiAtSymbol, HiChatBubbleLeft, HiChevronRight, HiFlag, HiIdentification, HiTicket, HiUserCircle } from "react-icons/hi2";
 
 const MyProfile = () => {
   const launchParam = typeof window !== "undefined" && retrieveLaunchParams();
@@ -47,17 +47,17 @@ const MyProfile = () => {
           </div>
         </div>
         <div className="w-full border-y border-neutral-500" />
-        <Link href={'/wallet'} className="flex flex-row items-center justify-between rounded-xl w-full bg-neutral-200 dark:bg-neutral-800 p-3">
-          <div className="flex flex-row items-center gap-2">
-            <HiOutlineWallet className="text-neutral-800 dark:text-neutral-200" />
-            <Typography variant="text-sm" weight="bold">My Wallet</Typography>
-          </div>
-          <HiChevronRight className="text-neutral-800 dark:text-neutral-200" />
-        </Link>
         <Link href={'/ticket'} className="flex flex-row items-center justify-between rounded-xl w-full bg-neutral-200 dark:bg-neutral-800 p-3">
           <div className="flex flex-row items-center gap-2">
             <HiTicket className="text-neutral-800 dark:text-neutral-200" />
             <Typography variant="text-sm" weight="bold">My Ticket</Typography>
+          </div>
+          <HiChevronRight className="text-neutral-800 dark:text-neutral-200" />
+        </Link>
+        <Link href={'/quest'} className="flex flex-row items-center justify-between rounded-xl w-full bg-neutral-200 dark:bg-neutral-800 p-3">
+          <div className="flex flex-row items-center gap-2">
+            <HiFlag className="text-neutral-800 dark:text-neutral-200" />
+            <Typography variant="text-sm" weight="bold">My Quest</Typography>
           </div>
           <HiChevronRight className="text-neutral-800 dark:text-neutral-200" />
         </Link>

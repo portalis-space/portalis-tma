@@ -13,7 +13,6 @@ import Slider from "react-slick";
 
 const carouselSetting = {
   dots: true,
-  infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -21,7 +20,6 @@ const carouselSetting = {
 };
 const eligibleSetting = {
   dots: true,
-  infinite: false,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -59,22 +57,38 @@ export default function Home() {
         />
         <section className="slider-container px-3 mb-10 mt-8">
           <Slider {...carouselSetting}>
-            <Image
-              src={'/assets/event-placeholder.jpg'}
-              alt="slider1"
-              width={1920}
-              height={1080}
-              className="w-full h-[200px] lg:h-[200px] object-cover rounded-lg"
-              priority
-            />
-            <Image
-              src={'/assets/event-placeholder.jpg'}
-              alt="slider1"
-              width={1920}
-              height={1080}
-              className="w-full h-[200px] lg:h-[200px] object-cover rounded-lg"
-              priority
-            />
+            <div className="w-full h-[200px] lg:h-[400px] rounded-lg relative">
+              <Image
+                src={'/assets/Slider1.jpeg'}
+                alt="slider1"
+                width={1920}
+                height={1080}
+                className="w-full h-[200px] lg:h-[400px] object-cover rounded-lg"
+                priority
+              />
+              <div className="absolute bottom-2 w-full">
+                <div className="max-w-min mx-auto my-0 flex flex-col items-center bg-black bg-opacity-20 p-2 backdrop-blur rounded-xl gap-3">
+                  <Typography className="text-xs lg:text-base whitespace-nowrap !text-neutral-200" weight="bold">Let your NFTs unlock real-world utility!</Typography>
+                  <Button variant="tinted" onClick={() => router.push('/create-utility')} className="!text-xs !text-neutral-200 !border-neutral-200 !border">Create Now</Button>
+                </div>
+              </div>
+            </div>
+            <div className="w-full h-[200px] lg:h-[400px] rounded-lg relative">
+              <Image
+                src={'/assets/Slider2.jpeg'}
+                alt="slider1"
+                width={1920}
+                height={1080}
+                className="w-full h-[200px] lg:h-[400px] object-cover rounded-lg"
+                priority
+              />
+              <div className="absolute bottom-2 w-full">
+                <div className="max-w-min mx-auto my-0 flex flex-col items-center bg-black bg-opacity-20 p-2 backdrop-blur rounded-xl gap-3">
+                  <Typography className="text-xs lg:text-base whitespace-nowrap !text-neutral-200" weight="bold">Bridging two worlds—digital and physical.</Typography>
+                  <Button variant="tinted" onClick={() => router.push('/wallet')} className="!text-xs !text-neutral-200 !border-neutral-200 !border">Connect Now</Button>
+                </div>
+              </div>
+            </div>
           </Slider>
         </section>
         <section className="flex flex-col min-h-48">
